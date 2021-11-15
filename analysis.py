@@ -81,12 +81,12 @@ def run(show_plots=False,save_plots=False):
         {"name":"PN","start":0*scale,"end":799*scale,"color":"blue"},
         {"name":"PV","start":800*scale,"end":892*scale,"color":"red"},
         {"name":"SOM","start":893*scale,"end":943*scale,"color":"green"},
-        {"name":"CR","start":944*scale,"end":999*scale,"color":"purple"}
+        {"name":"CR","start":944*scale,"end":999*scale,"color":"orange"}
     ]
     
     if show_plots or save_plots:
         print("plotting...")
-        fig, (ax1, ax2) = plt.subplots(1,3,figsize=(15,4.8))#6.4,4.8 default
+        fig, (ax1, ax2) = plt.subplots(1,2,figsize=(15,4.8))#6.4,4.8 default
         fig.suptitle('Amygdala Theta Analysis')
         start1 = 0
         end1 = 15000

@@ -16,7 +16,8 @@ network_dir = 'network'
 t_sim = 15000.0
 dt = 0.05
 scale = 1
-
+if os.path.isdir('network') == False:
+    os.makedirs('network')
 #Number of cells in each population
 numPN_A = 569 * scale #640 * scale #4114#15930
 numPN_C = 231 * scale #260 * scale #4115#6210
@@ -161,7 +162,7 @@ network_definitions = [
                 'pop_group':'vpsi_inh',
                 'model_type':'virtual'
             }
-        ]
+       ]
     },
     {
         # Thalamic PYR INPUTS
@@ -438,42 +439,42 @@ edge_definitions = [
         'param': 'PV2SOM',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
-    {   # PYR to CR Unidirectional 
-        'network':'BLA',
-        'edge': {
-            'source':{'pop_name': ['PyrA','PyrC']}, 
-            'target':{'pop_name': ['CR']}
-        },
-        'param': 'PYR2CR',
-        'add_properties': 'syn_dist_delay_feng_section_default'
-    },
-    {   # CR to PYR Unidirectional 
-        'network':'BLA',
-        'edge': {
-            'source':{'pop_name': ['CR']}, 
-            'target':{'pop_name': ['PyrA','PyrC']}
-        },
-        'param': 'CR2PYR',
-        'add_properties': 'syn_dist_delay_feng_section_default'
-    },
-    {   # CR to PV Unidirectional 
-        'network':'BLA',
-        'edge': {
-            'source':{'pop_name': ['CR']}, 
-            'target':{'pop_name': ['PV']}
-        },
-        'param': 'CR2PV',
-        'add_properties': 'syn_dist_delay_feng_section_default'
-    },
-    {   # CR to SOM Unidirectional 
-        'network':'BLA',
-        'edge': {
-            'source':{'pop_name': ['CR']}, 
-            'target':{'pop_name': ['SOM']}
-        },
-        'param': 'CR2SOM',
-        'add_properties': 'syn_dist_delay_feng_section_default'
-    },  
+    #{   # PYR to CR Unidirectional
+    #    'network':'BLA',
+    #    'edge': {
+    #        'source':{'pop_name': ['PyrA','PyrC']},
+    #        'target':{'pop_name': ['CR']}
+    #    },
+    #    'param': 'PYR2CR',
+    #    'add_properties': 'syn_dist_delay_feng_section_default'
+    #},
+    #{   # CR to PYR Unidirectional
+    #    'network':'BLA',
+    #    'edge': {
+    #        'source':{'pop_name': ['CR']},
+    #        'target':{'pop_name': ['PyrA','PyrC']}
+    #    },
+    #    'param': 'CR2PYR',
+    #    'add_properties': 'syn_dist_delay_feng_section_default'
+    #},
+    #{   # CR to PV Unidirectional
+    #    'network':'BLA',
+    #    'edge': {
+    #        'source':{'pop_name': ['CR']},
+    #        'target':{'pop_name': ['PV']}
+    #    },
+    #    'param': 'CR2PV',
+    #    'add_properties': 'syn_dist_delay_feng_section_default'
+    #},
+    #{   # CR to SOM Unidirectional
+    #    'network':'BLA',
+    #    'edge': {
+    #        'source':{'pop_name': ['CR']},
+    #        'target':{'pop_name': ['SOM']}
+    #    },
+    #    'param': 'CR2SOM',
+    #    'add_properties': 'syn_dist_delay_feng_section_default'
+    #},
 
         ##################### VPSI INPUT #####################
 
@@ -795,37 +796,37 @@ if edge_effects:
             'param': 'PV2SOM',
             'add_properties': 'syn_dist_delay_feng_section_default'
         },
-        {   # PYR to CR Unidirectional 
+        {   # PYR to CR Unidirectional
             'network':'BLA',
             'edge': {
-                'source':networks['shell'].nodes(**{'pop_name': ['PyrA','PyrC']}), 
+                'source':networks['shell'].nodes(**{'pop_name': ['PyrA','PyrC']}),
                 'target':{'pop_name': ['CR']}
             },
             'param': 'PYR2CR',
             'add_properties': 'syn_dist_delay_feng_section_default'
         },
-        {   # CR to PYR Unidirectional 
+        {   # CR to PYR Unidirectional
             'network':'BLA',
             'edge': {
-                'source':networks['shell'].nodes(**{'pop_name': ['CR']}), 
+                'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
                 'target':{'pop_name': ['PyrA','PyrC']}
             },
             'param': 'CR2PYR',
             'add_properties': 'syn_dist_delay_feng_section_default'
         },
-        {   # CR to PV Unidirectional 
+        {   # CR to PV Unidirectional
             'network':'BLA',
             'edge': {
-                'source':networks['shell'].nodes(**{'pop_name': ['CR']}), 
+                'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
                 'target':{'pop_name': ['PV']}
             },
             'param': 'CR2PV',
             'add_properties': 'syn_dist_delay_feng_section_default'
         },
-        {   # CR to SOM Unidirectional 
+        {   # CR to SOM Unidirectional
             'network':'BLA',
             'edge': {
-                'source':networks['shell'].nodes(**{'pop_name': ['CR']}), 
+                'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
                 'target':{'pop_name': ['SOM']}
             },
             'param': 'CR2SOM',
@@ -868,6 +869,7 @@ from build_input import build_input
 build_input(t_sim,scale=scale)
 
 # Usually not necessary if you've already built your simulation config
+"""
 build_env_bionet(base_dir='./',
 		network_dir=network_dir,
 		tstop=t_sim, dt = dt,
@@ -882,3 +884,4 @@ build_env_bionet(base_dir='./',
 		components_dir='components',
         config_file='simulation_config.json',
 		compile_mechanisms=True)
+"""
