@@ -228,8 +228,8 @@ if edge_effects: # When enabled, a shell of virtual cells will be created around
     virt_numPN_C = int(numPN_C * shell_multiplier)
     virt_numPV = int(numPV * shell_multiplier)
     virt_numSOM  = int(numSOM * shell_multiplier)
-    virt_numCR   = int(numCR * shell_multiplier)
-    virt_num_cells = virt_numPN_A + virt_numPN_C + virt_numPV + virt_numSOM + virt_numCR
+    #virt_numCR   = int(numCR * shell_multiplier)
+    virt_num_cells = virt_numPN_A + virt_numPN_C + virt_numPV + virt_numSOM#removed virt_numCR
     
     # Create a positions list for each cell in the shell, this includes positions in the core
     virt_pos_list = np.random.rand(virt_num_cells,3)
@@ -251,8 +251,8 @@ if edge_effects: # When enabled, a shell of virtual cells will be created around
     virt_numPN_C = int(virt_numPN_C/virt_num_cells*new_virt_num_cells)
     virt_numPV = int(virt_numPV/virt_num_cells*new_virt_num_cells)
     virt_numSOM = int(virt_numSOM/virt_num_cells*new_virt_num_cells)
-    virt_numCR = int(virt_numCR/virt_num_cells*new_virt_num_cells)
-    virt_num_cells = virt_numPN_A + virt_numPN_C + virt_numPV + virt_numSOM + virt_numCR
+    #virt_numCR = int(virt_numCR/virt_num_cells*new_virt_num_cells)
+    virt_num_cells = virt_numPN_A + virt_numPN_C + virt_numPV + virt_numSOM # removed CR
 
     # This should always be true, virt_num_cells is now equal to a scaled down number
     # While new_virt_num_cells is the length of the available cells
@@ -297,14 +297,14 @@ if edge_effects: # When enabled, a shell of virtual cells will be created around
                 'rotation_angle_yaxis':xiter_random(N=virt_numSOM, min_x=0.0, max_x=2*np.pi),
                 'model_type':'virtual'
             },
-            {   # Interneuron - CR Cell
-                'N':virt_numCR,
-                'pop_name':'CR',
-                'a_name':'CR',
-                'rotation_angle_zaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
-                'rotation_angle_yaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
-                'model_type':'virtual'
-            }
+            #{   # Interneuron - CR Cell
+            #    'N':virt_numCR,
+            #    'pop_name':'CR',
+            #    'a_name':'CR',
+            #    'rotation_angle_zaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
+            #    'rotation_angle_yaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
+            #    'model_type':'virtual'
+            #}
         ]
     }
 
