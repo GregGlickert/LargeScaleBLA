@@ -18,12 +18,6 @@
     "v_init": -70.0
   },
   "inputs": {
-    "vpsi_inh_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/vpsi_inh_spikes.h5",
-      "node_set": "vpsi_inh"
-    },
     "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
@@ -41,6 +35,12 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/thalamus_cr_spikes.h5",
       "node_set": "thalamus_cr"
+    },
+    "shell_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/shell_spikes.h5",
+      "node_set": "shell"
     }
   },
   "output": {

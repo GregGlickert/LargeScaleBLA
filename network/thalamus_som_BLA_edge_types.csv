@@ -1,2 +1,2 @@
-edge_type_id target_query source_query target_sections distance_range dynamics_params model_template syn_weight
-114 pop_name=='SOM' * ['basal'] "[0.0, 9999.9]" BG2SOM_thalamus_min.json bg2pyr 1
+edge_type_id target_query source_query syn_weight model_template target_sections dynamics_params distance_range
+114 pop_name=='SOM' * 1 bg2pyr ['basal'] BG2SOM_thalamus_min.json "[0.0, 9999.9]"

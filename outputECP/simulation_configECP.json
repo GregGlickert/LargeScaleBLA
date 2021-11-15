@@ -55,7 +55,7 @@
   },
   "node_sets_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/node_sets.json",
   "network": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/circuit_config.json",
-  "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_configECP_base_edge_effects.json",
+  "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_configECP.json",
   "config_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA",
   "components": {
     "mechanisms_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms",
