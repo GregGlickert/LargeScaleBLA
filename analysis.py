@@ -69,7 +69,7 @@ def run(show_plots=False,save_plots=False):
     skip_n = int(skip_ms * steps_per_ms)
     end_ms = 15000
 
-    spikes_location = 'output/spikes.h5'
+    spikes_location = 'outputECP/spikes.h5'
 
     print("loading " + spikes_location)
     f = h5py.File(spikes_location)
@@ -80,7 +80,8 @@ def run(show_plots=False,save_plots=False):
     node_set = [
         {"name":"PN","start":0*scale,"end":799*scale,"color":"blue"},
         {"name":"PV","start":800*scale,"end":892*scale,"color":"red"},
-        {"name":"SOM","start":893*scale,"end":943*scale,"color":"green"}
+        {"name":"SOM","start":893*scale,"end":943*scale,"color":"green"},
+        {"name":"CR","start":944*scale,"end":999*scale,"color":"orange"}
     ]
     
     if show_plots or save_plots:
