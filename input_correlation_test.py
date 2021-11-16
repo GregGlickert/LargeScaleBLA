@@ -4,7 +4,7 @@ import h5py
 import pandas as pd
 from scipy.stats import pearsonr, spearmanr
 
-input_file = 'thalamus_pyr_spikes.h5'
+input_file = 'input/thalamus_pyr_spikes.h5'
 spikes_path = 'thalamus_pyr'
 
 #number of sample timestamps to pull
