@@ -1,8 +1,8 @@
-edge_type_id target_query source_query target_sections model_template dynamics_params distance_range syn_weight
-113 "pop_name=='['PyrA', 'PyrC']'" "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2pyrD_STFD PN2PN_feng_min.json "[0, 300.0]" 1
-114 pop_name=='['PV']' pop_name=='['PV']' ['somatic'] interD2interD_STFD INT2INT_feng_min.json "[0.0, 300.0]" 1
-115 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' ['somatic'] interD2pyrD_STFD INT2PN_feng_min.json "[0.0, 300.0]" 1
-116 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2interD_STFD PN2INT_feng_min.json "[0.0, 300.0]" 1
-117 pop_name=='['SOM']' "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2interD_P2SOM_STFD PN2SOM_tyler.json "[0.0, 300.0]" 1
-118 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['SOM']' ['somatic'] interD2pyrD_SOM2P_STFD SOM2PN_tyler.json "[0.0, 300.0]" 1
-119 pop_name=='['SOM']' pop_name=='['PV']' ['somatic'] interD2interD_SOMPV_STFD INT2SOM_tyler.json "[0.0, 300.0]" 1
+edge_type_id target_query source_query model_template dynamics_params target_sections syn_weight distance_range
+113 "pop_name=='['PyrA', 'PyrC']'" "pop_name=='['PyrA', 'PyrC']'" pyrD2pyrD_STFD PN2PN_feng_min.json ['basal'] 1 "[0, 300.0]"
+114 pop_name=='['PV']' pop_name=='['PV']' interD2interD_STFD INT2INT_feng_min.json ['somatic'] 1 "[0.0, 300.0]"
+115 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' interD2pyrD_STFD INT2PN_feng_min.json ['somatic'] 1 "[0.0, 300.0]"
+116 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" pyrD2interD_STFD PN2INT_feng_min.json ['basal'] 1 "[0.0, 300.0]"
+117 pop_name=='['SOM']' "pop_name=='['PyrA', 'PyrC']'" pyrD2interD_P2SOM_STFD PN2SOM_tyler.json ['basal'] 1 "[0.0, 300.0]"
+118 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['SOM']' interD2pyrD_SOM2P_STFD SOM2PN_tyler.json ['somatic'] 1 "[0.0, 300.0]"
+119 pop_name=='['SOM']' pop_name=='['PV']' interD2interD_SOMPV_STFD INT2SOM_tyler.json ['somatic'] 1 "[0.0, 300.0]"
