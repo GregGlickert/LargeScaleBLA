@@ -1,0 +1,3 @@
+2021-11-14 22:43:06,088 [INFO] Created log file
+2021-11-14 22:43:07,550 [INFO] Building cells.
+2021-11-14 22:43:12,278 [INFO] Building recurrent connections
