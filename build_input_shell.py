@@ -9,7 +9,7 @@ from build_input import lognorm_fr_list
 
 psg = None
 t_sim = 15000
-output_h5 = 'shell_spikes.h5'
+output_h5 = 'input/shell_spikes.h5'
 mean_std = {
                'PyrA':[1,0.8],
                'PyrC':[1,0.8],
