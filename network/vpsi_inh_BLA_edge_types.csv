@@ -1,3 +1,0 @@
-edge_type_id target_query source_query syn_weight distance_range model_template target_sections dynamics_params
-111 "pop_name=='['PyrA', 'PyrC']'" * 1 "[0.0, 9999.9]" bginh ['basal'] VPSI2PN_inh_tyler_min.json
-112 pop_name=='['PV']' * 1 "[0.0, 9999.9]" bginh ['basal'] VPSI2PV_inh_tyler_min.json

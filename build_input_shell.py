@@ -14,8 +14,8 @@ mean_std = {
                'PyrA':[1,0.8],
                'PyrC':[1,0.8],
                'PV':[30,13],
-               'SOM':[2,1],
-               'CR':[20,4]
+               'SOM':[2,1]
+               #'CR':[20,4]
            }
 
 def add_inputs(**kwargs):
@@ -58,7 +58,7 @@ def build_shell_inputs(config='simulation_configECP.json'):
     # them into a nice and easy to read pandas dataframe. The 'relation_func' is what that dataframe
     # gets sent to and called for each source/dest combination
     # In this case for each shell cell type, and every BLA cell call add_inputs
-    relation_matrix(config,nodes,edges,sources,targets,sids,tids,prepend_pop,relation_func=add_inputs)
+    relation_matrix(config, nodes, edges, sources, targets, sids, tids, prepend_pop, relation_func=add_inputs)
 
     psg.to_sonata(output_h5)
 
