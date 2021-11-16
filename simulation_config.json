@@ -27,7 +27,7 @@
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/input/thalamus_som_spikes.h5",
+      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
     "shell_spikes": {
