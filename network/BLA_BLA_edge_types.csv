@@ -1,12 +1,12 @@
-edge_type_id target_query source_query target_sections model_template dynamics_params distance_range syn_weight
-100 "pop_name=='['PyrA', 'PyrC']'" "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2pyrD_STFD PN2PN_feng_min.json "[0, 300.0]" 1
-101 pop_name=='['PV']' pop_name=='['PV']' ['somatic'] interD2interD_STFD INT2INT_feng_min.json "[0.0, 300.0]" 1
-102 pop_name=='['PV']' pop_name=='['PV']' ['somatic'] interD2interD_STFD INT2INT_feng_min.json "[0.0, 300.0]" 1
-103 pop_name=='['PV']' pop_name=='['PV']' ['somatic'] interD2interD_STFD INT2INT_feng_min.json "[0.0, 300.0]" 1
-104 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' ['somatic'] interD2pyrD_STFD INT2PN_feng_min.json "[0.0, 300.0]" 1
-105 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2interD_STFD PN2INT_feng_min.json "[0.0, 300.0]" 1
-106 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' ['somatic'] interD2pyrD_STFD INT2PN_feng_min.json "[0.0, 300.0]" 1
-107 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2interD_STFD PN2INT_feng_min.json "[0.0, 300.0]" 1
-108 pop_name=='['SOM']' "pop_name=='['PyrA', 'PyrC']'" ['basal'] pyrD2interD_P2SOM_STFD PN2SOM_tyler.json "[0.0, 300.0]" 1
-109 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['SOM']' ['somatic'] interD2pyrD_SOM2P_STFD SOM2PN_tyler.json "[0.0, 300.0]" 1
-110 pop_name=='['SOM']' pop_name=='['PV']' ['somatic'] interD2interD_SOMPV_STFD INT2SOM_tyler.json "[0.0, 300.0]" 1
+edge_type_id target_query source_query syn_weight dynamics_params model_template target_sections distance_range
+100 "pop_name=='['PyrA', 'PyrC']'" "pop_name=='['PyrA', 'PyrC']'" 1 PN2PN_feng_min.json pyrD2pyrD_STFD ['basal'] "[0, 300.0]"
+101 pop_name=='['PV']' pop_name=='['PV']' 1 INT2INT_feng_min.json interD2interD_STFD ['somatic'] "[0.0, 300.0]"
+102 pop_name=='['PV']' pop_name=='['PV']' 1 INT2INT_feng_min.json interD2interD_STFD ['somatic'] "[0.0, 300.0]"
+103 pop_name=='['PV']' pop_name=='['PV']' 1 INT2INT_feng_min.json interD2interD_STFD ['somatic'] "[0.0, 300.0]"
+104 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' 1 INT2PN_feng_min.json interD2pyrD_STFD ['somatic'] "[0.0, 300.0]"
+105 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" 1 PN2INT_feng_min.json pyrD2interD_STFD ['basal'] "[0.0, 300.0]"
+106 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['PV']' 1 INT2PN_feng_min.json interD2pyrD_STFD ['somatic'] "[0.0, 300.0]"
+107 pop_name=='['PV']' "pop_name=='['PyrA', 'PyrC']'" 1 PN2INT_feng_min.json pyrD2interD_STFD ['basal'] "[0.0, 300.0]"
+108 pop_name=='['SOM']' "pop_name=='['PyrA', 'PyrC']'" 1 PN2SOM_tyler.json pyrD2interD_P2SOM_STFD ['basal'] "[0.0, 300.0]"
+109 "pop_name=='['PyrA', 'PyrC']'" pop_name=='['SOM']' 1 SOM2PN_tyler.json interD2pyrD_SOM2P_STFD ['somatic'] "[0.0, 300.0]"
+110 pop_name=='['SOM']' pop_name=='['PV']' 1 INT2SOM_tyler.json interD2interD_SOMPV_STFD ['somatic'] "[0.0, 300.0]"

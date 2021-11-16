@@ -847,7 +847,6 @@ if edge_effects:
 # dictionary so the properties can be referenced in the files eg: syn['file.json'].get('property')
 synapses.load()
 syn = synapses.syn_params_dicts()
-
 # Build your edges into the networks
 build_edges(networks, edge_definitions,edge_params,edge_add_properties,syn)
 
@@ -856,17 +855,17 @@ save_networks(networks,network_dir)
 
 if edge_effects:
     from build_input_shell import build_shell_inputs
-    
     # This needs to be called after building and saving your networks
     # There's an optimization in there that determines which shells in the 
     # shell are connected to bio cells, and only delivers a spike train to
     # those, excluding others and speeding up the simulation. 
     # Since edges are semi-random, we want to deliver to the correct cells
     # each time.
-    build_shell_inputs() 
+    build_shell_inputs()
 
 from build_input import build_input
 build_input(t_sim,scale=scale)
+
 
 # Usually not necessary if you've already built your simulation config
 """
