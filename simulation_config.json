@@ -1,14 +1,15 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/output"
+    "$OUTPUT_DIR": "$BASE_DIR/output",
+    "$COMPONENTS_DIR": "$BASE_DIR/components"
   },
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
     "tstop": 15000.0,
     "dt": 0.05,
-    "dL": 20.0,
+    "dL": 200000.0,
     "spike_threshold": -15.0,
     "nsteps_block": 5000
   },
@@ -20,19 +21,19 @@
     "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_pyr_spikes.h5",
+      "input_file": "$BASE_DIR/input/thalamus_pyr_spikes.h5",
       "node_set": "thalamus_pyr"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_som_spikes.h5",
+      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
     "shell_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/shell_spikes.h5",
+      "input_file": "$BASE_DIR/input/shell_spikes.h5",
       "node_set": "shell"
     }
   },
