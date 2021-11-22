@@ -56,10 +56,9 @@ def interD2interD_STFD(syn_params, sec_x, sec_id):
 
     return lsyn
 
-
 def interD2pyrD_STFD(syn_params, sec_x, sec_id):
 
-    lsyn = h.interD2pyrD_STFD(sec_x, sec=sec_id)
+    lsyn = h.int2pyrKIM(sec_x, sec=sec_id)
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
@@ -70,7 +69,7 @@ def interD2pyrD_STFD(syn_params, sec_x, sec_id):
 
 def pyrD2interD_STFD(syn_params, sec_x, sec_id):
     
-    lsyn = h.pyrD2interD_STFD(sec_x, sec=sec_id)
+    lsyn = h.pry2intKIM(sec_x, sec=sec_id)
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
@@ -81,7 +80,7 @@ def pyrD2interD_STFD(syn_params, sec_x, sec_id):
 
 def pyrD2pyrD_STFD(syn_params, sec_x, sec_id):
     
-    lsyn = h.pyrD2pyrD_STFD(sec_x, sec=sec_id)
+    lsyn = h.pyr2pyrKIM(sec_x, sec=sec_id)
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
@@ -92,7 +91,7 @@ def pyrD2pyrD_STFD(syn_params, sec_x, sec_id):
 
 def pyrD2interD_P2SOM_STFD(syn_params, sec_x, sec_id):
     
-    lsyn = h.pyrD2interD_P2SOM_STFD(sec_x, sec=sec_id)
+    lsyn = h.pyr2intKIM(sec_x, sec=sec_id)
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
@@ -103,7 +102,7 @@ def pyrD2interD_P2SOM_STFD(syn_params, sec_x, sec_id):
 
 def interD2pyrD_SOM2P_STFD(syn_params, sec_x, sec_id):
 
-    lsyn = h.interD2pyrD_SOM2P_STFD(sec_x, sec=sec_id)
+    lsyn = h.int2pyrKIM(sec_x, sec=sec_id)
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
