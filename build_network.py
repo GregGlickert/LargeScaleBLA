@@ -9,7 +9,7 @@ import os
 import warnings
 
 from connectors import (one_to_one, one_to_one_offset, syn_dist_delay_feng_section, syn_uniform_delay_section,
-                        syn_percent_o2a, recurrent_connector_o2a, prob_connector)
+                        syn_percent_o2a, recurrent_connector_o2a)
 
 np.random.seed(123412)
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -24,8 +24,7 @@ numPN_A = 569 * scale #640 * scale #4114#15930
 numPN_C = 231 * scale #260 * scale #4115#6210
 numPV = 93 * scale #100 * scale #854#4860
 numSOM = 51 * scale #42 * scale
-#numCR = 56 * scale #42 * scale
-num_cells = numPN_A + numPN_C + numPV + numSOM #+ numCR #Only used to populate an overall position list
+num_cells = numPN_A + numPN_C + numPV + numSOM
 
 min_conn_dist = 0.0 
 max_conn_dist = 300.0 #300.0 #9999.9# Distance constraint for all cells
@@ -40,7 +39,7 @@ pos_list[:,1] = pos_list[:,1]*(y_end - y_start) + y_start
 pos_list[:,2] = pos_list[:,2]*(z_end - z_start) + z_start
 
 # When enabled, a shell of virtual cells will be created around the core network.
-edge_effects = True
+edge_effects = True 
 
 def build_networks(network_definitions: list) -> dict:
     # network_definitions should be a list of dictionaries eg:[{}]
@@ -142,29 +141,8 @@ network_definitions = [
                 'model_type':'biophysical',
                 'model_template':'hoc:SOM_Cell'
             }
-            #{   # Interneuron - CR Cell
-            #    'N':numCR,
-            #    'pop_name':'CR',
-            #    'a_name':'CR',
-            #    'rotation_angle_zaxis':xiter_random(N=numCR, min_x=0.0, max_x=2*np.pi),
-            #    'rotation_angle_yaxis':xiter_random(N=numCR, min_x=0.0, max_x=2*np.pi),
-            #    'model_type':'biophysical',
-            #    'model_template':'hoc:CR_Cell'
-            #}
         ] # End cells
     }, # End BLA
-    #{   # VPSI INPUTS Inhibitory
-    #    'network_name':'vpsi_inh',
-    #    'positions_list':None,
-    #    'cells':[
-    #        {
-    #            'N':numPN_A+numPN_C+numPV,
-    #            'pop_name':'inh_inp',
-    #            'pop_group':'vpsi_inh',
-    #            'model_type':'virtual'
-    #       }
-    #   ]
-    #},
     {
         # Thalamic PYR INPUTS
         'network_name':'thalamus_pyr',
@@ -190,46 +168,7 @@ network_definitions = [
                 'model_type':'virtual'
             }
         ]
-    },
-    {
-        # tone INPUTS
-        'network_name': 'tone',
-        'positions_list': None,
-        'cells': [
-            {
-                'N': 1,
-                'pop_name': 'tone',
-                'pop_group': 'tone',
-                'model_type': 'virtual'
-            }
-        ]
-    },
-    {
-        # shock INPUTS
-        'network_name': 'shock',
-        'positions_list': None,
-        'cells': [
-            {
-                'N': 1,
-                'pop_name': 'shock',
-                'pop_group': 'shock',
-                'model_type': 'virtual'
-            }
-        ]
     }
-    #{
-        # Thalamic CR INPUTS
-        #'network_name':'thalamus_cr',
-        #'positions_list':None,
-        #'cells':[
-        #    {
-        #        'N':numCR,
-        #        'pop_name':'cr_inp',
-        #        'pop_group':'thalamus_cr',
-        #        'model_type':'virtual'
-        #    }
-        #]
-    #}
 ]
 
 ##########################################################################
@@ -255,7 +194,6 @@ if edge_effects: # When enabled, a shell of virtual cells will be created around
     virt_numPN_C = int(numPN_C * shell_multiplier)
     virt_numPV = int(numPV * shell_multiplier)
     virt_numSOM  = int(numSOM * shell_multiplier)
-    #virt_numCR   = int(numCR * shell_multiplier)
     virt_num_cells = virt_numPN_A + virt_numPN_C + virt_numPV + virt_numSOM#removed virt_numCR
     
     # Create a positions list for each cell in the shell, this includes positions in the core
@@ -324,14 +262,6 @@ if edge_effects: # When enabled, a shell of virtual cells will be created around
                 'rotation_angle_yaxis':xiter_random(N=virt_numSOM, min_x=0.0, max_x=2*np.pi),
                 'model_type':'virtual'
             }
-            #{   # Interneuron - CR Cell
-            #    'N':virt_numCR,
-            #    'pop_name':'CR',
-            #    'a_name':'CR',
-            #    'rotation_angle_zaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
-            #    'rotation_angle_yaxis':xiter_random(N=virt_numCR, min_x=0.0, max_x=2*np.pi),
-            #    'model_type':'virtual'
-            #}
         ]
     }
 
@@ -466,64 +396,6 @@ edge_definitions = [
         'param': 'PV2SOM',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
-    #{   # PYR to CR Unidirectional
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':{'pop_name': ['PyrA','PyrC']},
-    #        'target':{'pop_name': ['CR']}
-    #    },
-    #    'param': 'PYR2CR',
-    #    'add_properties': 'syn_dist_delay_feng_section_default'
-    #},
-    #{   # CR to PYR Unidirectional
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':{'pop_name': ['CR']},
-    #        'target':{'pop_name': ['PyrA','PyrC']}
-    #    },
-    #    'param': 'CR2PYR',
-    #    'add_properties': 'syn_dist_delay_feng_section_default'
-    #},
-    #{   # CR to PV Unidirectional
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':{'pop_name': ['CR']},
-    #        'target':{'pop_name': ['PV']}
-    #    },
-    #    'param': 'CR2PV',
-    #    'add_properties': 'syn_dist_delay_feng_section_default'
-    #},
-    #{   # CR to SOM Unidirectional
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':{'pop_name': ['CR']},
-    #        'target':{'pop_name': ['SOM']}
-    #    },
-    #    'param': 'CR2SOM',
-    #    'add_properties': 'syn_dist_delay_feng_section_default'
-    #},
-
-        ##################### VPSI INPUT #####################
-
-    #{   # VPSI Inhibition to Pyramidal
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':networks['vpsi_inh'].nodes(),
-    #        'target':networks['BLA'].nodes(pop_name=['PyrA','PyrC'])
-    #    },
-    #    'param': 'VPSIinh2PYR',
-    #    'add_properties': 'syn_uniform_delay_section_default'
-    #},
-    #{   # VPSI Inhibition to PV
-    #   'network':'BLA',
-    #    'edge': {
-    #        'source':networks['vpsi_inh'].nodes(),
-    #        'target':networks['BLA'].nodes(pop_name=['PV'])
-    #    },
-    #    'param': 'VPSIinh2PV',
-    #    'add_properties': 'syn_uniform_delay_section_default'
-    #},
-
         ##################### THALAMIC INPUT #####################
 
     {   # Thalamus to Pyramidal
@@ -543,52 +415,7 @@ edge_definitions = [
         },
         'param': 'THALAMUS2SOM',
         'add_properties': 'syn_uniform_delay_section_default'        
-    },
-    {  # Tone to Pyramidal
-        'network': 'BLA',
-        'edge': {
-            'source': networks['tone'].nodes(),
-            'target': networks['BLA'].nodes(pop_name=['PyrA', 'PyrC'])
-        },
-        'param': 'TONE2PN',
-        'add_properties': 'syn_uniform_delay_section_default'
-    },
-    {  # tone to PV
-        'network': 'BLA',
-        'edge': {
-            'source': networks['tone'].nodes(),
-            'target': networks['BLA'].nodes(pop_name=['PV'])
-        },
-        'param': 'TONE2PV',
-        'add_properties': 'syn_uniform_delay_section_default'
-    },
-    {  # shock to PV
-        'network': 'BLA',
-        'edge': {
-            'source': networks['shock'].nodes(),
-            'target': networks['BLA'].nodes(pop_name=['PV'])
-        },
-        'param': 'SHOCK2PV',
-        'add_properties': 'syn_uniform_delay_section_default'
-    },
-    {  # shock to SOM
-        'network': 'BLA',
-        'edge': {
-            'source': networks['shock'].nodes(),
-            'target': networks['BLA'].nodes(pop_name=['SOM'])
-        },
-        'param': 'SHOCK2SOM',
-        'add_properties': 'syn_uniform_delay_section_default'
     }
-    #{   # Thalamus  to CR
-    #    'network':'BLA',
-    #    'edge': {
-    #        'source':networks['thalamus_cr'].nodes(),
-    #        'target':networks['BLA'].nodes(pop_name='CR')
-    #    },
-    #    'param': 'THALAMUS2CR',
-    #    'add_properties': 'syn_uniform_delay_section_default'
-    #}
 ]
 
 # edge_params should contain additional parameters to be added to add_edges calls
@@ -692,58 +519,6 @@ edge_params = {
         'distance_range':[min_conn_dist,max_conn_dist],
         'target_sections':['somatic']
     },
-    #'PYR2CR': {
-    #    'iterator':'one_to_all',
-    #   'connection_rule':syn_percent_o2a,
-    #    'connection_params':{'p':0.185, 'angle_dist':False, 'max_dist':max_conn_dist, 'angle_dist_radius': 100},#0.183
-    #    'syn_weight':1,
-    #    'dynamics_params':'PN2CR_tyler.json',
-    #    'distance_range':[min_conn_dist,max_conn_dist],
-    #    'target_sections':['basal']
-    #},
-    #'CR2PYR': {
-    #    'iterator':'one_to_all',
-    #    'connection_rule':syn_percent_o2a,
-    #    'connection_params':{'p':0.116, 'max_dist':max_conn_dist},#0.116
-    #    'syn_weight':1,
-    #    'dynamics_params':'CR2PN_tyler.json',
-    #    'distance_range':[min_conn_dist,max_conn_dist],
-    #    'target_sections':['somatic']
-    #},
-    #'CR2PV': {
-    #    'iterator':'one_to_all',
-    #    'connection_rule':syn_percent_o2a,
-    #    'connection_params':{'p':0.297, 'max_dist':max_conn_dist},#.297
-    #    'syn_weight':1,
-    #    'dynamics_params':'CR2INT_tyler.json',
-    #    'distance_range':[min_conn_dist,max_conn_dist],
-    #    'target_sections':['basal']
-    #},
-    #'CR2SOM': {
-    #    'iterator':'one_to_all',
-    #    'connection_rule':syn_percent_o2a,
-    #    'connection_params':{'p':0.764, 'max_dist':max_conn_dist},#.764
-    #    'syn_weight':1,
-    #    'dynamics_params':'CR2SOM_tyler.json',
-    #    'distance_range':[min_conn_dist,max_conn_dist],
-    #    'target_sections':['basal']
-    #},
-    'VPSIinh2PYR': {
-        'connection_rule':one_to_one,
-        'syn_weight':1,
-        'dynamics_params':'VPSI2PN_inh_tyler_min.json',
-        'distance_range':[0.0, 9999.9],
-        'target_sections':['basal'],
-    },
-    'VPSIinh2PV': {
-        'iterator':'one_to_all',
-        'connection_rule':syn_percent_o2a,
-        'connection_params':{'p':0.012}, # We need aprox 10 aff to each PV
-        'syn_weight':1,
-        'dynamics_params':'VPSI2PV_inh_tyler_min.json',
-        'distance_range':[0.0, 9999.9],
-        'target_sections':['basal']
-    },
     'THALAMUS2PYR': {
         'connection_rule':one_to_one,
         'syn_weight':1,
@@ -758,48 +533,7 @@ edge_params = {
         'target_sections':['basal'],
         'distance_range':[0.0, 9999.9],
         'dynamics_params':'BG2SOM_thalamus_min.json'
-    },
-    'TONE2PN': {
-        'connection_rule': prob_connector,
-        'connection_params': {'prob': 0.7},
-        'syn_weight': 1,
-        'target_sections': ['apical'],
-        'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'tone2PN.json'
-    },
-    'TONE2PV': {
-        'connection_rule': prob_connector,
-        'connection_params': {'prob': 0.7},
-        'syn_weight': 1,
-        'target_sections': ['apical'],
-        'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'tone2INT.json'
-    },
-    'SHOCK2PV': {
-        'connection_rule': prob_connector,
-        'connection_params': {'prob': 0.7},
-        'syn_weight': 1,
-        'target_sections': ['basal'],
-        'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'shock2INT12.json'
-    },
-    'SHOCK2SOM': {
-        'connection_rule': prob_connector,
-        'connection_params': {'prob': 0.7},
-        'syn_weight': 1,
-        'target_sections': ['basal'],
-        'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'shock2INT12.json'
-    },
-
-    #'THALAMUS2CR': {
-    #    'connection_rule':one_to_one_offset,
-    #    'connection_params':{'offset':numPN_A+numPN_C+numPV+numSOM},
-    #    'syn_weight':1,
-    #    'target_sections':['basal'],
-    #    'distance_range':[0.0, 9999.9],
-    #    'dynamics_params':'BG2CR_thalamus_min.json'
-    #}
+    }
 } # edges referenced by name
 
 # Will be called by conn.add_properties for the associated connection
@@ -892,42 +626,6 @@ if edge_effects:
             'param': 'PV2SOM',
             'add_properties': 'syn_dist_delay_feng_section_default'
         }
-        #{   # PYR to CR Unidirectional
-        #    'network':'BLA',
-        #    'edge': {
-        #        'source':networks['shell'].nodes(**{'pop_name': ['PyrA','PyrC']}),
-        #        'target':{'pop_name': ['CR']}
-        #    },
-        #    'param': 'PYR2CR',
-        #    'add_properties': 'syn_dist_delay_feng_section_default'
-        #},
-        #{   # CR to PYR Unidirectional
-        #   'network':'BLA',
-        #    'edge': {
-        #        'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
-        #        'target':{'pop_name': ['PyrA','PyrC']}
-        #    },
-        #    'param': 'CR2PYR',
-        #    'add_properties': 'syn_dist_delay_feng_section_default'
-        #},
-        #{   # CR to PV Unidirectional
-        #    'network':'BLA',
-        #    'edge': {
-        #        'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
-        #        'target':{'pop_name': ['PV']}
-        #    },
-        #    'param': 'CR2PV',
-        #    'add_properties': 'syn_dist_delay_feng_section_default'
-        #},
-        #{   # CR to SOM Unidirectional
-        #    'network':'BLA',
-        #    'edge': {
-        #        'source':networks['shell'].nodes(**{'pop_name': ['CR']}),
-        #        'target':{'pop_name': ['SOM']}
-        #    },
-        #    'param': 'CR2SOM',
-        #    'add_properties': 'syn_dist_delay_feng_section_default'
-        #}
     ]
 
     edge_definitions = edge_definitions + virt_edges
@@ -945,7 +643,7 @@ synapses.load()
 syn = synapses.syn_params_dicts()
 
 # Build your edges into the networks
-build_edges(networks, edge_definitions, edge_params,edge_add_properties, syn)
+build_edges(networks, edge_definitions,edge_params,edge_add_properties,syn)
 
 # Save the network into the appropriate network dir
 save_networks(networks,network_dir)
@@ -976,10 +674,8 @@ build_env_bionet(base_dir='./',
                        ('thalamus_pyr','thalamus_pyr_spikes.h5'),
                        ('thalamus_som','thalamus_som_spikes.h5'),
                        ('thalamus_cr','thalamus_cr_spikes.h5'),
-                       ('shell','shell_spikes.h5'),
-                       ('tone', './inputs/tone_spikes.csv'),
-                       ('shock', './inputs/shock_spikes.csv')],
+                       ('shell','shell_spikes.h5')],
 		components_dir='components',
         config_file='simulation_config.json',
-		compile_mechanisms=False)
+		compile_mechanisms=True)
 """

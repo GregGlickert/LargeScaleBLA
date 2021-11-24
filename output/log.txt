@@ -1,0 +1,7 @@
+2021-11-24 17:27:48,586 [INFO] Created log file
+2021-11-24 17:27:48,587 [INFO] Running NEURON with mpi (4 cores).
+2021-11-24 17:27:49,843 [INFO] Building cells.
+2021-11-24 17:27:50,274 [INFO] Building recurrent connections
+2021-11-24 17:28:04,962 [INFO] Building virtual cell stimulations for thalamus_pyr_spikes
+2021-11-24 17:28:15,274 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2021-11-24 17:28:15,624 [INFO] Building virtual cell stimulations for shell_spikes

@@ -1,3 +1,0 @@
-edge_type_id target_query source_query syn_weight distance_range target_sections model_template dynamics_params
-115 pop_name=='['PV']' * 1 "[0.0, 9999.9]" ['basal'] shock2int shock2INT12.json
-116 pop_name=='['SOM']' * 1 "[0.0, 9999.9]" ['basal'] shock2int shock2INT12.json

@@ -20,16 +20,8 @@
         "node_types_file": "$NETWORK_DIR/thalamus_som_node_types.csv"
       },
       {
-        "nodes_file": "$NETWORK_DIR/tone_nodes.h5",
-        "node_types_file": "$NETWORK_DIR/tone_node_types.csv"
-      },
-      {
         "nodes_file": "$NETWORK_DIR/thalamus_pyr_nodes.h5",
         "node_types_file": "$NETWORK_DIR/thalamus_pyr_node_types.csv"
-      },
-      {
-        "node_types_file": "$NETWORK_DIR/shock_node_types.csv",
-        "nodes_file": "$NETWORK_DIR/shock_nodes.h5"
       },
       {
         "node_types_file": "$NETWORK_DIR/shell_node_types.csv",
@@ -42,10 +34,6 @@
     ],
     "edges": [
       {
-        "edges_file": "$NETWORK_DIR/tone_BLA_edges.h5",
-        "edge_types_file": "$NETWORK_DIR/tone_BLA_edge_types.csv"
-      },
-      {
         "edges_file": "$NETWORK_DIR/shell_BLA_edges.h5",
         "edge_types_file": "$NETWORK_DIR/shell_BLA_edge_types.csv"
       },
@@ -56,10 +44,6 @@
       {
         "edges_file": "$NETWORK_DIR/BLA_BLA_edges.h5",
         "edge_types_file": "$NETWORK_DIR/BLA_BLA_edge_types.csv"
-      },
-      {
-        "edge_types_file": "$NETWORK_DIR/shock_BLA_edge_types.csv",
-        "edges_file": "$NETWORK_DIR/shock_BLA_edges.h5"
       },
       {
         "edges_file": "$NETWORK_DIR/thalamus_som_BLA_edges.h5",

@@ -1,0 +1,113 @@
+{
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 15000.0,
+    "dt": 0.05,
+    "dL": 200000.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 31.0,
+    "v_init": -70.0
+  },
+  "inputs": {
+    "thalamus_pyr_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/thalamus_pyr_spikes.h5",
+      "node_set": "thalamus_pyr"
+    },
+    "thalamus_som_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/thalamus_som_spikes.h5",
+      "node_set": "thalamus_som"
+    },
+    "shell_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/shell_spikes.h5",
+      "node_set": "shell"
+    }
+  },
+  "output": {
+    "log_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/log.txt",
+    "output_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output",
+    "spikes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/spikes.h5"
+  },
+  "reports": {},
+  "node_sets_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/node_sets.json",
+  "network": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/circuit_config.json",
+  "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_config.json",
+  "config_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA",
+  "components": {
+    "mechanisms_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms",
+    "morphologies_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/morphologies",
+    "__pycache___dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/__pycache__",
+    "synaptic_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/synaptic_models",
+    "biophysical_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/biophysical_neuron_models",
+    "templates_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/templates",
+    "point_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/point_neuron_models"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_nodes.h5",
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_node_types.csv"
+      },
+      {
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_nodes.h5",
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_node_types.csv"
+      },
+      {
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_node_types.csv",
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_nodes.h5"
+      },
+      {
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_nodes.h5",
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_node_types.csv"
+      }
+    ],
+    "edges": [
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edge_types.csv"
+      },
+      {
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_BLA_edge_types.csv",
+        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_BLA_edges.h5"
+      },
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_BLA_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_BLA_edge_types.csv"
+      },
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_BLA_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_BLA_edge_types.csv"
+      }
+    ],
+    "gap_juncs": []
+  },
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    },
+    "vclamp_cells": [
+      0,
+      50,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      750
+    ]
+  }
+}

@@ -1,5 +1,5 @@
-node_type_id a_name model_template pop_name model_type
-100 PN hoc:Cell_Af PyrA biophysical
-101 PN hoc:Cell_Cf PyrC biophysical
+node_type_id pop_name model_template a_name model_type
+100 PyrA hoc:Cell_Af PN biophysical
+101 PyrC hoc:Cell_Cf PN biophysical
 102 PV hoc:InterneuronCellf PV biophysical
 103 SOM hoc:SOM_Cell SOM biophysical
