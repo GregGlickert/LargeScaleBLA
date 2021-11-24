@@ -6,12 +6,13 @@ import synapses
 import math
 import random
 import os
+import warnings
 
 from connectors import (one_to_one, one_to_one_offset, syn_dist_delay_feng_section, syn_uniform_delay_section,
-                        syn_percent_o2a, recurrent_connector_o2a)
+                        syn_percent_o2a, recurrent_connector_o2a, prob_connector)
 
 np.random.seed(123412)
-
+warnings.simplefilter(action='ignore', category=FutureWarning)
 network_dir = 'network'
 t_sim = 15000.0
 dt = 0.05
@@ -39,7 +40,7 @@ pos_list[:,1] = pos_list[:,1]*(y_end - y_start) + y_start
 pos_list[:,2] = pos_list[:,2]*(z_end - z_start) + z_start
 
 # When enabled, a shell of virtual cells will be created around the core network.
-edge_effects = True 
+edge_effects = True
 
 def build_networks(network_definitions: list) -> dict:
     # network_definitions should be a list of dictionaries eg:[{}]
@@ -187,6 +188,32 @@ network_definitions = [
                 'pop_name':'som_inp',
                 'pop_group':'thalamus_som',
                 'model_type':'virtual'
+            }
+        ]
+    },
+    {
+        # tone INPUTS
+        'network_name': 'tone',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': 1,
+                'pop_name': 'tone',
+                'pop_group': 'tone',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+    {
+        # shock INPUTS
+        'network_name': 'shock',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': 1,
+                'pop_name': 'shock',
+                'pop_group': 'shock',
+                'model_type': 'virtual'
             }
         ]
     }
@@ -516,6 +543,42 @@ edge_definitions = [
         },
         'param': 'THALAMUS2SOM',
         'add_properties': 'syn_uniform_delay_section_default'        
+    },
+    {  # Tone to Pyramidal
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PyrA', 'PyrC'])
+        },
+        'param': 'TONE2PN',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # tone to PV
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PV'])
+        },
+        'param': 'TONE2PV',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # shock to PV
+        'network': 'BLA',
+        'edge': {
+            'source': networks['shock'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PV'])
+        },
+        'param': 'SHOCK2PV',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # shock to SOM
+        'network': 'BLA',
+        'edge': {
+            'source': networks['shock'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['SOM'])
+        },
+        'param': 'SHOCK2SOM',
+        'add_properties': 'syn_uniform_delay_section_default'
     }
     #{   # Thalamus  to CR
     #    'network':'BLA',
@@ -695,7 +758,40 @@ edge_params = {
         'target_sections':['basal'],
         'distance_range':[0.0, 9999.9],
         'dynamics_params':'BG2SOM_thalamus_min.json'
-    }
+    },
+    'TONE2PN': {
+        'connection_rule': prob_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['apical'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'tone2PN.json'
+    },
+    'TONE2PV': {
+        'connection_rule': prob_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['apical'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'tone2INT.json'
+    },
+    'SHOCK2PV': {
+        'connection_rule': prob_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'shock2INT12.json'
+    },
+    'SHOCK2SOM': {
+        'connection_rule': prob_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'shock2INT12.json'
+    },
+
     #'THALAMUS2CR': {
     #    'connection_rule':one_to_one_offset,
     #    'connection_params':{'offset':numPN_A+numPN_C+numPV+numSOM},
@@ -849,7 +945,7 @@ synapses.load()
 syn = synapses.syn_params_dicts()
 
 # Build your edges into the networks
-build_edges(networks, edge_definitions,edge_params,edge_add_properties,syn)
+build_edges(networks, edge_definitions, edge_params,edge_add_properties, syn)
 
 # Save the network into the appropriate network dir
 save_networks(networks,network_dir)
@@ -880,8 +976,10 @@ build_env_bionet(base_dir='./',
                        ('thalamus_pyr','thalamus_pyr_spikes.h5'),
                        ('thalamus_som','thalamus_som_spikes.h5'),
                        ('thalamus_cr','thalamus_cr_spikes.h5'),
-                       ('shell','shell_spikes.h5')],
+                       ('shell','shell_spikes.h5'),
+                       ('tone', './inputs/tone_spikes.csv'),
+                       ('shock', './inputs/shock_spikes.csv')],
 		components_dir='components',
         config_file='simulation_config.json',
-		compile_mechanisms=True)
+		compile_mechanisms=False)
 """

@@ -3,7 +3,7 @@ import sys
 
 from bmtk.utils.reports.spike_trains import PoissonSpikeGenerator
 
-scale=5
+scale=1
 
 def lognorm_fr_list(n,m,s):
     mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
@@ -31,13 +31,13 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=51, numCR=
     build_poisson_input(population='thalamus_pyr',
                         node_ids=range((numPN_A+numPN_C)*scale),
                         mean=4,std=1,
-                        output_h5='thalamus_pyr_spikes.h5',
+                        output_h5='input/thalamus_pyr_spikes.h5',
                         t_sim=t_sim)
 
     build_poisson_input(population='thalamus_som',
                         node_ids=range((numSOM)*scale),
                         mean=2,std=1,
-                        output_h5='thalamus_som_spikes.h5',
+                        output_h5='input/thalamus_som_spikes.h5',
                         t_sim=t_sim) 
  
     #build_poisson_input(population='thalamus_cr',
