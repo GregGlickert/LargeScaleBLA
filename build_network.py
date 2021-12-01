@@ -9,14 +9,14 @@ import os
 import warnings
 
 from connectors import (one_to_one, one_to_one_offset, syn_dist_delay_feng_section, syn_uniform_delay_section,
-                        syn_percent_o2a, recurrent_connector_o2a)
+                        syn_percent_o2a, recurrent_connector_o2a, rand_percent_connector)
 
 np.random.seed(123412)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 network_dir = 'network'
 t_sim = 15000.0
 dt = 0.05
-scale = 1
+scale = 5
 if os.path.isdir('network') == False:
     os.makedirs('network')
 #Number of cells in each population
@@ -139,7 +139,7 @@ network_definitions = [
                 'rotation_angle_zaxis':xiter_random(N=numSOM, min_x=0.0, max_x=2*np.pi),
                 'rotation_angle_yaxis':xiter_random(N=numSOM, min_x=0.0, max_x=2*np.pi),
                 'model_type':'biophysical',
-                'model_template':'hoc:SOM_Cell'
+                'model_template':'hoc:SOM_Cell_old'
             }
         ] # End cells
     }, # End BLA
@@ -166,6 +166,32 @@ network_definitions = [
                 'pop_name':'som_inp',
                 'pop_group':'thalamus_som',
                 'model_type':'virtual'
+            }
+        ]
+    },
+    {
+        # Tone
+        'network_name': 'tone',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': 1,
+                'pop_name': 'tone',
+                'pop_group': 'tone',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+    {
+        # Shock
+        'network_name': 'shock',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': 1,
+                'pop_name': 'shock',
+                'pop_group': 'shock',
+                'model_type': 'virtual'
             }
         ]
     }
@@ -415,6 +441,33 @@ edge_definitions = [
         },
         'param': 'THALAMUS2SOM',
         'add_properties': 'syn_uniform_delay_section_default'        
+    },
+    {  # Tone to PN
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PyrA', 'PyrC'])
+        },
+        'param': 'TONE2PN',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # Tone to PV
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PV'])
+        },
+        'param': 'TONE2PV',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # shock to PV and SOM
+        'network': 'BLA',
+        'edge': {
+            'source': networks['shock'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PV', 'SOM'])
+        },
+        'param': 'SHOCK2INT',
+        'add_properties': 'syn_uniform_delay_section_default'
     }
 ]
 
@@ -533,6 +586,30 @@ edge_params = {
         'target_sections':['basal'],
         'distance_range':[0.0, 9999.9],
         'dynamics_params':'BG2SOM_thalamus_min.json'
+    },
+    'TONE2PN': {
+        'connection_rule': rand_percent_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'tone2PN.json'
+    },
+    'TONE2PV': {
+        'connection_rule': rand_percent_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'tone2INT.json'
+    },
+    'SHOCK2INT': {
+        'connection_rule': rand_percent_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'shock2INT12.json'
     }
 } # edges referenced by name
 
@@ -670,12 +747,12 @@ build_env_bionet(base_dir='./',
 		report_vars = ['v'],
         v_init = -70.0,
         celsius = 31.0,
-		spikes_inputs=[('vpsi_inh','vpsi_inh_spikes.h5'),# Name of population which spikes will be generated for, file
-                       ('thalamus_pyr','thalamus_pyr_spikes.h5'),
-                       ('thalamus_som','thalamus_som_spikes.h5'),
-                       ('thalamus_cr','thalamus_cr_spikes.h5'),
-                       ('shell','shell_spikes.h5')],
+		spikes_inputs=[('tone','./input/tone_spikes_50.csv'),# Name of population which spikes will be generated for, file
+                       ('shock','./input/shock_spikes.csv'),
+                       ('thalamus_pyr','./input/thalamus_pyr_spikes.h5'),
+                       ('thalamus_som','./input/thalamus_som_spikes.h5'),
+                       ('shell','./input/shell_spikes.h5')],
 		components_dir='components',
         config_file='simulation_config.json',
-		compile_mechanisms=True)
+		compile_mechanisms=False)
 """

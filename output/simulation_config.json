@@ -4,7 +4,7 @@
     "tstart": 0.0,
     "tstop": 15000.0,
     "dt": 0.05,
-    "dL": 200000.0,
+    "dL": 20.0,
     "spike_threshold": -15.0,
     "nsteps_block": 5000
   },
@@ -13,6 +13,12 @@
     "v_init": -70.0
   },
   "inputs": {
+    "tone_spikes": {
+      "input_type": "spikes",
+      "module": "csv",
+      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/tone_spikes_50.csv",
+      "node_set": "tone"
+    },
     "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
@@ -37,7 +43,14 @@
     "output_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output",
     "spikes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/spikes.h5"
   },
-  "reports": {},
+  "reports": {
+    "v_report": {
+      "variable_name": "v",
+      "cells": "all",
+      "module": "membrane_report",
+      "sections": "soma"
+    }
+  },
   "node_sets_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/node_sets.json",
   "network": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/circuit_config.json",
   "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_config.json",
@@ -58,8 +71,16 @@
         "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_node_types.csv"
       },
       {
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_nodes.h5",
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_node_types.csv"
+      },
+      {
         "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_nodes.h5",
         "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_node_types.csv"
+      },
+      {
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shock_node_types.csv",
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shock_nodes.h5"
       },
       {
         "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_node_types.csv",
@@ -71,6 +92,10 @@
       }
     ],
     "edges": [
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_BLA_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_BLA_edge_types.csv"
+      },
       {
         "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edges.h5",
         "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edge_types.csv"

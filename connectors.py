@@ -33,7 +33,6 @@ def one_to_one_offset(source, target, offset=0):
 
     return tmp_nsyn
 
-
 def syn_dist_delay_feng(source, target):
     #if not dist_constraint:
     #    return 0.1
@@ -385,3 +384,11 @@ def recurrent_connector_o2a(source,targets,p,all_edges=[],min_syn=1,max_syn=1):
 
     #any index selected will be set to 1 and returned
     return syns
+
+def rand_percent_connector(source, target, prob):
+    sid = source.node_id
+    tid = target.node_id
+    if np.random.uniform() > prob:
+        return 0
+    else:
+        return 1
