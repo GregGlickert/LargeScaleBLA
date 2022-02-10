@@ -46,7 +46,8 @@ def conn_info(**kwargs):
     uni = round(num_uni / (num_sources*num_targets) * 100,2)
     bi = round(num_bi / (num_sources*num_targets) * 100,2)
 
-    print(str(source_id) + '->' + str(target_id) + "\t" + str(total) + "\t" + str(uni) + "\t" + str(bi))
+    print(str(source_id) + '->' + str(target_id) + "\t" + str(total) + "%" + "\t" + str(uni)
+          + "%" + "\t" + str(bi) + "%")
     #if source_id == 'PN' and target_id == 'PN':
         #import pdb;pdb.set_trace()
         #print(cons)   

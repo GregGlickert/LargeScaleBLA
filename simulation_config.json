@@ -1,7 +1,7 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/output"
+    "$OUTPUT_DIR": "$BASE_DIR/outputECP"
   },
   "target_simulator": "NEURON",
   "run": {
@@ -40,12 +40,6 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/input/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
-    },
-    "shell_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/input/shell_spikes.h5",
-      "node_set": "shell"
     }
   },
   "output": {

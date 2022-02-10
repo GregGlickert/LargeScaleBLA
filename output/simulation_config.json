@@ -2,7 +2,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 15000.0,
+    "tstop": 10000.0,
     "dt": 0.05,
     "dL": 20.0,
     "spike_threshold": -15.0,
@@ -13,35 +13,23 @@
     "v_init": -70.0
   },
   "inputs": {
-    "tone_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/tone_spikes_50.csv",
-      "node_set": "tone"
-    },
-    "thalamus_pyr_spikes": {
+    "mthalamus_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/thalamus_pyr_spikes.h5",
-      "node_set": "thalamus_pyr"
+      "input_file": "/home/tbg28/git_stage/AmygdalaTheta/mthalamus_spikes.h5",
+      "node_set": "mthalamus"
     },
-    "thalamus_som_spikes": {
+    "exc_bg_bask_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/thalamus_som_spikes.h5",
-      "node_set": "thalamus_som"
-    },
-    "shell_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/input/shell_spikes.h5",
-      "node_set": "shell"
+      "input_file": "/home/tbg28/git_stage/AmygdalaTheta/exc_bg_bask_spikes.h5",
+      "node_set": "exc_bg_bask"
     }
   },
   "output": {
-    "log_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/log.txt",
-    "output_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output",
-    "spikes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/spikes.h5"
+    "log_file": "/home/tbg28/git_stage/AmygdalaTheta/output/log.txt",
+    "output_dir": "/home/tbg28/git_stage/AmygdalaTheta/output",
+    "spikes_file": "/home/tbg28/git_stage/AmygdalaTheta/output/spikes.h5"
   },
   "reports": {
     "v_report": {
@@ -51,69 +39,53 @@
       "sections": "soma"
     }
   },
-  "node_sets_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/node_sets.json",
-  "network": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/circuit_config.json",
-  "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_config.json",
-  "config_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA",
+  "node_sets_file": "/home/tbg28/git_stage/AmygdalaTheta/node_sets.json",
+  "network": "/home/tbg28/git_stage/AmygdalaTheta/circuit_config.json",
+  "config_path": "/home/tbg28/git_stage/AmygdalaTheta/simulation_config.json",
+  "config_dir": "/home/tbg28/git_stage/AmygdalaTheta",
   "components": {
-    "mechanisms_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms",
-    "morphologies_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/morphologies",
-    "__pycache___dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/__pycache__",
-    "synaptic_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/synaptic_models",
-    "biophysical_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/biophysical_neuron_models",
-    "templates_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/templates",
-    "point_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/point_neuron_models"
+    "__pycache___dir": "/home/tbg28/git_stage/AmygdalaTheta/components/__pycache__",
+    "biophysical_neuron_models_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/biophysical_neuron_models",
+    "mechanisms_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/mechanisms",
+    "morphologies_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/morphologies",
+    "point_neuron_models_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/point_neuron_models",
+    "synaptic_models_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/synaptic_models",
+    "templates_dir": "/home/tbg28/git_stage/AmygdalaTheta/components/templates"
   },
   "networks": {
     "nodes": [
       {
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_nodes.h5",
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_node_types.csv"
+        "nodes_file": "/home/tbg28/git_stage/AmygdalaTheta/network/BLA_nodes.h5",
+        "node_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/BLA_node_types.csv"
       },
       {
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_nodes.h5",
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_node_types.csv"
+        "node_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/exc_bg_bask_node_types.csv",
+        "nodes_file": "/home/tbg28/git_stage/AmygdalaTheta/network/exc_bg_bask_nodes.h5"
       },
       {
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_nodes.h5",
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_node_types.csv"
-      },
-      {
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shock_node_types.csv",
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shock_nodes.h5"
-      },
-      {
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_node_types.csv",
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_nodes.h5"
-      },
-      {
-        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_nodes.h5",
-        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_node_types.csv"
+        "node_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/mthalamus_node_types.csv",
+        "nodes_file": "/home/tbg28/git_stage/AmygdalaTheta/network/mthalamus_nodes.h5"
       }
     ],
     "edges": [
       {
-        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_BLA_edges.h5",
-        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/tone_BLA_edge_types.csv"
+        "edge_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/BLA_BLA_edge_types.csv",
+        "edges_file": "/home/tbg28/git_stage/AmygdalaTheta/network/BLA_BLA_edges.h5"
       },
       {
-        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edges.h5",
-        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/shell_BLA_edge_types.csv"
+        "edge_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/exc_bg_bask_BLA_edge_types.csv",
+        "edges_file": "/home/tbg28/git_stage/AmygdalaTheta/network/exc_bg_bask_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_BLA_edge_types.csv",
-        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_pyr_BLA_edges.h5"
-      },
-      {
-        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_BLA_edges.h5",
-        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_BLA_edge_types.csv"
-      },
-      {
-        "edges_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_BLA_edges.h5",
-        "edge_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/thalamus_som_BLA_edge_types.csv"
+        "edge_types_file": "/home/tbg28/git_stage/AmygdalaTheta/network/mthalamus_BLA_edge_types.csv",
+        "edges_file": "/home/tbg28/git_stage/AmygdalaTheta/network/mthalamus_BLA_edges.h5"
       }
     ],
-    "gap_juncs": []
+    "gap_juncs": [
+      {
+        "gap_juncs_file": "/home/tbg28/git_stage/AmygdalaTheta/network/BLA_gap_juncs.h5"
+      }
+    ]
   },
   "node_sets": {
     "biophysical_nodes": {
@@ -121,18 +93,6 @@
     },
     "point_nodes": {
       "model_type": "point_process"
-    },
-    "vclamp_cells": [
-      0,
-      50,
-      100,
-      200,
-      300,
-      400,
-      500,
-      600,
-      700,
-      750
-    ]
+    }
   }
 }
