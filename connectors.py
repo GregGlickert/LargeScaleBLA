@@ -66,18 +66,27 @@ def get_target_sec_id(source,target):
     # robust using a lookup table for more complicated cell types
     
     if source['pop_name'] == 'PyrA' or source['pop_name'] == 'PyrC':
-        return 1 # Target Dendrites
+        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
+            #print("connecting PN->PN")
+            return 2 # apical for PN -> PN
+        else:
+            return 1 # everything interneuron is basal
     elif source['pop_name'] == 'PV':
         return 0 # Target Soma
     elif source['pop_name'] == 'SOM':
-        return 0 # Target Soma
+        #print('connecting SOM->PN')
+        return 2 # Target apical for SOM->PN
     elif source['pop_name'] == 'CR':
         if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
             return 0 # Target Soma
         else:
             return 1 # Target Denditrites
     elif source['model_type'] == 'virtual':
-        return 1 # Target Dendrites
+        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
+            #print("connecting BG->PN")
+            return 2 # target apical
+        else:
+            return 1 # Target basal
     else: # We really don't want a default case so we can catch errors
         #return 0 # Target Soma by default
         import pdb;pdb.set_trace()
@@ -396,3 +405,11 @@ def rand_percent_connector(source, target, prob):
         return 0
     else:
         return 1
+
+def rand_shock_connector(source, target, prob): # shock is using a regular gaba syn and needs to be stronger so
+    sid = source.node_id                        # so i just put more syns on it
+    tid = target.node_id
+    if np.random.uniform() > prob:
+        return 0
+    else:
+        return 50

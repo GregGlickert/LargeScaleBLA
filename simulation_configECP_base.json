@@ -7,7 +7,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 15000.0,
+    "tstop": 5000.0,
     "dt": 0.05,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -24,17 +24,17 @@
       "input_file": "$BASE_DIR/thalamus_pyr_spikes.h5",
       "node_set": "thalamus_pyr"
     },
+    "thalamus_pv_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/thalamus_pv_spikes.h5",
+      "node_set": "thalamus_pv"
+    },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
       "input_file": "$BASE_DIR/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
-    },
-    "thalamus_cr_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_cr_spikes.h5",
-      "node_set": "thalamus_cr"
     }
   },
   "output": {

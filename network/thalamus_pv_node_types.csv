@@ -1,2 +1,2 @@
-node_type_id pop_name model_type pop_group
-100 pv_inp virtual thalamus_pv
+node_type_id model_type pop_group pop_name
+100 virtual thalamus_pv pv_inp
