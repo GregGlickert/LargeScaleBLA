@@ -1,3 +1,3 @@
-edge_type_id target_query source_query target_sections distance_range model_template syn_weight dynamics_params
-110 "pop_name=='['PyrA', 'PyrC']'" * ['apical'] "[0.0, 9999.9]" tone2pyr 1 tone2PN.json
-111 pop_name=='['PV']' * ['basal'] "[0.0, 9999.9]" tone2pyr 1 tone2INT.json
+edge_type_id target_query source_query syn_weight target_sections distance_range model_template dynamics_params
+110 "pop_name=='['PyrA', 'PyrC']'" * 1 ['apical'] "[0.0, 9999.9]" tone2pyrD tone2PN.json
+111 pop_name=='['PV']' * 1 ['basal'] "[0.0, 9999.9]" tone2interD tone2INT.json

@@ -1,0 +1,21 @@
+{
+    "level_of_detail": "tone2int",
+    "AlphaTmax_ampa": "3.8142",
+    "Beta_ampa": "0.1429",
+    "Cdur_ampa": "1.4210",
+    "gbar_ampa": "0.001",
+    "Erev_ampa": "0",
+    "AlphaTmax_nmda": "0.2659",
+    "Beta_nmda": "0.008",
+    "Cdur_nmda": "16.7650",
+    "gbar_nmda": "0.0005",
+    "Erev_nmda": "0",
+    "initW": "5",
+    "delay": "0.1",
+    "lambda1": "1.0",
+    "lambda2": "0.02",
+    "threshold1": "0.03",
+    "threshold2": "0.03",
+	      "fmax": "3",
+	      "tauCa": "25"
+}

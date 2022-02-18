@@ -7,8 +7,8 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 500.0,
-    "dt": 0.05,
+    "tstop": 5000.0,
+    "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
     "nsteps_block": 5000
@@ -21,7 +21,7 @@
     "tone_spikes": {
       "input_type": "spikes",
       "module": "csv",
-      "input_file": "$BASE_DIR/tone_spikes_20.csv",
+      "input_file": "$BASE_DIR/tone_spikes_correct.csv",
       "node_set": "tone"
     },
     "shock_spikes": {
@@ -54,7 +54,40 @@
     "output_dir": "$OUTPUT_DIR",
     "spikes_file": "spikes.h5"
   },
-  "reports": {},
+  "reports": {
+    "syn_report1": {
+      "cells": {"node_ids":  [0, 1, 2, 612, 614, 615]},
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pyrD",
+      "file_name": "syns_tone2pyr.h5"
+    },
+    "syn_report2": {
+      "cells": {"node_ids": [0, 1, 2, 612, 614, 615]},
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pyrD",
+      "file_name": "syns_cai.h5"
+    },
+    "syn_report3": {
+      "cells": {"node_ids": [0]},
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyrD2pyrD_STFD",
+      "file_name": "syns_pyr2pyr.h5"
+    },
+    "syn_report4": {
+      "cells": {"node_ids": [0]},
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyrD2pyrD_STFD",
+      "file_name": "syns_pyr2pyr_cai.h5"
+    }
+  },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_config.json"
 }
