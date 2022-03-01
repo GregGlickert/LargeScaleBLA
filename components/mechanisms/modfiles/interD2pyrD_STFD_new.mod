@@ -1,7 +1,7 @@
 :Interneuron Cells to Pyramidal Cells GABA with local Ca2+ pool and read public soma Ca2+ pool
 
 NEURON {
-	POINT_PROCESS interD2pyrD_STFD
+	POINT_PROCESS interD2pyrD_STFD_new
 	USEION ca READ eca,ica
 	NONSPECIFIC_CURRENT igaba
 	RANGE initW

@@ -44,12 +44,12 @@ spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(4,1, figsize=(12, 6),tight_layout=True)
-dt = 0.05
+dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
-end_ms = 15000
+end_ms = 13000
 spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[0], graph='PN_A')
 spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[1], graph='PN_C')
 spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[2], graph='SOM')

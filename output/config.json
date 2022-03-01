@@ -1,0 +1,83 @@
+{
+  "network": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/circuit_config.json",
+  "simulation": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/simulation_config.json",
+  "config_path": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/config.json",
+  "config_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA",
+  "components": {
+    "mechanisms_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms",
+    "morphologies_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/morphologies",
+    "__pycache___dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/__pycache__",
+    "synaptic_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/synaptic_models",
+    "biophysical_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/biophysical_neuron_models",
+    "templates_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/templates",
+    "point_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/point_neuron_models"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_nodes.h5",
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/network/BLA_node_types.csv"
+      }
+    ],
+    "edges": [],
+    "gap_juncs": []
+  },
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 2000.0,
+    "dt": 0.1,
+    "dL": 20.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 34.0,
+    "v_init": -80.0
+  },
+  "inputs": {
+    "current_clamp": {
+      "input_type": "current_clamp",
+      "module": "IClamp",
+      "node_set": "all",
+      "gids": "all",
+      "amp": 0.12,
+      "delay": 500.0,
+      "duration": 1000.0
+    }
+  },
+  "output": {
+    "log_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/log.txt",
+    "output_dir": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output",
+    "spikes_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/output/spikes.h5"
+  },
+  "reports": {
+    "v_report": {
+      "variable_name": "v",
+      "cells": "all",
+      "module": "membrane_report",
+      "sections": "soma"
+    }
+  },
+  "node_sets_file": "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/node_sets.json",
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    },
+    "vclamp_cells": [
+      0,
+      50,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      750
+    ]
+  }
+}

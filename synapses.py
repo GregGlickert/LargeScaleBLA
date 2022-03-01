@@ -65,6 +65,10 @@ def interD2pyrD_STFD(syn_params, sec_x, sec_id):
         lsyn.initW = float(syn_params['initW'])
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('threshold1'):
+        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+    if syn_params.get('threshold2'):
+        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
 
     return lsyn
 
@@ -76,6 +80,10 @@ def pyrD2interD_STFD(syn_params, sec_x, sec_id):
         lsyn.initW = float(syn_params['initW'])
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('threshold1'):
+        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+    if syn_params.get('threshold2'):
+        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
 
     return lsyn
 
@@ -87,6 +95,10 @@ def pyrD2pyrD_STFD(syn_params, sec_x, sec_id):
         lsyn.initW = float(syn_params['initW'])
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('threshold1'):
+        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+    if syn_params.get('threshold2'):
+        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
         
     return lsyn
 

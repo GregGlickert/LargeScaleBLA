@@ -1,7 +1,7 @@
 :Pyramidal Cells to Interneuron Cells AMPA+NMDA with local Ca2+ pool
 
 NEURON {
-	POINT_PROCESS pyrD2interD_STFD
+	POINT_PROCESS pyrD2interD_STFD_new
 	USEION ca READ eca	
 	NONSPECIFIC_CURRENT inmda, iampa
 	RANGE initW
@@ -11,10 +11,11 @@ NEURON {
 	RANGE ICaa, P0a, fCaa
 	RANGE Cainf, pooldiam, z
 	RANGE lambda1, lambda2, threshold1, threshold2
-	RANGE fmax, fmin, Wmax, Wmin, maxChange, normW, scaleW, srcid, destid
+	RANGE fmax, fmin, Wmax, Wmin, maxChange, normW, scaleW, srcid, destid,limitW
 	RANGE pregid,postgid, thr_rp
 	RANGE F, f, tauF, D1, d1, tauD1, D2, d2, tauD2
 	RANGE facfactor
+	RANGE neuroM,type
 }
 
 UNITS {
@@ -29,6 +30,7 @@ PARAMETER {
 
 	srcid = -1 (1)
 	destid = -1 (1)
+	type = -1
 	
 	Cdur_nmda = 16.7650 (ms)
 	AlphaTmax_nmda = .2659 (/ms)
@@ -47,6 +49,7 @@ PARAMETER {
 	Cainf = 50e-6 (mM)
 	pooldiam =  1.8172 (micrometer)
 	z = 2
+	neuroM = 0
 
 	tauCa = 50 (ms)
 	P0n = .015
@@ -89,14 +92,15 @@ ASSIGNED {
 	iampa (nA)
 	g_ampa (uS)
 	on_ampa
-	W
+	: W
+	limitW
 
 	t0 (ms)
 
-	ICan (mA)
-	ICaa (mA)
+	ICan (nA)
+	ICaa (nA)
 	Afactor	(mM/ms/nA)
-	Icatotal (mA)
+	Icatotal (nA)
 
 	dW_ampa
 	Wmax
@@ -117,7 +121,7 @@ ASSIGNED {
 	D2		
 }
 
-STATE { r_nmda r_ampa capoolcon }
+STATE { r_nmda r_ampa capoolcon W}
 
 INITIAL {
 	on_nmda = 0
@@ -127,6 +131,7 @@ INITIAL {
 	on_ampa = 0
 	r_ampa = 0
 	W = initW
+	limitW = 1
 
 	t0 = -1
 
@@ -145,59 +150,41 @@ INITIAL {
 }
 
 BREAKPOINT {
+ if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W))>0&&W>=Wmax) {
+        limitW=1e-12
+	} else if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W))<0&&W<=Wmin) {
+        limitW=1e-12
+	} else {
+	limitW=1 }
+	
 	SOLVE release METHOD cnexp
-}
-
-DERIVATIVE release {
 	if (t0>0) {
 		if (rp < thr_rp) {
-			if (t-t0 < Cdur_nmda) {
-				on_nmda = 1
-			} else {
-				on_nmda = 0
-			}
 			if (t-t0 < Cdur_ampa) {
 				on_ampa = 1
 			} else {
 				on_ampa = 0
 			}
 		} else {
-			on_nmda = 0
 			on_ampa = 0
 		}
 	}
-	r_nmda' = AlphaTmax_nmda*on_nmda*(1-r_nmda)-Beta_nmda*r_nmda
-	r_ampa' = AlphaTmax_ampa*on_ampa*(1-r_ampa)-Beta_ampa*r_ampa
-
-	dW_ampa = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)*dt
-
-	: Limit for extreme large weight changes
-	if (fabs(dW_ampa) > maxChange) {
-		if (dW_ampa < 0) {
-			dW_ampa = -1*maxChange
-		} else {
-			dW_ampa = maxChange
-		}
-	}
-
-	:Normalize the weight change
-	normW = (W-Wmin)/(Wmax-Wmin)
-	if (dW_ampa < 0) {
-		scaleW = sqrt(fabs(normW))
-	} else {
-		scaleW = sqrt(fabs(1.0-normW))
-	}
-
-	W = W + dW_ampa*scaleW
+     : if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
+	 : limitW=1e-12
+	 : } else {
+	  : limitW=1
+	 : }
+	: if (W > Wmax) { 
+	:	W = Wmax
+	: } else if (W < Wmin) {
+ 		: W = Wmin
+	: }
 	
-	:Weight value limits
-	if (W > Wmax) { 
-		W = Wmax
-	} else if (W < Wmin) {
- 		W = Wmin
-	}
-
+	 if (neuroM==0) {
 	g_nmda = gbar_nmda*r_nmda*facfactor
+	} else {
+	g_nmda = gbar_nmda*r_nmda*facfactor
+	}
 	inmda = W_nmda*g_nmda*(v - Erev_nmda)*sfunc(v)
 
 	g_ampa = gbar_ampa*r_ampa*facfactor
@@ -206,11 +193,37 @@ DERIVATIVE release {
 	ICan = P0n*g_nmda*(v - eca)*sfunc(v)
 	ICaa = P0a*W*g_ampa*(v-eca)/initW	
 	Icatotal = ICan + ICaa
+}
+
+DERIVATIVE release {
+    : W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+   
+	    W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+
+	r_nmda' = AlphaTmax_nmda*on_nmda*(1-r_nmda)-Beta_nmda*r_nmda
+	r_ampa' = AlphaTmax_ampa*on_ampa*(1-r_ampa)-Beta_ampa*r_ampa
+  
 	capoolcon'= -fCan*Afactor*Icatotal + (Cainf-capoolcon)/tauCa
 }
 
 NET_RECEIVE(dummy_weight) {
-	t0 = t
+
+ if (flag==0) {           :a spike arrived, start onset state if not already on
+         if ((!on_nmda)){       :this synpase joins the set of synapses in onset state
+           t0=t
+	      on_nmda=1		
+	      net_send(Cdur_nmda,1)  
+         } else if (on_nmda==1) {             :already in onset state, so move offset time
+          net_move(t+Cdur_nmda)
+		  t0=t
+	      }
+         }		  
+	if (flag == 1) { : turn off transmitter, i.e. this synapse enters the offset state	
+	on_nmda=0
+    }
+	
+	if (flag == 0) {  : Short term plasticity was implemented(Varela et. al 1997):
+	
 	rp = unirand()	
 	
 	:F  = 1 + (F-1)* exp(-(t - tsyn)/tauF)
@@ -236,6 +249,7 @@ NET_RECEIVE(dummy_weight) {
 	D1 = D1 * d1
 	D2 = D2 * d2
 :printf("\t%g\t%g\t%g\n", F, D1, D2)
+}
 }
 
 :::::::::::: FUNCTIONs and PROCEDUREs ::::::::::::

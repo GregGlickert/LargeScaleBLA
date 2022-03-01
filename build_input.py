@@ -17,6 +17,8 @@ def build_poisson_input(population,node_ids,mean,std,output_h5,t_sim=15000):
     firing_rate=lognorm_fr_list(len(node_ids),mean,std),
     times=(0.0, t_sim/1000.0))  
     psg.to_sonata(output_h5)
+    print(psg.to_dataframe().tail)
+
 
 def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR=0,scale=1):
 
@@ -30,7 +32,7 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR
     # THALAMUS
     build_poisson_input(population='thalamus_pv',
                         node_ids=range((numPV)*scale),
-                        mean=5,std=2,
+                        mean=4,std=2,
                         output_h5='thalamus_pv_spikes.h5',
                         t_sim=t_sim)
  
@@ -55,4 +57,4 @@ if __name__ == '__main__':
     if 'homogenous' in sys.argv:
         build_input(15000, scale=1)
     else:
-        build_input(15000, scale=4)
+        build_input(12500, scale=4)

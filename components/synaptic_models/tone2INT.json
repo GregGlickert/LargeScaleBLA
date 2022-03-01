@@ -1,6 +1,7 @@
 {
     "level_of_detail": "tone2interD",
-    "initW": "3",
-    "threshold1": "0.03",
-    "threshold2": "0.03"
+    "initW": "60",
+    "threshold1": "1.5",
+    "threshold2": "1.7"
+
 }

@@ -84,7 +84,7 @@ node_set = [
 
 node_set_split = [
     {"name": "PN_A", "start": 0*scale, "end": 568*scale, "color": "blue"},
-    {"name": "PN_C", "start": 569*scale, "end": 799*scale, "color": "gray"},
+    {"name": "PN_C", "start": 569*scale, "end": 799*scale, "color": "olive"},
     {"name": "PV", "start": 800*scale, "end": 892*scale, "color": "purple"},
     {"name": "SOM", "start": 893*scale, "end": 999*scale, "color": "green"}
 ]
@@ -94,13 +94,13 @@ spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamp
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
 start1 = 0
-end1 = 12500
+end1 = 5000
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
-end_ms = 15000
+end_ms = 5000
 raster(spikes_df, node_set_split, start=start1, end=end1, ax=axs[0])
 spike_frequency_bar_graph(spikes_df,node_set_split,start=start1, end=end1, ax=axs[1], ms=(end1-start1))
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])

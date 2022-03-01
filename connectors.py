@@ -412,4 +412,4 @@ def rand_shock_connector(source, target, prob): # shock is using a regular gaba 
     if np.random.uniform() > prob:
         return 0
     else:
-        return 50
+        return 100

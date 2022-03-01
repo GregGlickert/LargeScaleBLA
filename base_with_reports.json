@@ -7,7 +7,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 5000.0,
+    "tstop": 15000.0,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -18,18 +18,6 @@
     "v_init": -70.0
   },
   "inputs": {
-    "tone_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "$BASE_DIR/tone_spikes.csv",
-      "node_set": "tone"
-    },
-    "shock_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "$BASE_DIR/shock_spikes.csv",
-      "node_set": "shock"
-    },
     "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
@@ -55,22 +43,6 @@
     "spikes_file": "spikes.h5"
   },
   "reports": {
-    "syn_report1": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
-      "variable_name": "W",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pyrD",
-      "file_name": "syns_tone2pyr_should_change.h5"
-    },
-    "syn_report2": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pyrD",
-      "file_name": "syns_tone2pyr_should_change_cai.h5"
-    },
     "syn_report3": {
       "cells": {"node_ids":  [955, 257, 367]},
       "variable_name": "W",
@@ -86,38 +58,6 @@
       "sections": "all",
       "syn_type": "pyrD2pyrD_STFD",
       "file_name": "syns_pyr2pyr_should_not_change_cai.h5"
-    },
-    "syn_report5": {
-      "cells": {"node_ids": [3266, 3448]},
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2interD",
-      "file_name": "syns_tone2interD_should_change_cai.h5"
-    },
-    "syn_report6": {
-      "cells": {"node_ids": [3266, 3448]},
-      "variable_name": "W",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2interD",
-      "file_name": "syns_tone2interD_should_change.h5"
-    },
-    "syn_report5.5": {
-      "cells": {"node_ids": [3208, 3390, 3220]},
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2interD",
-      "file_name": "syns_tone2interD_should_not_change_cai.h5"
-    },
-    "syn_report6.5": {
-      "cells": {"node_ids": [3208, 3390, 3220]},
-      "variable_name": "W",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2interD",
-      "file_name": "syns_tone2interD_should_not_change.h5"
     },
     "syn_report7": {
       "cells": {"node_ids": [3266, 3448]},
