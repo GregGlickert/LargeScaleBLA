@@ -94,7 +94,7 @@ spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamp
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
 start1 = 0
-end1 = 5000
+end1 = 15000
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5
@@ -105,8 +105,8 @@ raster(spikes_df, node_set_split, start=start1, end=end1, ax=axs[0])
 spike_frequency_bar_graph(spikes_df,node_set_split,start=start1, end=end1, ax=axs[1], ms=(end1-start1))
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 plt.show()
-
-#plot_traces(config_file='simulation_config.json', report_path='outputECP/v_report.h5', node_ids=[3200])
+#trace = plot_traces(report_path='outputECP/v_report.h5',node_ids=[3999])
+plot_traces(report_path='outputECP/v_report.h5')
 #rates = plot_rates_boxplot(config_file='simulation_config.json', group_by='pop_name',times=(600,900))
 
 #file = "network/shock_BLA_edges.h5"

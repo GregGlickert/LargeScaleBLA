@@ -6,25 +6,40 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 2000.0,
-    "dt": 0.1,
+    "tstop": 15000.0,
+    "dt": 0.05,
     "dL": 20.0,
     "spike_threshold": -15.0,
     "nsteps_block": 5000
   },
   "conditions": {
-    "celsius": 34.0,
-    "v_init": -80.0
+    "celsius": 31.0,
+    "v_init": -70.0
   },
   "inputs": {
-    "current_clamp": {
-      "input_type": "current_clamp",
-      "module": "IClamp",
-      "node_set": "all",
-      "gids": "all",
-      "amp": 0.12,
-      "delay": 500.0,
-      "duration": 1000.0
+    "thalamus_pyr_A_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_A_spikes.h5",
+      "node_set": "thalamus_pyr_A"
+    },
+    "thalamus_pyr_C_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
+      "node_set": "thalamus_pyr_C"
+    },
+    "thalamus_pv_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_pv_spikes.h5",
+      "node_set": "thalamus_pv"
+    },
+    "thalamus_som_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
+      "node_set": "thalamus_som"
     }
   },
   "output": {

@@ -17,30 +17,36 @@ def build_poisson_input(population,node_ids,mean,std,output_h5,t_sim=15000):
     firing_rate=lognorm_fr_list(len(node_ids),mean,std),
     times=(0.0, t_sim/1000.0))  
     psg.to_sonata(output_h5)
-    print(psg.to_dataframe().tail)
+    #print(psg.to_dataframe().tail)
 
 
 def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR=0,scale=1):
 
     # THALAMUS
-    build_poisson_input(population='thalamus_pyr',
-                        node_ids=range((numPN_A+numPN_C)*scale),
-                        mean=2,std=1,
-                        output_h5='thalamus_pyr_spikes.h5',
+    build_poisson_input(population='thalamus_pyr_A',
+                        node_ids=range((numPN_A)*scale),
+                        mean=3,std=1,
+                        output_h5='inputs/thalamus_pyr_A_spikes.h5',
+                        t_sim=t_sim)
+
+    build_poisson_input(population='thalamus_pyr_C',
+                        node_ids=range((numPN_C)*scale),
+                        mean=3,std=1,
+                        output_h5='inputs/thalamus_pyr_C_spikes.h5',
                         t_sim=t_sim)
     
     # THALAMUS
     build_poisson_input(population='thalamus_pv',
                         node_ids=range((numPV)*scale),
-                        mean=4,std=2,
-                        output_h5='thalamus_pv_spikes.h5',
+                        mean=12,std=3,
+                        output_h5='inputs/thalamus_pv_spikes.h5',
                         t_sim=t_sim)
  
     if numSOM:
         build_poisson_input(population='thalamus_som',
                         node_ids=range((numSOM)*scale),
-                        mean=2,std=1,
-                        output_h5='thalamus_som_spikes.h5',
+                        mean=3,std=1,
+                        output_h5='inputs/thalamus_som_spikes.h5',
                         t_sim=t_sim)
     #if numCR:
     #    build_poisson_input(population='thalamus_cr',
