@@ -1,7 +1,7 @@
 # Amydala Fear conditioning project
 ### By Greg Glickert with the core stucture of the model being done by Tyler Banks
 
-##Running the model
+## Running the model
 1) The first step is building the model
 ```
 python build_network.py
@@ -18,7 +18,7 @@ cd ..
 mpirun -n 60 nrniv -mpi -python run_network.py simulation_config_base_ECP.json
 ```
 
-##Analysing The model
+## Analysing The model
 To generate cell firing rate graphs
 ```
 python firing_rate_breakdown.py
@@ -40,6 +40,6 @@ Using BMTools to generate graphs
 bmtool plot connection --sources BLA --targets BLA --sids pop_name --tids pop_name --no-prepend-pop --title 'Amydgala average convergence' convergence
 ```
 
-####Env used
+#### Env used
 bmtk==0.0.9
 neruon==8.0.0
