@@ -65,7 +65,7 @@ begintemplate PN_A
 		ghd = 1.5e-5 //1.5e-5
 		gca = 5.5e-4 
 		gm = 0.00224 // 0.00222  
-		gsAHP = 0.05//0.0019
+		gsAHP = 0.0017//0.0019
 		gkap = 0.002 
 		gleak = 2.5e-5
 		gleak_dend=1.57*3.0e-5
@@ -74,27 +74,29 @@ begintemplate PN_A
 		Vrest = -70
 		celsius = 31.0 
 
-		gUnf_Xsoma = 2.5e-05
-		Rm = 80000 // decreased overall
-		SpineScale = 1.76371308
-		SpineScale_leak = 1.763714578
-		Cm = 1.4
-		RaAll= 200
-		RaSoma= 146.969697 
-		RaAxIs = 100
-		Vpas = -70 // -67
-		gna =  .03*0.6*1.5 /* decreased from 0.03 */
-		AXONM = 3 /*decrease from 2 */
-		gkdr = 0.005*.6 /* decreased from 0.005 */
-		KMULT =  0.022*.65 /* decreased from 0.022 */
-		KMULTP = 0.022*.65 /* decreased from 0.022 */
-		ghd=0.000003 *.7
-		nash=10
-		Vrest = -70
-		celsius = 31.0 
-		gsAHP = 0.002 //0.008//0.03
-		GmC = 0.00055//0.062//0.07
-		Diameter = 5
+		// kims stuff
+		//gUnf_Xsoma = 2.5e-05
+		//Rm = 80000 // decreased overall
+		//SpineScale = 1.76371308
+		//SpineScale_leak = 1.763714578
+		//Cm = 1.4
+		//RaAll= 200
+		//RaSoma= 146.969697
+		//RaAxIs = 100
+		//Vpas = -70 // -67
+		//gna =  .03*0.6*1.5 /* decreased from 0.03 */
+		//AXONM = 3 /*decrease from 2 */
+		//gkdr = 0.005*.6 /* decreased from 0.005 */
+		//KMULT =  0.022*.65 /* decreased from 0.022 */
+		//KMULTP = 0.022*.65 /* decreased from 0.022 */
+		//ghd=0.000003 *.7
+		//nash=10
+		//Vrest = -70
+		//celsius = 31.0
+		//gsAHP = 0.002 //0.008//0.03
+		//GmC = 0.00055//0.062//0.07
+		//Diameter = 5
+
 		
 		
 		/////// topology ////////
@@ -331,7 +333,7 @@ begintemplate PN_C
 		ghd = 1.5e-5//1.5e-5
 		gca = 5.5e-4 
 		gm = 0.00224 // 0.00222  
-		gsAHP = 0.0002//0.0012
+		gsAHP = 0.0007//0.0012
 		gkap = 0.002 
 		gleak = 2.5e-5 
 		gleak_dend=1.57*3.0e-5
@@ -341,27 +343,27 @@ begintemplate PN_C
 		celsius = 31.0 
 
 
-		gUnf_Xsoma = 2.5e-05
-		Rm = 80000 // decreased overall
-		SpineScale = 1.76371308
-		SpineScale_leak = 1.763714578
-		Cm = 1.4
-		RaAll= 200
-		RaSoma= 146.969697 
-		RaAxIs = 100
-		Vpas = -70 // -67
-		gna =  .03*0.6*1.5 /* decreased from 0.03 */
-		AXONM = 3 /*decrease from 2 */
-		gkdr = 0.005*.6 /* decreased from 0.005 */
-		KMULT =  0.022*.65 /* decreased from 0.022 */
-		KMULTP = 0.022*.65 /* decreased from 0.022 */
-		ghd=0.000003 *.7
-		nash=10
-		Vrest = -70
-		celsius = 31.0 
-		gsAHP = 0.0002 //0.008//0.03
-		GmC = 0.00055//0.062//0.07
-		Diameter = 5
+		//gUnf_Xsoma = 2.5e-05
+		//Rm = 80000 // decreased overall
+		//SpineScale = 1.76371308
+		//SpineScale_leak = 1.763714578
+		//Cm = 1.4
+		//RaAll= 200
+		//RaSoma= 146.969697
+		//RaAxIs = 100
+		//Vpas = -70 // -67
+		//gna =  .03*0.6*1.5 /* decreased from 0.03 */
+		//AXONM = 3 /*decrease from 2 */
+		//gkdr = 0.005*.6 /* decreased from 0.005 */
+		//KMULT =  0.022*.65 /* decreased from 0.022 */
+		//KMULTP = 0.022*.65 /* decreased from 0.022 */
+		//ghd=0.000003 *.7
+		//nash=10
+		//Vrest = -70
+		//celsius = 31.0
+		//gsAHP = 0.0002 //0.008//0.03
+		//GmC = 0.00055//0.062//0.07
+		//Diameter = 5
 		
 		/////// topology ////////
 		connect dend[0](0), soma[0](0)

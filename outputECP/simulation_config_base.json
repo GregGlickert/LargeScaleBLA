@@ -46,7 +46,7 @@
   "reports": {},
   "node_sets_file": "/home/gjgpb9/LargeScaleBLA/node_sets.json",
   "network": "/home/gjgpb9/LargeScaleBLA/circuit_config.json",
-  "config_path": "/home/gjgpb9/LargeScaleBLA/simulation_configECP_base.json",
+  "config_path": "/home/gjgpb9/LargeScaleBLA/simulation_config_base.json",
   "config_dir": "/home/gjgpb9/LargeScaleBLA",
   "components": {
     "mechanisms_dir": "/home/gjgpb9/LargeScaleBLA/components/mechanisms",

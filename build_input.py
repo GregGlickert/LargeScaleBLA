@@ -25,13 +25,13 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR
     # THALAMUS
     build_poisson_input(population='thalamus_pyr_A',
                         node_ids=range((numPN_A)*scale),
-                        mean=3,std=1,
+                        mean=2,std=1,
                         output_h5='inputs/thalamus_pyr_A_spikes.h5',
                         t_sim=t_sim)
 
     build_poisson_input(population='thalamus_pyr_C',
                         node_ids=range((numPN_C)*scale),
-                        mean=3,std=1,
+                        mean=2,std=1,
                         output_h5='inputs/thalamus_pyr_C_spikes.h5',
                         t_sim=t_sim)
     
@@ -45,7 +45,7 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR
     if numSOM:
         build_poisson_input(population='thalamus_som',
                         node_ids=range((numSOM)*scale),
-                        mean=3,std=1,
+                        mean=2,std=1,
                         output_h5='inputs/thalamus_som_spikes.h5',
                         t_sim=t_sim)
     #if numCR:
@@ -63,4 +63,4 @@ if __name__ == '__main__':
     if 'homogenous' in sys.argv:
         build_input(15000, scale=1)
     else:
-        build_input(12500, scale=4)
+        build_input(15000, scale=4)
