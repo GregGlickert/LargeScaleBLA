@@ -29,18 +29,6 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
       "node_set": "thalamus_pyr_C"
-    },
-    "thalamus_pv_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pv_spikes.h5",
-      "node_set": "thalamus_pv"
-    },
-    "thalamus_som_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
-      "node_set": "thalamus_som"
     }
   },
   "output": {

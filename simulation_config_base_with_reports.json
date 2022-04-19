@@ -18,22 +18,22 @@
     "v_init": -70.0
   },
   "inputs": {
-    "thalamus_pyr_spikes": {
+    "thalamus_pyr_A_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_pyr_spikes.h5",
-      "node_set": "thalamus_pyr"
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_A_spikes.h5",
+      "node_set": "thalamus_pyr_A"
     },
-    "thalamus_pv_spikes": {
+    "thalamus_pyr_C_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_pv_spikes.h5",
-      "node_set": "thalamus_pv"
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
+      "node_set": "thalamus_pyr_C"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_som_spikes.h5",
+      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     }
   },
@@ -44,7 +44,7 @@
   },
   "reports": {
     "syn_report3": {
-      "cells": {"node_ids":  [955, 257, 367]},
+      "cells": {"node_ids":  [257]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
@@ -52,7 +52,7 @@
       "file_name": "syns_pyr2pyr_should_not_change.h5"
     },
     "syn_report4": {
-      "cells": {"node_ids":  [955, 257, 367]},
+      "cells": {"node_ids":  [257]},
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
@@ -60,7 +60,7 @@
       "file_name": "syns_pyr2pyr_should_not_change_cai.h5"
     },
     "syn_report7": {
-      "cells": {"node_ids": [3266, 3448]},
+      "cells": {"node_ids": [3266]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
@@ -68,7 +68,7 @@
       "file_name": "syns_pyrD2interD_STFD_should_change.h5"
     },
     "syn_report8": {
-      "cells": {"node_ids": [3266, 3448]},
+      "cells": {"node_ids": [3266]},
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
@@ -76,7 +76,7 @@
       "file_name": "syns_pyrD2interD_STFD_should_change_cai.h5"
     },
     "syn_report7.5": {
-      "cells": {"node_ids": [3208, 3390, 3220]},
+      "cells": {"node_ids": [3208]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
@@ -84,7 +84,7 @@
       "file_name": "syns_pyrD2interD_STFD_should_not_change.h5"
     },
     "syn_report8.5": {
-      "cells": {"node_ids": [3208, 3390, 3220]},
+      "cells": {"node_ids": [3208]},
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
@@ -92,7 +92,7 @@
       "file_name": "syns_pyrD2interD_STFD_should_not_change_cai.h5"
     },
     "syn_report9": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
+      "cells": {"node_ids":  [955]},
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
@@ -100,7 +100,7 @@
       "file_name": "syns_interD2pyrD_STFD_should_change_cai.h5"
     },
     "syn_report10": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
+      "cells": {"node_ids":  [955]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
@@ -108,7 +108,7 @@
       "file_name": "syns_interD2pyrD_STFD_should_change.h5"
     },
     "syn_report9.5": {
-      "cells": {"node_ids":  [2005, 2747, 735, 1669]},
+      "cells": {"node_ids":  [2005]},
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
@@ -116,7 +116,7 @@
       "file_name": "syns_interD2pyrD_STFD_should_not_change_cai.h5"
     },
     "syn_report10.5": {
-      "cells": {"node_ids":  [2005, 2747, 735, 1669]},
+      "cells": {"node_ids":  [2005]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",

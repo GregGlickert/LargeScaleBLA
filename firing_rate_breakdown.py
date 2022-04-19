@@ -35,7 +35,7 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20,
             c = "tab:" + node['color']
             if ax:
                 #ax.hist(spike_counts_per_second,n_bins,density=True,histtype='bar',label=label,color=c)
-                ax.hist(spike_counts_per_second, label=label, color=c)
+                ax.hist(spike_counts_per_second, label=label, color=c,bins=20)
                 print('The cells with the most net exc fire like this with the left being the node id and the right being the '
                       'firing rate\n',most_exc_spike_counts_per_second)
                 ax.margins(0.5, 0.5)

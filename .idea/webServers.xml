@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="45a27ae9-a254-4cfd-8620-e679ee2332b0" name="Lab server">
+        <fileTransfer rootFolder="/home/gjgpb9/LargeScaleBLA" accessType="SFTP" host="engr-nelvm-res.engineering.missouri.edu" port="22" sshConfigId="d092b297-5cb3-4e19-a8b0-9ec47794455e" sshConfig="gjgpb9@engr-nelvm-res.engineering.missouri.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

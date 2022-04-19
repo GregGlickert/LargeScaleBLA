@@ -24,18 +24,6 @@
       "module": "sonata",
       "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_pyr_C_spikes.h5",
       "node_set": "thalamus_pyr_C"
-    },
-    "thalamus_pv_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_pv_spikes.h5",
-      "node_set": "thalamus_pv"
-    },
-    "thalamus_som_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_som_spikes.h5",
-      "node_set": "thalamus_som"
     }
   },
   "output": {
@@ -60,6 +48,22 @@
   "networks": {
     "nodes": [
       {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_node_types.csv"
+      },
+      {
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_node_types.csv",
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_nodes.h5"
+      },
+      {
         "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_nodes.h5",
         "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_node_types.csv"
       },
@@ -68,24 +72,8 @@
         "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/tone_node_types.csv"
       },
       {
-        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_node_types.csv",
-        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_nodes.h5"
-      },
-      {
         "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/shock_node_types.csv",
         "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/shock_nodes.h5"
-      },
-      {
-        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_nodes.h5",
-        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_node_types.csv"
-      },
-      {
-        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_nodes.h5",
-        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_node_types.csv"
-      },
-      {
-        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_nodes.h5",
-        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_node_types.csv"
       }
     ],
     "edges": [
