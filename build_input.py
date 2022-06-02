@@ -41,14 +41,19 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR
                         mean=2,std=1,
                         output_h5='inputs/thalamus_pv_spikes.h5',
                         t_sim=t_sim)
- 
-    if numSOM:
-        build_poisson_input(population='thalamus_som',
-                        node_ids=range((numSOM)*scale),
-                        mean=2,std=1,
-                        output_h5='inputs/thalamus_som_spikes.h5',
-                        t_sim=t_sim)
-    #if numCR:
+
+    build_poisson_input(population='thalamus_som',
+                    node_ids=range((numSOM)*scale),
+                    mean=2,std=1,
+                    output_h5='inputs/thalamus_som_spikes.h5',
+                    t_sim=t_sim)
+
+    build_poisson_input(population='thalamus_vip',
+                    node_ids=range((numSOM)*scale),
+                    mean=2,std=1,
+                    output_h5='inputs/thalamus_vip_spikes.h5',
+                    t_sim=t_sim)
+#if numCR:
     #    build_poisson_input(population='thalamus_cr',
     #                    node_ids=range((numCR)*scale),
     #                    mean=2,std=1,

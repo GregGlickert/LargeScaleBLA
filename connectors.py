@@ -81,6 +81,8 @@ def get_target_sec_id(source,target):
             return 0 # Target Soma
         else:
             return 1 # Target Denditrites
+    elif source['pop_name'] =='VIP':
+        return 1
     elif source['model_type'] == 'virtual':
         if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
             #print("connecting BG->PN")

@@ -1,0 +1,24 @@
+numprocs=1
+Building full network
+Building BLA
+Building thalamus_pyr_A
+Warning: no edges have been made for this network, skipping saving.
+Building thalamus_pyr_C
+Warning: no edges have been made for this network, skipping saving.
+Building thalamus_pv
+Warning: no edges have been made for this network, skipping saving.
+Building thalamus_som
+Warning: no edges have been made for this network, skipping saving.
+Building thalamus_vip
+Warning: no edges have been made for this network, skipping saving.
+Building tone
+Warning: no edges have been made for this network, skipping saving.
+Building shock
+Warning: no edges have been made for this network, skipping saving.
+Building input for thalamus_pyr_A[2276 cells at 2(1) Hz]
+Building input for thalamus_pyr_C[924 cells at 2(1) Hz]
+Building input for thalamus_pv[372 cells at 2(1) Hz]
+Building input for thalamus_som[428 cells at 2(1) Hz]
+Building input for thalamus_vip[428 cells at 2(1) Hz]
+Done
+Done running build at Thu May 26 15:25:29 CDT 2022

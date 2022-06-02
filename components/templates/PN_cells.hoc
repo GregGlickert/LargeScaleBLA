@@ -232,9 +232,9 @@ begintemplate PN_A
 
                         noise_exc = new Gfluct2_exc(0.5)
 
-                        noise_exc.g_e0 = 0.0032
+                        noise_exc.g_e0 = 0.0032    //0.0032
                         noise_exc.g_i0 = 0
-                        noise_exc.std_e = 0.003
+                        noise_exc.std_e = 0.003 //0.003
                         noise_exc.std_i = 0
 
                         //noise_exc.g_e0 = 0.0032//0.0032
@@ -491,9 +491,9 @@ begintemplate PN_C
 
                         noise_exc = new Gfluct2_exc(0.5)
 
-                        noise_exc.g_e0 = 0.0032
+                        noise_exc.g_e0 = 0.0032 //0.0032
                         noise_exc.g_i0 = 0
-                        noise_exc.std_e = 0.003
+                        noise_exc.std_e = 0.003 //0.003
                         noise_exc.std_i = 0
 
                         //noise_exc.g_e0 = 0.0032//0.0032

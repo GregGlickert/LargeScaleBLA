@@ -20,6 +20,6 @@ rm -rf output
 
 echo "Running model at $(date)"
 
-mpirun nrniv -mpi -python run_network.py simulation_configECP_base.json
+mpirun nrniv -mpi -python run_network.py simulation_config_base_ECP.json
 
 echo "Done running model at $(date)"

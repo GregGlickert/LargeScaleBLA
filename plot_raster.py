@@ -83,10 +83,11 @@ node_set = [
 ]
 
 node_set_split = [
-    {"name": "PN_A", "start": 0*scale, "end": 568*scale, "color": "blue"},
-    {"name": "PN_C", "start": 569*scale, "end": 799*scale, "color": "olive"},
-    {"name": "PV", "start": 800*scale, "end": 892*scale, "color": "purple"},
-    {"name": "SOM", "start": 893*scale, "end": 999*scale, "color": "green"}
+    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "blue"},
+    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "olive"},
+    {"name": "PV", "start": 800 * scale, "end": 892 * scale+ 3, "color": "purple"},
+    {"name": "SOM", "start": 893 * scale, "end": 999 * scale + 4, "color": "green"},
+    {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
 f = h5py.File('outputECP/spikes.h5')
@@ -106,7 +107,7 @@ spike_frequency_bar_graph(spikes_df,node_set_split,start=start1, end=end1, ax=ax
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 plt.show()
 #trace = plot_traces(report_path='outputECP/v_report.h5',node_ids=[3999])
-plot_traces(report_path='outputECP/v_report.h5')
+
 #rates = plot_rates_boxplot(config_file='simulation_config.json', group_by='pop_name',times=(600,900))
 
 #file = "network/shock_BLA_edges.h5"

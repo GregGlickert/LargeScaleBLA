@@ -28,6 +28,7 @@ numPN_A = 569
 numPN_C = 231
 numPV = 93
 numSOM = 107
+numVIP = 107
 numCR = 0
 
 if __name__ == '__main__':
@@ -69,7 +70,8 @@ numPN_C = numPN_C * scale  # 260 * scale #4115#6210
 numPV = numPV * scale  # 100 * scale #854#4860
 numSOM = numSOM * scale  # 42 * scale
 numCR = numCR * scale  # 42 * scale
-num_cells = numPN_A + numPN_C + numPV + numSOM + numCR  # Only used to populate an overall position list
+numVIP = numVIP * scale
+num_cells = numPN_A + numPN_C + numPV + numSOM + numVIP  # Only used to populate an overall position list
 
 # Create the possible x,y,z coordinates
 x_start, x_end = 0 + max_conn_dist, net_size + max_conn_dist
@@ -189,7 +191,17 @@ network_definitions = [
                 'rotation_angle_yaxis': xiter_random(N=numSOM, min_x=0.0, max_x=2 * np.pi),
                 'model_type': 'biophysical',
                 'model_template': 'hoc:SOM_Cell'
-            }
+            },
+            {  # Interneuron - VIP Cell
+                'N': numVIP,
+                'pop_name': 'VIP',
+                'a_name': 'VIP',
+                'rotation_angle_zaxis': xiter_random(N=numVIP, min_x=0.0, max_x=2 * np.pi),
+                'rotation_angle_yaxis': xiter_random(N=numVIP, min_x=0.0, max_x=2 * np.pi),
+                'model_type': 'biophysical',
+                'model_template': 'hoc:SOM_Cell'
+            },
+
             # {   # Interneuron - CR Cell
             #    'N':numCR,
             #    'pop_name':'CR',
@@ -249,6 +261,19 @@ network_definitions = [
                 'N': numSOM,
                 'pop_name': 'som_inp',
                 'pop_group': 'thalamus_som',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+    {
+        # Thalamic VIP INPUTS
+        'network_name': 'thalamus_vip',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': numVIP,
+                'pop_name': 'vip_inp',
+                'pop_group': 'thalamus_vip',
                 'model_type': 'virtual'
             }
         ]
@@ -447,6 +472,24 @@ edge_definitions = [
         'param': 'PV2PV',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
+    {   # PV to PV Uncoupled Bidirectional Pair
+        'network':'BLA',
+        'edge': {
+            'source':{'pop_name': ['PV']},
+            'target':{'pop_name': ['PV']}
+        },
+        'param': 'PV2PV_bi_1',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
+    {   # PV to PV Uncoupled Bidirectional Pair
+        'network':'BLA',
+        'edge': {
+            'source':{'pop_name': ['PV']},
+            'target':{'pop_name': ['PV']}
+        },
+        'param': 'PV2PV_bi_2',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
     {  # PV to PYR Unidirectional
         'network': 'BLA',
         'edge': {
@@ -465,6 +508,24 @@ edge_definitions = [
         'param': 'PYR2PV',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
+    {  # PV to PYR Bidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['PV']},
+            'target': {'pop_name': ['PyrA', 'PyrC']}
+        },
+        'param': 'PV2PYR_bi',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
+    {  # PYR to PV Bidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['PyrA', 'PyrC']},
+            'target': {'pop_name': ['PV']}
+        },
+        'param': 'PYR2PV_bi',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
     {  # PYR to SOM Unidirectional
         'network': 'BLA',
         'edge': {
@@ -472,6 +533,15 @@ edge_definitions = [
             'target': {'pop_name': ['SOM']}
         },
         'param': 'PYR2SOM',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
+    {  # PYR to VIP Unidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['PyrA', 'PyrC']},
+            'target': {'pop_name': ['VIP']}
+        },
+        'param': 'PYR2VIP',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
     {  # SOM to PYR Unidirectional
@@ -483,15 +553,24 @@ edge_definitions = [
         'param': 'SOM2PYR',
         'add_properties': 'SOM_rule'
     },
-    {  # PV to SOM Unidirectional
+    {  # VIP to SOM Unidirectional
         'network': 'BLA',
         'edge': {
-            'source': {'pop_name': ['PV']},
+            'source': {'pop_name': ['VIP']},
             'target': {'pop_name': ['SOM']}
         },
-        'param': 'PV2SOM',
+        'param': 'VIP2SOM',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
+    #{  # PV to SOM Unidirectional
+    #    'network': 'BLA',
+    #    'edge': {
+    #        'source': {'pop_name': ['PV']},
+    #        'target': {'pop_name': ['SOM']}
+    #    },
+    #    'param': 'PV2SOM',
+    #    'add_properties': 'syn_dist_delay_feng_section_default'
+    #},
     # {   # PYR to CR Unidirectional
     #    'network':'BLA',
     #    'edge': {
@@ -566,6 +645,15 @@ edge_definitions = [
         'param': 'THALAMUS2SOM',
         'add_properties': 'syn_uniform_delay_section_default'
     },
+    {  # Thalamus to VIP
+        'network': 'BLA',
+        'edge': {
+            'source': networks['thalamus_vip'].nodes(),
+            'target': networks['BLA'].nodes(pop_name='SOM')
+        },
+        'param': 'THALAMUS2SOM',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
     # {   # Thalamus  to CR
     #    'network':'BLA',
     #    'edge': {
@@ -616,56 +704,101 @@ edge_params = {
         'target_sections': ['apical']
     },
     'PV2PV': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.084},  # good
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.22, 'no_recip': True, 'track_list': int2int_temp_list, 'max_dist': max_conn_dist}, #0.17
+        'syn_weight': 1,
+        'dynamics_params': 'PV2PV.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['somatic']
+    },
+    'PV2PV_bi_1': {
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.0275, 'track_list': uncoupled_bi_track, 'max_dist': max_conn_dist},
+        'syn_weight': 1,
+        'dynamics_params': 'PV2PV.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['somatic']
+    },
+    'PV2PV_bi_2': {
+        'iterator': 'one_to_all',
+        'connection_rule': recurrent_connector_o2a,
+        'connection_params': {'p': 1, 'all_edges': uncoupled_bi_track},
         'syn_weight': 1,
         'dynamics_params': 'PV2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['somatic']
     },
     'PV2PYR': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.095},  # good
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.41, 'max_dist': max_conn_dist},  # {'p':0.40},
         'syn_weight': 1,
         'dynamics_params': 'PV2PN.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['somatic']
     },
     'PYR2PV': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.075},  # good
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.22, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
+        'syn_weight': 1,
+        'dynamics_params': 'PN2PV.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['basal']
+    },
+    'PV2PYR_bi': {
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.1, 'track_list': pyr_int_bi_list, 'max_dist': max_conn_dist}, #0.09
+        'syn_weight': 1,
+        'dynamics_params': 'PV2PN.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['somatic']
+    },
+    'PYR2PV_bi': {
+        'iterator': 'one_to_all',
+        'connection_rule': recurrent_connector_o2a,
+        'connection_params': {'p': 1, 'all_edges': pyr_int_bi_list},  # was 1
         'syn_weight': 1,
         'dynamics_params': 'PN2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['basal']
     },
     'PYR2SOM': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.073},  # good
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
         'syn_weight': 1,
         'dynamics_params': 'PN2SOM.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['basal']
     },
+    'PYR2VIP': {
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
+        'syn_weight': 1,
+        'dynamics_params': 'PN2VIP.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['basal']
+    },
     'SOM2PYR': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.09},  # needs more
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.066, 'max_dist': max_conn_dist},
         'syn_weight': 1,
         'dynamics_params': 'SOM2PN.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['apical']
     },
-    'PV2SOM': {
-        'iterator': 'one_to_one',
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.05},  # needs less
+    'VIP2SOM': {
+        'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.55, 'max_dist': max_conn_dist},
         'syn_weight': 1,
-        'dynamics_params': 'PV2SOM.json',
+        'dynamics_params': 'VIP2SOM.json',
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['somatic']
     },
@@ -956,7 +1089,8 @@ build_env_bionet(base_dir='./',
         ('thalamus_pyr_A','inputs/thalamus_pyr_A_spikes.h5'),
         ('thalamus_pyr_C','inputs/thalamus_pyr_C_spikes.h5'),
         ('thalamus_pv','inputs/thalamus_pv_spikes.h5'),
-        ('thalamus_som','inputs/thalamus_som_spikes.h5')],
+        ('thalamus_som','inputs/thalamus_som_spikes.h5'),
+        ('thalamus_vip','inputs/thalamus_vip_spikes.h5')],
 	components_dir=components_dir,
     config_file='simulation_config.json',
 	compile_mechanisms=False)

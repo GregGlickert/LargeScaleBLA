@@ -11,7 +11,4 @@ START=$(date)
 python build_network.py
 END=$(date)
 
-
-{ printf "Start: $START \nEnd:   $END\n"; }| mail -r gjgpb9@mail.missouri.edu -s "Amygdala Build Complete" gjgpb9@mail.missouri.edu
-
 echo "Done running build at $(date)"

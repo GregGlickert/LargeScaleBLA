@@ -1,6 +1,6 @@
 {
     "level_of_detail": "pyrD2pyrD_STFD",
-    "initW_lognormal_mean": "0.5",
+    "initW_lognormal_mean": "1",
     "initW_lognormal_std": "0.5",
     "threshold1": ".2",
     "threshold2": ".3"
