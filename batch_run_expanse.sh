@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SBATCH --partition shared
-#SBATCH --nodes=1
+#SBATCH --partition compute
+#SBATCH --nodes=2
 #SBATCH --ntasks-per-node=120
 #SBATCH --account=umc113
 #SBATCH --job-name=run
