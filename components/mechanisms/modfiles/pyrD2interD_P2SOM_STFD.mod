@@ -36,7 +36,7 @@ PARAMETER {
 	AlphaTmax_nmda = .2659 (/ms)
 	Beta_nmda = 0.008 (/ms)
 	Erev_nmda = 0 (mV)
-	gbar_nmda = .5e-3 (uS)
+	gbar_nmda = 0.5e-3 (uS) :0.5
 
 	Cdur_ampa = 0.713 (ms)
 	AlphaTmax_ampa = 2.257(/ms) :1.1286 10.1571
@@ -171,16 +171,16 @@ BREAKPOINT {
 			on_ampa = 0
 		}
 	}
-     : if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
-	 : limitW=1e-12
-	 : } else {
-	  : limitW=1
-	 : }
-	: if (W > Wmax) { 
-	:	W = Wmax
-	: } else if (W < Wmin) {
- 		: W = Wmin
-	: }
+      if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
+	  limitW=1e-12
+	  } else {
+	   limitW=1
+	  }
+	 if (W > Wmax) {
+		W = Wmax
+	 } else if (W < Wmin) {
+ 		 W = Wmin
+	 }
 	
 	 if (neuroM==0) {
 	g_nmda = gbar_nmda*r_nmda*facfactor
@@ -198,7 +198,7 @@ BREAKPOINT {
 }
 
 DERIVATIVE release {
-    : W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+     W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
    
 	    W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
 

@@ -30,7 +30,7 @@ def ecp_psd(ecp, skip_n=0, downsample=10, nfft=1024, fs=1000, noverlap=0, ax=Non
         ax.plot(f, pxx * 1000, linewidth=0.6)
         #ax.plot(f,difference)
         #ax.set_xlim(0.0001,500)
-    ax.set_ylim([0.0000001, 1])
+    ax.set_ylim([0.0000001, 100])
 
     theta = pxx[np.where((f > 8) & (f < 12))] * 1000
     gamma = pxx[np.where((f > 50) & (f < 80))] * 1000

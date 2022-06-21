@@ -7,7 +7,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 5000.0,
+    "tstop": 15000.0,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -24,29 +24,29 @@
       "input_file": "$BASE_DIR/tone_spikes.csv",
       "node_set": "tone"
     },
-    "shock_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "$BASE_DIR/shock_spikes.csv",
-      "node_set": "shock"
-    },
-    "thalamus_pyr_spikes": {
+    "thalamus_pyr_A_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_pyr_spikes.h5",
-      "node_set": "thalamus_pyr"
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_A_spikes.h5",
+      "node_set": "thalamus_pyr_A"
     },
-    "thalamus_pv_spikes": {
+    "thalamus_pyr_C_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_pv_spikes.h5",
-      "node_set": "thalamus_pv"
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
+      "node_set": "thalamus_pyr_C"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/thalamus_som_spikes.h5",
+      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
+    },
+    "thalamus_vip_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
+      "node_set": "thalamus_vip"
     }
   },
   "output": {
@@ -55,27 +55,21 @@
     "spikes_file": "spikes.h5"
   },
   "reports": {
-    "syn_report1": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
+    "ecp": {
+      "cells": "all",
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+      },
+    "syn_report3": {
+      "cells": {"node_ids":  [257]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
-      "syn_type": "tone2pyrD",
-      "file_name": "syns_tone2pyr_should_change.h5"
-    },
-    "syn_report2": {
-      "cells": {"node_ids":  [955, 257, 367, 231]},
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pyrD",
-      "file_name": "syns_tone2pyr_should_change_cai.h5"
-    },
-    "v_report": {
-      "variable_name": "v",
-      "cells": {"node_ids":  [955, 257, 367, 231]},
-      "module": "membrane_report",
-      "sections": "soma"
+      "syn_type": "tone2pyr",
+      "file_name": "tone2pyr.h5"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

@@ -170,16 +170,16 @@ if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GA
 	limitW=1 }
 	
 	SOLVE release METHOD cnexp
-	 : if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
-	 : limitW=1e-12
-	 : } else {
-	  : limitW=1
-	 : }
-	 :if (W > Wmax) { 
-		:W = Wmax
-	:} else if (W < Wmin) {
- 		:W = Wmin
-	:}
+	  if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
+	  limitW=1e-12
+	  } else {
+	   limitW=1
+	  }
+	 if (W > Wmax) {
+		W = Wmax
+	} else if (W < Wmin) {
+ 		W = Wmin
+	}
 	 
 	    if (neuroM==1) {
 	g_gaba = gbar_gaba*r_gaba*facfactor*DA1(DAstart1,DAstop1)*DA2(DAstart2,DAstop2)   : Dopamine effect on GABA	
@@ -200,8 +200,8 @@ if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GA
 }
 
 DERIVATIVE release {
-    
-	: W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+
+	 W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
     
 	
 	W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)

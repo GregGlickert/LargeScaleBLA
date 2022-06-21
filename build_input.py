@@ -10,14 +10,14 @@ def lognorm_fr_list(n,m,s):
     std = np.sqrt(np.log((s/m)**2 + 1))
     return [np.random.lognormal(mean,std) for i in range(n)]
 
-def build_poisson_input(population,node_ids,mean,std,output_h5,t_sim=15000):
+def build_poisson_input(population,node_ids,mean,std,output_h5,t_sim=38000):
     print('Building input for ' + population + "[" + str(len(node_ids)) + " cells at " + str(mean) + "(" + str(std) + ") Hz]")
     psg = PoissonSpikeGenerator(population=population)
     psg.add(node_ids=node_ids,  
     firing_rate=lognorm_fr_list(len(node_ids),mean,std),
     times=(0.0, t_sim/1000.0))  
     psg.to_sonata(output_h5)
-    #print(psg.to_dataframe().tail)
+    print(psg.to_dataframe().tail)
 
 
 def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR=0,scale=1):
@@ -68,4 +68,4 @@ if __name__ == '__main__':
     if 'homogenous' in sys.argv:
         build_input(15000, scale=1)
     else:
-        build_input(15000, scale=4)
+        build_input(38000, scale=4)

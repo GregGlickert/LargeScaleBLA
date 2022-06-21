@@ -37,11 +37,11 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20,
                 #ax.hist(spike_counts_per_second,n_bins,density=True,histtype='bar',label=label,color=c)
                 ax.hist(spike_counts_per_second, label=label, color=c)
                 locs = ax.get_yticks()
-                print(locs)
+                #print(locs)
                 ax.set_yticks(locs, np.round(locs / len(spike_counts_per_second), 3))
 
-                print('The cells with the most net exc fire like this with the left being the node id and the right being the '
-                      'firing rate\n',most_exc_spike_counts_per_second)
+                #print('The cells with the most net exc fire like this with the left being the node id and the right being the '
+                #      'firing rate\n',most_exc_spike_counts_per_second)
                 ax.margins(0.5, 0.5)
                 ax.legend()
         if ax:
@@ -126,14 +126,14 @@ node_set_split = [
     {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-f = h5py.File('outputECP/spikes.h5')
+f = h5py.File('outputECP1/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(5,1, figsize=(12, 6),tight_layout=True)
 dt = 0.1
 steps_per_ms = 1 / dt
-skip_seconds = 0
+skip_seconds = 10
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 15000
@@ -149,9 +149,5 @@ spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax
 spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[2], graph='SOM', most_exc= most_exc_SOM)
 spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[3], graph='PV', most_exc= most_exc_PV)
 spike_frequency_log_graph(spikes_df,node_set_split,end_ms,skip_ms=skip_ms,ax=axs[4],graph='VIP',most_exc=most_exc_VIP)
-
-who_fired(spikes_df,node_set_split)
-
-check_PN_rate(spikes_df, skip_ms=skip_ms, ms=end_ms)
 
 plt.show()

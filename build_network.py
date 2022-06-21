@@ -436,6 +436,8 @@ networks = build_networks(network_definitions)
 int2int_temp_list = []
 uncoupled_bi_track = []
 pyr_int_bi_list = []
+PV2SOM_bi_list = []
+VIP2SOM_bi_list = []
 
 # Whole reason for restructuring network building lies here, by separating out the
 # source and target params from the remaining parameters in NetworkBuilder's
@@ -562,15 +564,33 @@ edge_definitions = [
         'param': 'VIP2SOM',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
-    #{  # PV to SOM Unidirectional
-    #    'network': 'BLA',
-    #    'edge': {
-    #        'source': {'pop_name': ['PV']},
-    #        'target': {'pop_name': ['SOM']}
-    #    },
-    #    'param': 'PV2SOM',
-    #    'add_properties': 'syn_dist_delay_feng_section_default'
-    #},
+    {  # SOM to VIP Unidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['SOM']},
+            'target': {'pop_name': ['VIP']}
+        },
+        'param': 'SOM2VIP',
+        'add_properties': 'SOM_rule'
+    },
+    {  # PV to SOM Unidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['PV']},
+            'target': {'pop_name': ['SOM']}
+        },
+        'param': 'PV2SOM',
+        'add_properties': 'syn_dist_delay_feng_section_default'
+    },
+    {  # SOM to PV Bidirectional
+        'network': 'BLA',
+        'edge': {
+            'source': {'pop_name': ['SOM']},
+            'target': {'pop_name': ['PV']}
+        },
+        'param': 'SOM2PV',
+        'add_properties': 'SOM_rule'
+    },
     # {   # PYR to CR Unidirectional
     #    'network':'BLA',
     #    'edge': {
@@ -649,9 +669,9 @@ edge_definitions = [
         'network': 'BLA',
         'edge': {
             'source': networks['thalamus_vip'].nodes(),
-            'target': networks['BLA'].nodes(pop_name='SOM')
+            'target': networks['BLA'].nodes(pop_name='VIP')
         },
-        'param': 'THALAMUS2SOM',
+        'param': 'THALAMUS2VIP',
         'add_properties': 'syn_uniform_delay_section_default'
     },
     # {   # Thalamus  to CR
@@ -697,7 +717,7 @@ edge_params = {
     'PYR2PYR': {
         'iterator': 'one_to_one',
         'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.02},  # good
+        'connection_params': {'prob': 0.09},  # good
         'syn_weight': 1,
         'dynamics_params': 'PN2PN.json',
         'distance_range': [0, max_conn_dist],
@@ -742,7 +762,7 @@ edge_params = {
     'PYR2PV': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.22, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
+        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100}, #0.22
         'syn_weight': 1,
         'dynamics_params': 'PN2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -769,7 +789,7 @@ edge_params = {
     'PYR2SOM': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
+        'connection_params': {'p': 0.35, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},#0.31
         'syn_weight': 1,
         'dynamics_params': 'PN2SOM.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -778,7 +798,7 @@ edge_params = {
     'PYR2VIP': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},
+        'connection_params': {'p': 0.35, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100},#0.31
         'syn_weight': 1,
         'dynamics_params': 'PN2VIP.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -793,14 +813,41 @@ edge_params = {
         'distance_range': [min_conn_dist, max_conn_dist],
         'target_sections': ['apical']
     },
-    'VIP2SOM': {
+    'PV2SOM': {
+        'iterator':'one_to_all', #0.55
+        'connection_rule':syn_percent_o2a,
+        'connection_params':{'p':0.55, 'track_list': PV2SOM_bi_list, 'max_dist':max_conn_dist},
+        'syn_weight':1,
+        'dynamics_params':'PV2SOM.json',
+        'distance_range':[min_conn_dist,max_conn_dist],
+        'target_sections':['somatic']
+    },
+    'SOM2PV': {
         'iterator': 'one_to_all',
+        'connection_rule': recurrent_connector_o2a,
+        'connection_params': {'p': 1, 'all_edges': PV2SOM_bi_list},
+        'syn_weight': 1,
+        'dynamics_params': 'SOM2PV.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['apical']
+    },
+    'VIP2SOM': {
+        'iterator': 'one_to_all', # 0.55
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.55, 'max_dist': max_conn_dist},
+        'connection_params': {'p': 0.55, 'track_list': VIP2SOM_bi_list, 'max_dist': max_conn_dist},
         'syn_weight': 1,
         'dynamics_params': 'VIP2SOM.json',
         'distance_range': [min_conn_dist, max_conn_dist],
-        'target_sections': ['somatic']
+        'target_sections': ['apical']
+    },
+    'SOM2VIP': {
+        'iterator': 'one_to_all',
+        'connection_rule': recurrent_connector_o2a,  # 0.55
+        'connection_params': {'p': 1, 'all_edges': VIP2SOM_bi_list},
+        'syn_weight': 1,
+        'dynamics_params': 'SOM2VIP.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['apical']
     },
     # 'PYR2CR': {
     #    'iterator':'one_to_one',
@@ -868,6 +915,14 @@ edge_params = {
         'target_sections': ['basal'],
         'distance_range': [0.0, 9999.9],
         'dynamics_params': 'BG2SOM.json'
+    },
+	'THALAMUS2VIP': {
+        'connection_rule': one_to_one_offset,
+        'connection_params': {'offset': numPN_A + numPN_C + numPV + numSOM},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'BG2VIP.json'
     },
     # 'THALAMUS2CR': {
     #    'connection_rule':one_to_one_offset,

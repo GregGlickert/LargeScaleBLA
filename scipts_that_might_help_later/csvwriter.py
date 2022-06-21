@@ -1,14 +1,14 @@
 import csv
 
 def tone(tstart):
-     with open('../12_cell_model/12_cell_inputs/tone_spikes.csv', 'a', newline='') as f1:
+     with open('inputs/tone_spikes.csv', 'a', newline='') as f1:
         writer = csv.writer(f1)
         
-        for i in range(0, 505, 20):
+        for i in range(0, 505, 50):
             writer.writerow([ str(tstart + i) + " 'tone' 0"])
         
 def shock(tstart):
-     with open('shock_spikes.csv', 'a', newline='') as f2:
+     with open('inputs/shock_spikes.csv', 'a', newline='') as f2:
         writer = csv.writer(f2)
         
         for i in range(0, 105, 5):
@@ -22,7 +22,7 @@ def toneANDshock(tstart):
     
 def main():
     
-    time = 0 #in milliseconds
+    time = 200 #in milliseconds
     #Background Phase --- Just Poisson
     
     #Sensitizaiton Phase

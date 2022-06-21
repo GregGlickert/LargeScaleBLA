@@ -617,7 +617,7 @@ begintemplate InterneuronCellf
 
 			soma noise_exc = new Gfluct2_exc(0.5)
 
-			noise_exc.g_e0 = 0.0018 //0.00121
+			noise_exc.g_e0 = 0.0028 //0.00121
 			noise_exc.g_i0 = 0
 			noise_exc.std_e = 0.00012
 			noise_exc.std_i = 0

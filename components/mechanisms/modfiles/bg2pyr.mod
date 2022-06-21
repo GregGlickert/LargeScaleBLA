@@ -25,7 +25,7 @@ PARAMETER {
 	:NMDA
 	taun1 = 5 (ms)
 	taun2 = 125 (ms)
-	gNMDAmax = 0.5e-3 (uS)
+	gNMDAmax = 0.5e-3 (uS) :was 0.5e-3
 	enmda = 0 (mV)
 
 	:AMPA

@@ -13,8 +13,15 @@ def get_array(path):
         pass
     return array
 
-path_PN2PN = "outputECP/syns_pyrD2interD_STFD_should_change.h5"
+path_tone2PN = "outputECP/tone2pyr.h5"
 
-PN2PN = get_array(path_PN2PN)
-plt.plot(PN2PN)
+tone = get_array(path_tone2PN)
+plt.plot(tone)
 plt.show()
+
+path_tone2PN = "outputECP/tone2pyr_cai.h5"
+
+tone = get_array(path_tone2PN)
+plt.plot(tone)
+plt.show()
+

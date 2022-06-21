@@ -35,7 +35,7 @@ PARAMETER {
 	AlphaTmax_nmda = .2659 (/ms)
 	Beta_nmda = 0.008 (/ms)
 	Erev_nmda = 0 (mV)
-	gbar_nmda = .5e-3 (uS)
+	gbar_nmda = 0.5e-3 (uS) :was 0.5
 
 	Cdur_ampa = 1.4210 (ms)
 	AlphaTmax_ampa = 3.8142 (/ms)
@@ -176,17 +176,17 @@ if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)
 			on_ampa = 0
 		}
 	}
-          : if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
-	 : limitW=1e-12
-	 : } else {
-	  : limitW=1
-	 : }
+           if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
+	  limitW=1e-12
+	  } else {
+	   limitW=1
+	  }
 	 
-	 :if (W > Wmax) { 
-		:W = Wmax
-	:} else if (W < Wmin) {
- 		:W = Wmin
-	:}
+	 if (W > Wmax) {
+		W = Wmax
+	} else if (W < Wmin) {
+ 		W = Wmin
+	}
 	 
 	if (neuroM==1) {
 	g_nmda = gbar_nmda*r_nmda*facfactor*DA1(DAstart1,DAstop1)*DA2(DAstart2,DAstop2)        : Dopamine effect on NMDA to reduce NMDA current amplitude
@@ -203,7 +203,7 @@ if ((eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)
 }
 
 DERIVATIVE release {
-	: W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+	 W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
 	
 	W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
 	r_nmda' = AlphaTmax_nmda*on_nmda*(1-r_nmda)-Beta_nmda*r_nmda

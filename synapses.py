@@ -164,7 +164,7 @@ def tone2pyrD(syn_params, sec_x, sec_id):
     :param sec_id: target section
     :return: NEURON synapse object
     """
-    lsyn = h.tone2pyrD(sec_x, sec=sec_id)
+    lsyn = h.tone2pyr(sec_x, sec=sec_id)
 
     if syn_params.get('AlphaTmax_ampa'):
         lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
@@ -188,8 +188,8 @@ def tone2pyrD(syn_params, sec_x, sec_id):
     if syn_params.get('Erev_nmda'):
         lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])  # * random.uniform(0.5,1.0) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
