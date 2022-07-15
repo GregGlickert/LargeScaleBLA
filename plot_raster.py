@@ -94,8 +94,8 @@ f = h5py.File('outputECP/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
-start1 = 0
-end1 = 36800
+start1 = 5000
+end1 = 15000
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5

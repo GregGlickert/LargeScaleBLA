@@ -484,7 +484,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  pnt_receive[_mechtype] = _net_receive;
  pnt_receive_size[_mechtype] = 1;
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 pyrD2pyrD_STFD /Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/pyrD2pyrD_STFD_new.mod\n");
+ 	ivoc_help("help ?1 pyrD2pyrD_STFD /Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/pyrD2pyrD_STFD_new.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -1267,7 +1267,7 @@ _first = 0;
 }
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/pyrD2pyrD_STFD_new.mod";
+static const char* nmodl_filename = "/Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/pyrD2pyrD_STFD_new.mod";
 static const char* nmodl_file_text = 
   ":Pyramidal Cells to Pyramidal Cells AMPA+NMDA with local Ca2+ pool\n"
   "\n"

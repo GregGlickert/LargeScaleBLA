@@ -272,7 +272,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, 0, 0, 0);
  	hoc_reg_ba(_mechtype, _ba1, 11);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 Gfluct2_inh /Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/Gfluct_new_inh.mod\n");
+ 	ivoc_help("help ?1 Gfluct2_inh /Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/Gfluct_new_inh.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -540,7 +540,7 @@ _first = 0;
 #endif
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/Gfluct_new_inh.mod";
+static const char* nmodl_filename = "/Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/Gfluct_new_inh.mod";
 static const char* nmodl_file_text = 
   "TITLE Fluctuating conductances\n"
   "\n"

@@ -202,7 +202,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
 #endif
   hoc_register_prop_size(_mechtype, 5, 0);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 leakDA /Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/leakDA.mod\n");
+ 	ivoc_help("help ?1 leakDA /Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/leakDA.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -401,7 +401,7 @@ _first = 0;
 #endif
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/leakDA.mod";
+static const char* nmodl_filename = "/Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/leakDA.mod";
 static const char* nmodl_file_text = 
   ": passive leak current\n"
   "\n"

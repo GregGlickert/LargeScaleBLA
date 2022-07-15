@@ -1,5 +1,5 @@
 {   
     "level_of_detail": "pyrD2interD_P2SOM_STFD",
-    "initW_lognormal_mean": "0.025",
-    "initW_lognormal_std": "0.001"
+    "initW_lognormal_mean": "0.015",
+    "initW_lognormal_std": "0.02"
 }

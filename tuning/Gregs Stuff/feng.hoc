@@ -1,7 +1,10 @@
-//Cells by Feng
+{load_file("stdrun.hoc")}
+{load_file("nrngui.hoc")}
 
-begintemplate Cell_Af
 
+//Cell made mostly by Feng and then Greg Glickert made some small changes
+
+begintemplate PN_A
 	public soma, dend, apic, connect2target, type,drv, insert_mechs,cclA
 	create soma[1], dend[1], apic[1]
 
@@ -57,11 +60,11 @@ begintemplate Cell_Af
 		////////////////////////////////////////
 
 		gna = 0.015
-		gnap = 0.000559 // 0.000551
+		gnap = 0.00065
 		gkdr = 0.002 //0.002
 		ghd = 1.5e-5 //1.5e-5
 		gca = 5.5e-4
-		gm = 0.00224 // 0.00222
+		gm = 0.0013 // 0.00222
 		gsAHP = 0.05//0.0019
 		gkap = 0.002
 		gleak = 2.5e-5
@@ -237,7 +240,7 @@ begintemplate Cell_Af
 		if (numarg() == 2) ($o2 = nc)
 		return nc
 	}
-endtemplate Cell_Af
+endtemplate PN_A
 
 ///////////////////////////////////////////////////////////
 
@@ -246,7 +249,7 @@ endtemplate Cell_Af
 ///// Type C cell in BL  /////
 /////===================/////
 
-begintemplate Cell_Cf
+begintemplate PN_C
 	public soma, dend, apic, connect2target, type,drv, insert_mechs,cclA
 	create soma[1], dend[1], apic[1]
 
@@ -303,11 +306,11 @@ begintemplate Cell_Cf
 		////////////////////////////////////////
 
 		gna = 0.015
-		gnap = 0.000555 // 0.000551
+		gnap = 0.00065 // 0.000551
 		gkdr = 0.002//0.002
 		ghd = 1.5e-5//1.5e-5
 		gca = 5.5e-4
-		gm = 0.00224 // 0.00222
+		gm = 0.0013 // 0.00222
 		gsAHP = 0.0002//0.0012
 		gkap = 0.002
 		gleak = 2.5e-5
@@ -476,7 +479,7 @@ begintemplate Cell_Cf
 		if (numarg() == 2) ($o2 = nc)
 		return nc
 	}
-endtemplate Cell_Cf
+endtemplate PN_C
 
 
 begintemplate InterneuronCellf
@@ -617,7 +620,7 @@ begintemplate InterneuronCellf
 
 			soma noise_exc = new Gfluct2_exc(0.5)
 
-			noise_exc.g_e0 = 0.0028 //0.00121
+			noise_exc.g_e0 = 0.00121
 			noise_exc.g_i0 = 0
 			noise_exc.std_e = 0.00012
 			noise_exc.std_i = 0
@@ -653,5 +656,4 @@ begintemplate InterneuronCellf
 			return nc
 		}
 endtemplate InterneuronCellf
-
 

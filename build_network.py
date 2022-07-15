@@ -582,7 +582,7 @@ edge_definitions = [
         'param': 'PV2SOM',
         'add_properties': 'syn_dist_delay_feng_section_default'
     },
-    {  # SOM to PV Bidirectional
+    {  # SOM to PV Unidirectional
         'network': 'BLA',
         'edge': {
             'source': {'pop_name': ['SOM']},
@@ -591,6 +591,15 @@ edge_definitions = [
         'param': 'SOM2PV',
         'add_properties': 'SOM_rule'
     },
+    #{  # SOM to PV Bidirectional
+    #    'network': 'BLA',
+    #    'edge': {
+    #        'source': {'pop_name': ['SOM']},
+    #        'target': {'pop_name': ['PV']}
+    #    },
+    #    'param': 'SOM2PV_bi',
+    #    'add_properties': 'SOM_rule'
+    #},
     # {   # PYR to CR Unidirectional
     #    'network':'BLA',
     #    'edge': {
@@ -726,7 +735,7 @@ edge_params = {
     'PV2PV': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.22, 'no_recip': True, 'track_list': int2int_temp_list, 'max_dist': max_conn_dist}, #0.17
+        'connection_params': {'p': 0.27, 'no_recip': True, 'track_list': int2int_temp_list, 'max_dist': max_conn_dist}, #0.22
         'syn_weight': 1,
         'dynamics_params': 'PV2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -753,7 +762,7 @@ edge_params = {
     'PV2PYR': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.41, 'max_dist': max_conn_dist},  # {'p':0.40},
+        'connection_params': {'p': 0.48, 'max_dist': max_conn_dist},  # {'p':0.41},
         'syn_weight': 1,
         'dynamics_params': 'PV2PN.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -762,7 +771,7 @@ edge_params = {
     'PYR2PV': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.31, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100}, #0.22
+        'connection_params': {'p': 0.32, 'angle_dist': False, 'max_dist': max_conn_dist, 'angle_dist_radius': 100}, #0.22
         'syn_weight': 1,
         'dynamics_params': 'PN2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -771,7 +780,7 @@ edge_params = {
     'PV2PYR_bi': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.1, 'track_list': pyr_int_bi_list, 'max_dist': max_conn_dist}, #0.09
+        'connection_params': {'p': 0.09, 'track_list': pyr_int_bi_list, 'max_dist': max_conn_dist}, #0.09
         'syn_weight': 1,
         'dynamics_params': 'PV2PN.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -807,7 +816,7 @@ edge_params = {
     'SOM2PYR': {
         'iterator': 'one_to_all',
         'connection_rule': syn_percent_o2a,
-        'connection_params': {'p': 0.066, 'max_dist': max_conn_dist},
+        'connection_params': {'p': 0.35, 'max_dist': max_conn_dist}, #0.066
         'syn_weight': 1,
         'dynamics_params': 'SOM2PN.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -816,7 +825,7 @@ edge_params = {
     'PV2SOM': {
         'iterator':'one_to_all', #0.55
         'connection_rule':syn_percent_o2a,
-        'connection_params':{'p':0.55, 'track_list': PV2SOM_bi_list, 'max_dist':max_conn_dist},
+        'connection_params':{'p':0.4, 'track_list': PV2SOM_bi_list, 'max_dist':max_conn_dist},
         'syn_weight':1,
         'dynamics_params':'PV2SOM.json',
         'distance_range':[min_conn_dist,max_conn_dist],
@@ -824,8 +833,17 @@ edge_params = {
     },
     'SOM2PV': {
         'iterator': 'one_to_all',
+        'connection_rule': syn_percent_o2a,
+        'connection_params': {'p': 0.65, 'max_dist':max_conn_dist},
+        'syn_weight': 1,
+        'dynamics_params': 'SOM2PV.json',
+        'distance_range': [min_conn_dist, max_conn_dist],
+        'target_sections': ['apical']
+    },
+    'SOM2PV_bi': {
+        'iterator': 'one_to_all',
         'connection_rule': recurrent_connector_o2a,
-        'connection_params': {'p': 1, 'all_edges': PV2SOM_bi_list},
+        'connection_params': {'p': 0.0001, 'all_edges': PV2SOM_bi_list},
         'syn_weight': 1,
         'dynamics_params': 'SOM2PV.json',
         'distance_range': [min_conn_dist, max_conn_dist],
@@ -1134,6 +1152,7 @@ build_input(t_sim,
             scale=4)
 
 # Usually not necessary if you've already built your simulation config
+"""
 build_env_bionet(base_dir='./',
 	network_dir=network_dir,
 	tstop=t_sim, dt = dt,
@@ -1149,3 +1168,4 @@ build_env_bionet(base_dir='./',
 	components_dir=components_dir,
     config_file='simulation_config.json',
 	compile_mechanisms=False)
+"""

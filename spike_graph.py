@@ -3,13 +3,10 @@ import h5py
 import numpy as np
 import pandas as pd
 
-f = h5py.File('outputECP1/spikes.h5')
+f = h5py.File('baselineOutput/spikes.h5')
 spikes_df1 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('outputECP2/spikes.h5')
-spikes_df2 = pd.DataFrame(
-    {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('outputECP3/spikes.h5')
+f = h5py.File('outputECP/spikes.h5')
 spikes_df3 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
@@ -22,14 +19,16 @@ node_set_split = [
     {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-fig, axs = plt.subplots(1,3, figsize=(12, 6),tight_layout=True,sharey=True)
+fig, axs = plt.subplots(1,2, figsize=(12, 6),tight_layout=True,sharey=True)
 
-def plot(node_set,skip_ms,spikes_df,ax,title=0 ):
+def plot(node_set,skip_ms,spikes_df,ax,title=0):
+    spikes = []
     for node in node_set:
         cells = range(node['start'], node['end'] + 1)  # +1 to be inclusive of last cell
         cell_spikes = spikes_df[spikes_df['node_ids'].isin(cells)]
         cell_spikes = cell_spikes[cell_spikes['timestamps'] > skip_ms]
         spike_counts = cell_spikes.node_ids.value_counts()
+        spikes.append(spike_counts)
         spike_counts_mean = spike_counts.mean()
         spike_std = spike_counts.std()
         ax.bar(node['name'], spike_counts_mean, yerr=spike_std, align='center',ecolor='black',capsize=10,
@@ -39,9 +38,19 @@ def plot(node_set,skip_ms,spikes_df,ax,title=0 ):
             ax.set_ylabel("mean number of spikes in 5 seconds")
         ax.set_title(title)
         ax.legend(loc=2, prop={'size': 8})
+    return spikes
 
-plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df1,ax=axs[0],title="baseline NMDA conductance")
-plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df2,ax=axs[1],title='half NMDA conductance')
-plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df3,ax=axs[2],title='zero NMDA conductance')
+
+spike_w_NMDA=plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df1,ax=axs[0],title="baseline NMDA conductance")
+spike_wo_NMDA=plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df3,ax=axs[1],title='zero NMDA conductance')
 plt.ylim(0,70)
+
+PN_spikes = (spike_w_NMDA[0].mean()+spike_w_NMDA[1].mean()) - (spike_wo_NMDA[0].mean()+spike_wo_NMDA[1].mean())
+PV_spikes = (spike_w_NMDA[2].mean() - spike_wo_NMDA[2].mean())
+SOM_spikes = (spike_w_NMDA[3].mean() - spike_wo_NMDA[3].mean())
+
+print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(PN_spikes))
+print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(PV_spikes))
+print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(SOM_spikes))
+
 plt.show()

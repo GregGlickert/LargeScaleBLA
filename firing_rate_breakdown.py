@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import h5py
 import numpy as np
 import pandas as pd
+import statistics
 import warnings
 
 
 
 def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20, graph = None,most_exc=10 ):
-    print("Type : mean (std)")
     for node in node_set:
         if node['name'] != graph:
             pass
@@ -29,8 +29,9 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20,
 
             spikes_mean = spike_counts_per_second.mean()
             spikes_std = spike_counts_per_second.std()
+            spike_median = statistics.median(spike_counts_per_second)
 
-            label = "{} : {:.2f} ({:.2f})".format(node['name'],spikes_mean,spikes_std)
+            label = "{} : mean {:.2f} std ({:.2f}) median {}".format(node['name'],spikes_mean,spikes_std,spike_median)
             print(label)
             c = "tab:" + node['color']
             if ax:
@@ -126,14 +127,14 @@ node_set_split = [
     {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-f = h5py.File('outputECP1/spikes.h5')
+f = h5py.File('outputECP/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(5,1, figsize=(12, 6),tight_layout=True)
 dt = 0.1
 steps_per_ms = 1 / dt
-skip_seconds = 10
+skip_seconds = 5
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 15000
