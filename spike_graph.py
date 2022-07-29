@@ -3,7 +3,7 @@ import h5py
 import numpy as np
 import pandas as pd
 
-f = h5py.File('baselineOutput/spikes.h5')
+f = h5py.File('baseline/spikes.h5')
 spikes_df1 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 f = h5py.File('outputECP/spikes.h5')
@@ -12,11 +12,13 @@ spikes_df3 = pd.DataFrame(
 
 scale = 4
 node_set_split = [
-    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "blue"},
-    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "olive"},
-    {"name": "PV", "start": 800 * scale, "end": 892 * scale+ 3, "color": "purple"},
-    {"name": "SOM", "start": 893 * scale, "end": 999 * scale + 4, "color": "green"},
-    {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "Pyr_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "#ff1100"},
+    {"name": "Pyr_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "#d63904"},
+    {"name": "Pyr", "start": 0 * scale, "end": 799 * scale + 3, "color": "#bf1408"},
+    {"name": "FSI", "start": 800 * scale, "end": 892 * scale+ 3, "color": "#05acfa"},
+    {"name": "LTS", "start": 893 * scale, "end": 999 * scale + 4, "color": "#138bc2"},
+    #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "IN", "start": 800 * scale, "end": 999 * scale + 4, "color": "#057ffa"}
 ]
 
 fig, axs = plt.subplots(1,2, figsize=(12, 6),tight_layout=True,sharey=True)
@@ -28,10 +30,12 @@ def plot(node_set,skip_ms,spikes_df,ax,title=0):
         cell_spikes = spikes_df[spikes_df['node_ids'].isin(cells)]
         cell_spikes = cell_spikes[cell_spikes['timestamps'] > skip_ms]
         spike_counts = cell_spikes.node_ids.value_counts()
+        total_seconds = (skip_ms) / 1000
+        spike_counts = spike_counts / total_seconds
         spikes.append(spike_counts)
         spike_counts_mean = spike_counts.mean()
         spike_std = spike_counts.std()
-        ax.bar(node['name'], spike_counts_mean, yerr=spike_std, align='center',ecolor='black',capsize=10,
+        ax.bar(node['name'], spike_counts_mean, yerr=spike_std, align='center',color=node['color'],capsize=10,
                label='{} : {:.2f} ({:.2f})'.format(node['name'], spike_counts_mean, spike_std))
         label = "{} : {:.2f} ({:.2f})".format(node['name'], spike_counts_mean, spike_std)
         if ax == axs[0]:
@@ -41,16 +45,16 @@ def plot(node_set,skip_ms,spikes_df,ax,title=0):
     return spikes
 
 
-spike_w_NMDA=plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df1,ax=axs[0],title="baseline NMDA conductance")
-spike_wo_NMDA=plot(node_set=node_set_split,skip_ms=10000,spikes_df=spikes_df3,ax=axs[1],title='zero NMDA conductance')
-plt.ylim(0,70)
+spike_w_NMDA=plot(node_set=node_set_split,skip_ms=5000,spikes_df=spikes_df1,ax=axs[0],title="baseline NMDA conductance")
+spike_wo_NMDA=plot(node_set=node_set_split,skip_ms=5000,spikes_df=spikes_df3,ax=axs[1],title='zero NMDA conductance')
+plt.ylim(0,15)
 
 PN_spikes = (spike_w_NMDA[0].mean()+spike_w_NMDA[1].mean()) - (spike_wo_NMDA[0].mean()+spike_wo_NMDA[1].mean())
 PV_spikes = (spike_w_NMDA[2].mean() - spike_wo_NMDA[2].mean())
 SOM_spikes = (spike_w_NMDA[3].mean() - spike_wo_NMDA[3].mean())
 
 print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(PN_spikes))
-print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(PV_spikes))
-print("The PN mean spikes changed by {:1f} when comparing baseline and CPP".format(SOM_spikes))
+print("The FSI mean spikes changed by {:1f} when comparing baseline and CPP".format(PV_spikes))
+print("The LTS mean spikes changed by {:1f} when comparing baseline and CPP".format(SOM_spikes))
 
 plt.show()

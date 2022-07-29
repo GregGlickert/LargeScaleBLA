@@ -1,7 +1,8 @@
 {
     "level_of_detail": "tone2interD",
-    "initW": "60",
-    "threshold1": "1.5",
-    "threshold2": "1.7"
+    "initW_lognormal_mean": "0.000002",
+    "initW_lognormal_std": "0.0000001",
+    "threshold1": "0.5",
+    "threshold2": "0.7"
 
 }

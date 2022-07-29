@@ -4,11 +4,11 @@
 #SBATCH -n 60
 #SBATCH --qos=normal
 #SBATCH --job-name=amygdala_ts
-#SBATCH --output=amygdala_batch.out
+#SBATCH --output=run.out
 #SBATCH --time 0-12:00
 
 START=$(date)
-mpiexec nrniv -mpi -quiet -python run_network.py simulation_config_base_ECP.json
+mpiexec nrniv -mpi -quiet -python run_network.py simulation_config_ts_toneonly.json
 END=$(date)
 
 echo "Done running model at $(date)"

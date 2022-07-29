@@ -24,7 +24,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/inputs/shock_spikes.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/inputs/tone_spikes.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/network/BLA_BLA_edge_types.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

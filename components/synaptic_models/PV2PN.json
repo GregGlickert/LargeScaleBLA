@@ -1,7 +1,7 @@
 {
     "level_of_detail": "interD2pyrD_STFD",
-    "initW_lognormal_mean": "8",
-    "initW_lognormal_std": "4",
+    "initW_lognormal_mean": "18",
+    "initW_lognormal_std": "8",
     "threshold1": "1",
     "threshold2": "1.2"
 }

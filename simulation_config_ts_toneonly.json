@@ -7,7 +7,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 15000.0,
+    "tstop": 5500.0,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -21,7 +21,7 @@
     "tone_spikes": {
       "input_type": "spikes",
       "module": "csv",
-      "input_file": "$BASE_DIR/tone_spikes.csv",
+      "input_file": "$BASE_DIR/inputs/tone_spikes.csv",
       "node_set": "tone"
     },
     "thalamus_pyr_A_spikes": {
@@ -63,13 +63,21 @@
       "file_name": "ecp.h5",
       "electrode_channels": "all"
       },
-    "syn_report3": {
-      "cells": {"node_ids":  [257]},
+    "syn_report": {
+      "cells": {"node_ids":  [257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275]},
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
       "syn_type": "tone2pyr",
       "file_name": "tone2pyr.h5"
+    },
+    "syn_report2": {
+      "cells": {"node_ids":  [257,258,259,260,261,262,263,264,265,266,267,268,269,270,272,272,273,274,275]},
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pyr",
+      "file_name": "tone2pyr_cai.h5"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

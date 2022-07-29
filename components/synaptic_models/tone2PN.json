@@ -1,7 +1,7 @@
 {
     "level_of_detail": "tone2pyrD",
-    "initW_lognormal_mean": "15",
-    "initW_lognormal_std": "3",
-    "threshold1": "0.36",
-    "threshold2": "0.18"
+    "initW_lognormal_mean": "18",
+    "initW_lognormal_std": "5",
+    "threshold1": "0.2",
+    "threshold2": "0.34"
 }

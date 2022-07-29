@@ -22,14 +22,14 @@ def toneANDshock(tstart):
     
 def main():
     
-    time = 200 #in milliseconds
+    time = 500 #in milliseconds
     #Background Phase --- Just Poisson
     
     #Sensitizaiton Phase
-    for i in range(0,10):
+    for i in range(0,15):
         tone(time)
         shock(time + 1750) #shock occurs in pause between tones
-        time = time + 4000 #3500 ms between each tone (4000 including 500 ms tone duration)
+        time = time + 1500 #3500 ms between each tone (4000 including 500 ms tone duration)
     
     print(time)
     
