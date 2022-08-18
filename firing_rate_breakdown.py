@@ -136,7 +136,7 @@ spikes_df = pd.DataFrame(
 fig, axs = plt.subplots(6,1, figsize=(12, 6),tight_layout=True)
 dt = 0.1
 steps_per_ms = 1 / dt
-skip_seconds = 5
+skip_seconds = 0
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000

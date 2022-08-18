@@ -5,6 +5,7 @@ import os
 from bmtk.simulator.bionet.pyfunction_cache import add_synapse_model
 from neuron import h
 import numpy as np
+import random
 
 def lognorm(mean,std):
     mean = float(mean)
@@ -25,8 +26,14 @@ def Bg2Pyr(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gNMDAmax = float(0.5*10**-9)
+        else:
+            pass
+
     return lsyn
 
 def bginh(syn_params, sec_x, sec_id):
@@ -56,7 +63,6 @@ def interD2interD_STFD(syn_params, sec_x, sec_id):
 
     return lsyn
 
-
 def interD2pyrD_STFD(syn_params, sec_x, sec_id):
 
     lsyn = h.interD2pyrD_STFD(sec_x, sec=sec_id)
@@ -78,12 +84,18 @@ def pyrD2interD_STFD(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('threshold1'):
         lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
+
 
     return lsyn
 
@@ -99,6 +111,11 @@ def pyrD2pyrD_STFD(syn_params, sec_x, sec_id):
         lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
         
     return lsyn
 
@@ -110,6 +127,11 @@ def pyrD2interD_P2SOM_STFD(syn_params, sec_x, sec_id):
         lsyn.initW = float(syn_params['initW'])
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     return lsyn
 
@@ -190,6 +212,11 @@ def tone2pyrD(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
@@ -263,6 +290,11 @@ def tone2interD(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW

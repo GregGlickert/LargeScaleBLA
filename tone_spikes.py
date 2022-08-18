@@ -6,9 +6,17 @@ import warnings
 
 warnings.simplefilter(action='ignore', category=UserWarning)
 
-f = h5py.File('outputECP/spikes.h5')
-spikes_df = pd.DataFrame(
+f = h5py.File('0%tone/spikes.h5')
+spikes_df1 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
+f = h5py.File('50%tone/spikes.h5')
+spikes_df2 = pd.DataFrame(
+    {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
+f = h5py.File('75%tone/spikes.h5')
+spikes_df3 = pd.DataFrame(
+    {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
+
+
 
 scale = 4
 node_set_split = [
@@ -22,8 +30,8 @@ node_set_split = [
 ]
 
 
-fig, axs = plt.subplots(1,1, figsize=(12, 6),tight_layout=True,sharey=True)
-
+fig, axs = plt.subplots(1,3, figsize=(12, 6),tight_layout=True,sharey=True)
+fig.suptitle("7 500ms Tone pips", fontsize=15)
 def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
     for node in node_set:
         cells = range(node['start'], node['end'] + 1)  # +1 to be inclusive of last cell
@@ -33,7 +41,7 @@ def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
             start = 500
             end = 1000
             time = 0
-            for i in range(4):
+            for i in range(7):
                 time = time + 500
                 print(start, end)
                 cell_spikes_temp = cell_spikes[cell_spikes['timestamps'] > start]
@@ -59,14 +67,17 @@ def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
             spike_std = spike_counts.std()
         ax.bar(node['name'], spike_counts_mean, yerr=spike_std, align='center',color=node['color'],capsize=10,
                label='{} : {:.2f} ({:.2f})'.format(node['name'], spike_counts_mean, spike_std))
-        #if ax == axs[0]:
-        ax.set_ylabel("mean Hz during tone")
+        if ax == axs[0]:
+            ax.set_ylabel("mean Hz during tone")
         ax.set_title(title)
-        ax.set_ylim(0,25)
+        ax.set_ylim(0,30)
         ax.legend(loc=2, prop={'size': 8})
 
 #plot(node_set=node_set_split,start=500, end=1000, spikes_df=spikes_df, ax=axs[0], title="first tone")
 #plot(node_set=node_set_split,start=9500, end=10000, spikes_df=spikes_df, ax=axs[1], title="last tone")
-plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df, ax=axs, title="All tone trials")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df1, ax=axs[0], title="baseline NMDA conductance")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df2, ax=axs[1], title="50% NMDA blocked")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df3, ax=axs[2], title="75% NMDA blocked")
+#plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df5, ax=axs[1], title="50% blocked")
 
 plt.show()

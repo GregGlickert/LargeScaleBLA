@@ -53,7 +53,7 @@ skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 15000
 
-spikes_location = 'outputECP/spikes.h5'
+spikes_location = 'baseline/spikes.h5'
 
 print("loading " + spikes_location)
 f = h5py.File(spikes_location)
@@ -61,7 +61,7 @@ spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 print("done")
 
-ecp_h5_location = 'outputECP/ecp.h5'
+ecp_h5_location = 'baseline/ecp.h5'
 print("loading " + ecp_h5_location)
 ecp_channel = 0
 f = h5py.File(ecp_h5_location)

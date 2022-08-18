@@ -22,6 +22,7 @@ plt.show()
 path_tone2PN = "outputECP/tone2pyr_cai.h5"
 
 tone = get_array(path_tone2PN)
+tone[:] = [x * 1000 for x in tone]
 plt.plot(tone)
 plt.show()
 
