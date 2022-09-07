@@ -8,7 +8,7 @@
 #SBATCH --time 0-12:00
 
 START=$(date)
-mpiexec nrniv -mpi -quiet -python run_network.py simulation_config_ts_toneonly.json
+mpiexec nrniv -mpi -quiet -python run_network.py simulation_config_base_ECP.json
 END=$(date)
 
 echo "Done running model at $(date)"

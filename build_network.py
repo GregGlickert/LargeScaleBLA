@@ -710,6 +710,15 @@ edge_definitions = [
         'param': 'TONE2PV',
         'add_properties': 'syn_uniform_delay_section_default'
     },
+    {  # Tone to VIP
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['VIP'])
+        },
+        'param': 'TONE2VIP',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
     {  # shock to PV and SOM
         'network': 'BLA',
         'edge': {
@@ -964,7 +973,15 @@ edge_params = {
         'syn_weight': 1,
         'target_sections': ['basal'],
         'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'tone2INT.json'
+        'dynamics_params': 'tone2PV.json'
+    },
+    'TONE2VIP': {
+        'connection_rule': rand_percent_connector,
+        'connection_params': {'prob': 0.7},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'tone2VIP.json'
     },
     'SHOCK2INT': {
         'connection_rule': rand_shock_connector,

@@ -1,0 +1,32 @@
+2022-08-16 09:49:12,008 [INFO] Created log file
+2022-08-16 09:49:12,009 [INFO] Running NEURON with mpi (60 cores).
+2022-08-16 09:49:14,692 [INFO] Building cells.
+2022-08-16 09:49:15,116 [INFO] Building recurrent connections
+2022-08-16 09:50:58,995 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-08-16 09:51:10,037 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-08-16 09:51:13,531 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-08-16 09:51:15,545 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-08-16 09:51:24,923 [INFO] Running simulation for 10000.000 ms with the time step 0.100 ms
+2022-08-16 09:51:24,923 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-08-16 09:51:24,923 [INFO] Block save every 5000 steps
+2022-08-16 09:53:13,925 [INFO]     step:5000 t_sim:500.00 ms
+2022-08-16 09:55:02,825 [INFO]     step:10000 t_sim:1000.00 ms
+2022-08-16 09:56:52,011 [INFO]     step:15000 t_sim:1500.00 ms
+2022-08-16 09:58:41,667 [INFO]     step:20000 t_sim:2000.00 ms
+2022-08-16 10:00:32,175 [INFO]     step:25000 t_sim:2500.00 ms
+2022-08-16 10:02:23,445 [INFO]     step:30000 t_sim:3000.00 ms
+2022-08-16 10:04:15,123 [INFO]     step:35000 t_sim:3500.00 ms
+2022-08-16 10:06:06,397 [INFO]     step:40000 t_sim:4000.00 ms
+2022-08-16 10:07:57,700 [INFO]     step:45000 t_sim:4500.00 ms
+2022-08-16 10:09:49,101 [INFO]     step:50000 t_sim:5000.00 ms
+2022-08-16 10:11:46,702 [INFO]     step:55000 t_sim:5500.00 ms
+2022-08-16 10:13:44,892 [INFO]     step:60000 t_sim:6000.00 ms
+2022-08-16 10:15:41,835 [INFO]     step:65000 t_sim:6500.00 ms
+2022-08-16 10:17:41,110 [INFO]     step:70000 t_sim:7000.00 ms
+2022-08-16 10:19:38,914 [INFO]     step:75000 t_sim:7500.00 ms
+2022-08-16 10:21:38,178 [INFO]     step:80000 t_sim:8000.00 ms
+2022-08-16 10:23:38,522 [INFO]     step:85000 t_sim:8500.00 ms
+2022-08-16 10:25:40,840 [INFO]     step:90000 t_sim:9000.00 ms
+2022-08-16 10:27:42,102 [INFO]     step:95000 t_sim:9500.00 ms
+2022-08-16 10:29:43,211 [INFO]     step:100000 t_sim:10000.00 ms
+2022-08-16 10:29:44,226 [INFO] Simulation completed in 38.0 minutes, 19.3 seconds 
