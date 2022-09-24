@@ -3,13 +3,6 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="/bi conns.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/components/recXelectrodes/linear_electrode.csv">
           <value>
             <Attribute>
@@ -17,7 +10,21 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/connection table.csv">
+        <entry key="/inputs/shock_spikes.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/inputs/tone_spikes.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/network/BLA_BLA_edge_types.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

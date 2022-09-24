@@ -1,0 +1,425 @@
+
+./Gfluct_new_exc.c: ../modfiles//Gfluct_new_exc.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) Gfluct_new_exc.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./Gfluct_new_exc.o: ./Gfluct_new_exc.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./Gfluct_new_inh.c: ../modfiles//Gfluct_new_inh.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) Gfluct_new_inh.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./Gfluct_new_inh.o: ./Gfluct_new_inh.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./bg2pyr.c: ../modfiles//bg2pyr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) bg2pyr.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./bg2pyr.o: ./bg2pyr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./bginh.c: ../modfiles//bginh.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) bginh.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./bginh.o: ./bginh.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./ca.c: ../modfiles//ca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) ca.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./ca.o: ./ca.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./cadyn.c: ../modfiles//cadyn.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) cadyn.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./cadyn.o: ./cadyn.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./cal2.c: ../modfiles//cal2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) cal2.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./cal2.o: ./cal2.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./cal2CA3.c: ../modfiles//cal2CA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) cal2CA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./cal2CA3.o: ./cal2CA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./capool.c: ../modfiles//capool.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) capool.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./capool.o: ./capool.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./capoolCA3.c: ../modfiles//capoolCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) capoolCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./capoolCA3.o: ./capoolCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./cas.c: ../modfiles//cas.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) cas.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./cas.o: ./cas.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./cat.c: ../modfiles//cat.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) cat.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./cat.o: ./cat.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./currentclamp.c: ../modfiles//currentclamp.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) currentclamp.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./currentclamp.o: ./currentclamp.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./function_TMonitor.c: ../modfiles//function_TMonitor.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) function_TMonitor.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./function_TMonitor.o: ./function_TMonitor.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./gap.c: ../modfiles//gap.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) gap.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./gap.o: ./gap.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./h.c: ../modfiles//h.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) h.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./h.o: ./h.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./hCA3.c: ../modfiles//hCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) hCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./hCA3.o: ./hCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./halfgap.c: ../modfiles//halfgap.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) halfgap.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./halfgap.o: ./halfgap.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./im.c: ../modfiles//im.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) im.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./im.o: ./im.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./imCA3.c: ../modfiles//imCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) imCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./imCA3.o: ./imCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./interD2interD_SOMPV_STFD_new.c: ../modfiles//interD2interD_SOMPV_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) interD2interD_SOMPV_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./interD2interD_SOMPV_STFD_new.o: ./interD2interD_SOMPV_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./interD2interD_STFD_new.c: ../modfiles//interD2interD_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) interD2interD_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./interD2interD_STFD_new.o: ./interD2interD_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./interD2pyrD_CR2P_STFD_new.c: ../modfiles//interD2pyrD_CR2P_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) interD2pyrD_CR2P_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./interD2pyrD_CR2P_STFD_new.o: ./interD2pyrD_CR2P_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./interD2pyrD_SOM2P_STFD_new.c: ../modfiles//interD2pyrD_SOM2P_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) interD2pyrD_SOM2P_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./interD2pyrD_SOM2P_STFD_new.o: ./interD2pyrD_SOM2P_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./interD2pyrD_STFD_new.c: ../modfiles//interD2pyrD_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) interD2pyrD_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./interD2pyrD_STFD_new.o: ./interD2pyrD_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kadist.c: ../modfiles//kadist.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kadist.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kadist.o: ./kadist.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kaprox.c: ../modfiles//kaprox.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kaprox.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kaprox.o: ./kaprox.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kca.c: ../modfiles//kca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kca.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kca.o: ./kca.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrCA3.c: ../modfiles//kdrCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kdrCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kdrCA3.o: ./kdrCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrca1.c: ../modfiles//kdrca1.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kdrca1.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kdrca1.o: ./kdrca1.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrca1DA.c: ../modfiles//kdrca1DA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kdrca1DA.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kdrca1DA.o: ./kdrca1DA.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrinter.c: ../modfiles//kdrinter.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) kdrinter.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./kdrinter.o: ./kdrinter.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./leak.c: ../modfiles//leak.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) leak.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./leak.o: ./leak.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./leakCA3.c: ../modfiles//leakCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) leakCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./leakCA3.o: ./leakCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./leakDA.c: ../modfiles//leakDA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) leakDA.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./leakDA.o: ./leakDA.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./leakinter.c: ../modfiles//leakinter.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) leakinter.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./leakinter.o: ./leakinter.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./na3.c: ../modfiles//na3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) na3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./na3.o: ./na3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./na3DA.c: ../modfiles//na3DA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) na3DA.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./na3DA.o: ./na3DA.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./nainter.c: ../modfiles//nainter.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) nainter.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./nainter.o: ./nainter.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./nap.c: ../modfiles//nap.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) nap.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./nap.o: ./nap.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./napCA3.c: ../modfiles//napCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) napCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./napCA3.o: ./napCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./nat.c: ../modfiles//nat.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) nat.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./nat.o: ./nat.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./natCA3.c: ../modfiles//natCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) natCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./natCA3.o: ./natCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./pyrD2interD_P2CR_STFD.c: ../modfiles//pyrD2interD_P2CR_STFD.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) pyrD2interD_P2CR_STFD.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./pyrD2interD_P2CR_STFD.o: ./pyrD2interD_P2CR_STFD.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./pyrD2interD_P2SOM_STFD.c: ../modfiles//pyrD2interD_P2SOM_STFD.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) pyrD2interD_P2SOM_STFD.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./pyrD2interD_P2SOM_STFD.o: ./pyrD2interD_P2SOM_STFD.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./pyrD2interD_STFD.c: ../modfiles//pyrD2interD_STFD.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) pyrD2interD_STFD.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./pyrD2interD_STFD.o: ./pyrD2interD_STFD.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./pyrD2pyrD_STFD_new.c: ../modfiles//pyrD2pyrD_STFD_new.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) pyrD2pyrD_STFD_new.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./pyrD2pyrD_STFD_new.o: ./pyrD2pyrD_STFD_new.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./sahp.c: ../modfiles//sahp.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) sahp.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./sahp.o: ./sahp.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./sahpCA3.c: ../modfiles//sahpCA3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) sahpCA3.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./sahpCA3.o: ./sahpCA3.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./sahpNE.c: ../modfiles//sahpNE.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) sahpNE.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./sahpNE.o: ./sahpNE.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./vecevent.c: ../modfiles//vecevent.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) vecevent.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./vecevent.o: ./vecevent.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./xtra.c: ../modfiles//xtra.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) xtra.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./xtra.o: ./xtra.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
+./xtra_imemrec.c: ../modfiles//xtra_imemrec.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\n"
+	(cd "../modfiles"; MODLUNIT=$(NRNUNITS) $(NOCMODL) xtra_imemrec.mod -o "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/tuning/Gregs Stuff/x86_64")
+
+./xtra_imemrec.o: ./xtra_imemrec.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\n"
+	$(COMPILE) -I"../modfiles" $(INCLUDES) -fPIC -c $< -o $@
+
