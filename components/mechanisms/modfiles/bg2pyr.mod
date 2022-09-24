@@ -25,7 +25,7 @@ PARAMETER {
 	:NMDA
 	taun1 = 5 (ms)
 	taun2 = 125 (ms)
-	gNMDAmax = 0.5e-3 (uS)
+	gNMDAmax = 0.5e-3 :0.5e-3 (uS)
 	enmda = 0 (mV)
 
 	:AMPA
@@ -100,7 +100,6 @@ DERIVATIVE states {
 	:NMDA
 	An' = -An/taun1
 	Bn' = -Bn/taun2
-	
 
 	:AMPA
 	Aa' = -Aa/taua1

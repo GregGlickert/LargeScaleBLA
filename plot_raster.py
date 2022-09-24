@@ -95,13 +95,13 @@ spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamp
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
 start1 = 0
-end1 = 15000
+end1 = 10000
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
-end_ms = 5000
+end_ms = 10000
 raster(spikes_df, node_set_split, start=start1, end=end1, ax=axs[0])
 spike_frequency_bar_graph(spikes_df,node_set_split,start=start1, end=end1, ax=axs[1], ms=(end1-start1))
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])

@@ -4,7 +4,7 @@
 #SBATCH -n 60
 #SBATCH --qos=normal
 #SBATCH --job-name=amygdala_ts
-#SBATCH --output=amygdala_batch.out
+#SBATCH --output=run.out
 #SBATCH --time 0-12:00
 
 START=$(date)

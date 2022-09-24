@@ -36,7 +36,7 @@ PARAMETER {
 	AlphaTmax_nmda = .2659 (/ms)
 	Beta_nmda = 0.008 (/ms)
 	Erev_nmda = 0 (mV)
-	gbar_nmda = .5e-3 (uS)
+	gbar_nmda = 0.5e-3 :.5e-3 (uS)
 
 	Cdur_ampa = 0.713 (ms)
 	AlphaTmax_ampa = 10.1571 (/ms)

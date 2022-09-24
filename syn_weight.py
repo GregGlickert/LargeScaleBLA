@@ -13,8 +13,9 @@ def get_array(path):
         pass
     return array
 
-path_PN2PN = "outputECP/syns_pyrD2interD_STFD_should_change.h5"
+path = 'outputECP/v_report.h5'
 
-PN2PN = get_array(path_PN2PN)
-plt.plot(PN2PN)
+voltage_array = get_array(path)
+
+plt.plot(voltage_array)
 plt.show()

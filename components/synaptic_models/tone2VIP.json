@@ -1,0 +1,9 @@
+{
+    "level_of_detail": "tone2interD",
+    "initW_lognormal_mean": "0.000002",
+    "initW_lognormal_std": "0.0000001",
+    "threshold1": "0.5",
+    "threshold2": "0.7",
+    "Percent_NMDA_block" : 0
+
+}

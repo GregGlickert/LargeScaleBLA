@@ -1,72 +1,41 @@
-Running model at Fri Jun  3 07:50:26 PDT 2022
-numprocs=240
-NEURON -- VERSION 8.0.0 HEAD (429d11ef) 2021-04-30
-Duke, Yale, and the BlueBrain Project -- Copyright 1984-2021
+numprocs=60
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
 See http://neuron.yale.edu/neuron/credits
 
-2022-06-03 07:50:35,888 [INFO] Created log file
-2022-06-03 07:50:36,971 [INFO] Running NEURON with mpi (240 cores).
+2022-09-23 21:49:24,580 [INFO] Created log file
+2022-09-23 21:49:24,581 [INFO] Running NEURON with mpi (60 cores).
 Additional mechanisms from files
- "modfiles//bg2pyr.mod" "modfiles//bginh.mod" "modfiles//cadyn.mod" "modfiles//cal2CA3.mod" "modfiles//cal2.mod" "modfiles//ca.mod" "modfiles//capoolCA3.mod" "modfiles//capool.mod" "modfiles//cas.mod" "modfiles//cat.mod" "modfiles//currentclamp.mod" "modfiles//function_TMonitor.mod" "modfiles//gap.mod" "modfiles//Gfluct_new_exc.mod" "modfiles//Gfluct_new_inh.mod" "modfiles//halfgap.mod" "modfiles//hCA3.mod" "modfiles//h.mod" "modfiles//imCA3.mod" "modfiles//im.mod" "modfiles//interD2interD_SOMPV_STFD_new.mod" "modfiles//interD2interD_STFD_new.mod" "modfiles//interD2pyrD_CR2P_STFD_new.mod" "modfiles//interD2pyrD_SOM2P_STFD_new.mod" "modfiles//interD2pyrD_STFD_new.mod" "modfiles//kadist.mod" "modfiles//kaprox.mod" "modfiles//kca.mod" "modfiles//kdrca1DA.mod" "modfiles//kdrca1.mod" "modfiles//kdrCA3.mod" "modfiles//kdrinter.mod" "modfiles//leakCA3.mod" "modfiles//leakDA.mod" "modfiles//leakinter.mod" "modfiles//leak.mod" "modfiles//na3DA.mod" "modfiles//na3.mod" "modfiles//nainter.mod" "modfiles//napCA3.mod" "modfiles//nap.mod" "modfiles//natCA3.mod" "modfiles//nat.mod" "modfiles//pyrD2interD_P2CR_STFD.mod" "modfiles//pyrD2interD_P2SOM_STFD.mod" "modfiles//pyrD2interD_STFD.mod" "modfiles//pyrD2pyrD_STFD_new.mod" "modfiles//sahpCA3.mod" "modfiles//sahp.mod" "modfiles//sahpNE.mod" "modfiles//vecevent.mod" "modfiles//xtra_imemrec.mod" "modfiles//xtra.mod"
-2022-06-03 07:50:38,156 [INFO] Building cells.
-2022-06-03 07:50:38,182 [INFO] Building recurrent connections
-2022-06-03 07:50:42,683 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
-2022-06-03 07:50:42,989 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
-2022-06-03 07:50:46,611 [INFO] Running simulation for 15000.000 ms with the time step 0.100 ms
-2022-06-03 07:50:46,612 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
-2022-06-03 07:50:46,612 [INFO] Block save every 5000 steps
-2022-06-03 07:51:20,507 [INFO]     step:5000 t_sim:500.00 ms
-2022-06-03 07:51:54,329 [INFO]     step:10000 t_sim:1000.00 ms
-2022-06-03 07:52:28,295 [INFO]     step:15000 t_sim:1500.00 ms
-2022-06-03 07:53:02,127 [INFO]     step:20000 t_sim:2000.00 ms
-2022-06-03 07:53:35,979 [INFO]     step:25000 t_sim:2500.00 ms
-2022-06-03 07:54:09,955 [INFO]     step:30000 t_sim:3000.00 ms
-2022-06-03 07:54:43,824 [INFO]     step:35000 t_sim:3500.00 ms
-2022-06-03 07:55:17,652 [INFO]     step:40000 t_sim:4000.00 ms
-2022-06-03 07:55:51,401 [INFO]     step:45000 t_sim:4500.00 ms
-2022-06-03 07:56:25,298 [INFO]     step:50000 t_sim:5000.00 ms
-2022-06-03 07:56:59,056 [INFO]     step:55000 t_sim:5500.00 ms
-2022-06-03 07:57:32,858 [INFO]     step:60000 t_sim:6000.00 ms
-2022-06-03 07:58:06,663 [INFO]     step:65000 t_sim:6500.00 ms
-2022-06-03 07:58:40,424 [INFO]     step:70000 t_sim:7000.00 ms
-2022-06-03 07:59:14,191 [INFO]     step:75000 t_sim:7500.00 ms
-2022-06-03 07:59:47,989 [INFO]     step:80000 t_sim:8000.00 ms
-2022-06-03 08:00:22,550 [INFO]     step:85000 t_sim:8500.00 ms
-2022-06-03 08:00:56,816 [INFO]     step:90000 t_sim:9000.00 ms
-2022-06-03 08:01:30,793 [INFO]     step:95000 t_sim:9500.00 ms
-2022-06-03 08:02:04,765 [INFO]     step:100000 t_sim:10000.00 ms
-2022-06-03 08:02:38,801 [INFO]     step:105000 t_sim:10500.00 ms
-2022-06-03 08:03:12,699 [INFO]     step:110000 t_sim:11000.00 ms
-2022-06-03 08:03:46,638 [INFO]     step:115000 t_sim:11500.00 ms
-2022-06-03 08:04:20,662 [INFO]     step:120000 t_sim:12000.00 ms
-2022-06-03 08:04:54,651 [INFO]     step:125000 t_sim:12500.00 ms
-2022-06-03 08:05:28,661 [INFO]     step:130000 t_sim:13000.00 ms
-2022-06-03 08:06:02,686 [INFO]     step:135000 t_sim:13500.00 ms
-2022-06-03 08:06:36,796 [INFO]     step:140000 t_sim:14000.00 ms
-2022-06-03 08:07:10,800 [INFO]     step:145000 t_sim:14500.00 ms
-2022-06-03 08:07:44,834 [INFO]     step:150000 t_sim:15000.00 ms
-2022-06-03 08:08:00,620 [INFO] Simulation completed in 17.0 minutes, 14.01 seconds 
---------------------------------------------------------------------------
-mpirun has exited due to process rank 117 with PID 0 on
-node exp-13-35 exiting improperly. There are three reasons this could occur:
-
-1. this process did not call "init" before exiting, but others in
-the job did. This can cause a job to hang indefinitely while it waits
-for all processes to call "init". By rule, if one process calls "init",
-then ALL processes must call "init" prior to termination.
-
-2. this process called "init", but exited without calling "finalize".
-By rule, all processes that call "init" MUST call "finalize" prior to
-exiting or it will be considered an "abnormal termination"
-
-3. this process called "MPI_Abort" or "orte_abort" and the mca parameter
-orte_create_session_dirs is set to false. In this case, the run-time cannot
-detect that the abort call was an abnormal termination. Hence, the only
-error message you will receive is this one.
-
-This may have caused other processes in the application to be
-terminated by signals sent by mpirun (as reported here).
-
-You can avoid this message by specifying -quiet on the mpirun command line.
---------------------------------------------------------------------------
-Done running model at Fri Jun  3 08:08:04 PDT 2022
+ modfiles//bg2pyr.mod modfiles//bginh.mod modfiles//cadyn.mod modfiles//cal2CA3.mod modfiles//cal2.mod modfiles//ca.mod modfiles//capoolCA3.mod modfiles//capool.mod modfiles//cas.mod modfiles//cat.mod modfiles//currentclamp.mod modfiles//function_TMonitor.mod modfiles//gap.mod modfiles//Gfluct_new_exc.mod modfiles//Gfluct_new_inh.mod modfiles//halfgap.mod modfiles//hCA3.mod modfiles//h.mod modfiles//imCA3.mod modfiles//im.mod modfiles//interD2interD_SOMPV_STFD_new.mod modfiles//interD2interD_STFD_new.mod modfiles//interD2pyrD_CR2P_STFD_new.mod modfiles//interD2pyrD_SOM2P_STFD_new.mod modfiles//interD2pyrD_STFD_new.mod modfiles//kadist.mod modfiles//kaprox.mod modfiles//kca.mod modfiles//kdrca1DA.mod modfiles//kdrca1.mod modfiles//kdrCA3.mod modfiles//kdrinter.mod modfiles//leakCA3.mod modfiles//leakDA.mod modfiles//leakinter.mod modfiles//leak.mod modfiles//na3DA.mod modfiles//na3.mod modfiles//nainter.mod modfiles//napCA3.mod modfiles//nap.mod modfiles//natCA3.mod modfiles//nat.mod modfiles//pyrD2interD_P2CR_STFD.mod modfiles//pyrD2interD_P2SOM_STFD.mod modfiles//pyrD2interD_STFD.mod modfiles//pyrD2pyrD_STFD_new.mod modfiles//sahpCA3.mod modfiles//sahp.mod modfiles//sahpNE.mod modfiles//tone2interD.mod modfiles//tone2pyr.mod modfiles//vecevent.mod modfiles//xtra_imemrec.mod modfiles//xtra.mod
+2022-09-23 21:49:27,455 [INFO] Building cells.
+2022-09-23 21:49:29,094 [INFO] Building recurrent connections
+2022-09-23 21:51:20,960 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-09-23 21:51:37,232 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-09-23 21:51:41,358 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-09-23 21:51:43,283 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-09-23 21:51:45,535 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-09-23 21:52:05,679 [INFO] Running simulation for 10000.000 ms with the time step 0.100 ms
+2022-09-23 21:52:05,679 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-09-23 21:52:05,679 [INFO] Block save every 5000 steps
+2022-09-23 21:53:55,684 [INFO]     step:5000 t_sim:500.00 ms
+2022-09-23 21:55:44,791 [INFO]     step:10000 t_sim:1000.00 ms
+2022-09-23 21:57:33,401 [INFO]     step:15000 t_sim:1500.00 ms
+2022-09-23 21:59:21,435 [INFO]     step:20000 t_sim:2000.00 ms
+2022-09-23 22:01:10,553 [INFO]     step:25000 t_sim:2500.00 ms
+2022-09-23 22:03:01,135 [INFO]     step:30000 t_sim:3000.00 ms
+2022-09-23 22:04:50,075 [INFO]     step:35000 t_sim:3500.00 ms
+2022-09-23 22:06:38,502 [INFO]     step:40000 t_sim:4000.00 ms
+2022-09-23 22:08:27,392 [INFO]     step:45000 t_sim:4500.00 ms
+2022-09-23 22:10:16,269 [INFO]     step:50000 t_sim:5000.00 ms
+2022-09-23 22:12:04,411 [INFO]     step:55000 t_sim:5500.00 ms
+2022-09-23 22:13:52,993 [INFO]     step:60000 t_sim:6000.00 ms
+2022-09-23 22:15:42,236 [INFO]     step:65000 t_sim:6500.00 ms
+2022-09-23 22:17:31,325 [INFO]     step:70000 t_sim:7000.00 ms
+2022-09-23 22:19:20,491 [INFO]     step:75000 t_sim:7500.00 ms
+2022-09-23 22:21:08,313 [INFO]     step:80000 t_sim:8000.00 ms
+2022-09-23 22:22:56,863 [INFO]     step:85000 t_sim:8500.00 ms
+2022-09-23 22:24:44,752 [INFO]     step:90000 t_sim:9000.00 ms
+2022-09-23 22:26:34,801 [INFO]     step:95000 t_sim:9500.00 ms
+2022-09-23 22:28:23,523 [INFO]     step:100000 t_sim:10000.00 ms
+2022-09-23 22:28:25,320 [INFO] Simulation completed in 36.0 minutes, 21.12 seconds 
+Done running model at Fri Sep 23 22:28:26 CDT 2022

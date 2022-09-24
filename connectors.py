@@ -74,8 +74,10 @@ def get_target_sec_id(source,target):
     elif source['pop_name'] == 'PV':
         return 0 # Target Soma
     elif source['pop_name'] == 'SOM':
-        #print('connecting SOM->PN')
-        return 2 # Target apical for SOM->PN
+        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
+            return 2 # Target apical for SOM->PN
+        else:
+            return 1 #interneuron connection
     elif source['pop_name'] == 'CR':
         if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
             return 0 # Target Soma

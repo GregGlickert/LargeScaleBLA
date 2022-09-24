@@ -265,7 +265,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 sAHPNE /Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/sahpNE.mod\n");
+ 	ivoc_help("help ?1 sAHPNE /Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/sahpNE.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -644,7 +644,7 @@ _first = 0;
 #endif
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/sahpNE.mod";
+static const char* nmodl_filename = "/Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/sahpNE.mod";
 static const char* nmodl_file_text = 
   ":  iC   fast Ca2+/V-dependent K+ channel\n"
   "\n"

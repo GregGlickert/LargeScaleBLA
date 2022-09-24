@@ -199,7 +199,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_reg_ba(_mechtype, _ba1, 11);
  	hoc_reg_ba(_mechtype, _ba2, 22);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 xtraimemrec /Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/xtra_imemrec.mod\n");
+ 	ivoc_help("help ?1 xtraimemrec /Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/xtra_imemrec.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -298,7 +298,7 @@ _first = 0;
 }
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/Users/gregglickert/Documents/GitHub/LargeScaleBLA/components/mechanisms/modfiles/xtra_imemrec.mod";
+static const char* nmodl_filename = "/Users/gregglickert/Desktop/AmygdalaTheta-master/components/mechanisms/modfiles/xtra_imemrec.mod";
 static const char* nmodl_file_text = 
   ": $Id: xtra.mod,v 1.4 2014/08/18 23:15:25 ted Exp ted $\n"
   "\n"

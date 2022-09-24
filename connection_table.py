@@ -189,8 +189,8 @@ def bi_connections():
     #df_bi = pd.DataFrame({"PN2PN bi connections":PN_PN_bi, "PN2PV bi connections": PN_PV_bi, "PV2PV bi connections":PV_PV_bi, "PN2SOM bi connection":PN_SOM_bi})
     #print(df_bi)
 
-#easy_table()
+easy_table()
 
-bi_connections()
+#bi_connections()
 
 

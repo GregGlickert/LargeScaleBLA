@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import h5py
 import numpy as np
 import pandas as pd
+import statistics
 import warnings
 
 
 
 def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20, graph = None,most_exc=10 ):
-    print("Type : mean (std)")
     for node in node_set:
         if node['name'] != graph:
             pass
@@ -29,23 +29,24 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=20,
 
             spikes_mean = spike_counts_per_second.mean()
             spikes_std = spike_counts_per_second.std()
+            spike_median = statistics.median(spike_counts_per_second)
 
-            label = "{} : {:.2f} ({:.2f})".format(node['name'],spikes_mean,spikes_std)
+            label = "{} : mean {:.2f} std ({:.2f}) median {:.2f}".format(node['name'],spikes_mean,spikes_std,spike_median)
             print(label)
-            c = "tab:" + node['color']
+            c = node['color']
             if ax:
                 #ax.hist(spike_counts_per_second,n_bins,density=True,histtype='bar',label=label,color=c)
                 ax.hist(spike_counts_per_second, label=label, color=c)
                 locs = ax.get_yticks()
-                print(locs)
+                #print(locs)
                 ax.set_yticks(locs, np.round(locs / len(spike_counts_per_second), 3))
 
-                print('The cells with the most net exc fire like this with the left being the node id and the right being the '
-                      'firing rate\n',most_exc_spike_counts_per_second)
+                #print('The cells with the most net exc fire like this with the left being the node id and the right being the '
+                #      'firing rate\n',most_exc_spike_counts_per_second)
                 ax.margins(0.5, 0.5)
                 ax.legend()
-        if ax:
-            ax.set_xscale('log')
+        #if ax:
+            #ax.set_xscale('log')
 
 def who_fired(spikes_df,node_set):
     for node in node_set:
@@ -119,24 +120,26 @@ def check_PN_rate(spike_df, skip_ms=0, ms = 0):
 
 scale = 4
 node_set_split = [
-    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "blue"},
-    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "olive"},
-    {"name": "PV", "start": 800 * scale, "end": 892 * scale+ 3, "color": "purple"},
-    {"name": "SOM", "start": 893 * scale, "end": 999 * scale + 4, "color": "green"},
-    {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "Pyr_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "#ff1100"},
+    {"name": "Pyr_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "#d63904"},
+    {"name": "Pyr", "start": 0 * scale, "end": 799 * scale + 3, "color": "#bf1408"},
+    {"name": "FSI", "start": 800 * scale, "end": 892 * scale+ 3, "color": "#05acfa"},
+    {"name": "LTS", "start": 893 * scale, "end": 999 * scale + 4, "color": "#138bc2"},
+    #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "IN", "start": 800 * scale, "end": 999 * scale + 4, "color": "#057ffa"}
 ]
 
 f = h5py.File('outputECP/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
-fig, axs = plt.subplots(5,1, figsize=(12, 6),tight_layout=True)
+fig, axs = plt.subplots(6,1, figsize=(12, 6),tight_layout=True)
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 0
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
-end_ms = 15000
+end_ms = 10000
 
 most_exc_PN_A = [257, 955, 367, 2005, 310]
 most_exc_PN_C = [2467, 2747, 2559, 2407, 2559]
@@ -144,14 +147,11 @@ most_exc_PV = [3208, 3266, 3390, 3483, 3526]
 most_exc_SOM = [3786, 3880, 3715, 3732, 3868]
 most_exc_VIP = [0, 0, 0, 0, 0]
 
-spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[0], graph='PN_A', most_exc= most_exc_PN_A)
-spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[1], graph='PN_C', most_exc= most_exc_PN_C)
-spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[2], graph='SOM', most_exc= most_exc_SOM)
-spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[3], graph='PV', most_exc= most_exc_PV)
-spike_frequency_log_graph(spikes_df,node_set_split,end_ms,skip_ms=skip_ms,ax=axs[4],graph='VIP',most_exc=most_exc_VIP)
-
-who_fired(spikes_df,node_set_split)
-
-check_PN_rate(spikes_df, skip_ms=skip_ms, ms=end_ms)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[0], graph='Pyr_A', most_exc= most_exc_PN_A)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[1], graph='Pyr_C', most_exc= most_exc_PN_C)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[2], graph='Pyr', most_exc= most_exc_PN_C)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[3], graph='FSI', most_exc= most_exc_SOM)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[4], graph='LTS', most_exc= most_exc_PV)
+spike_frequency_log_graph(spikes_df, node_set_split, end_ms, skip_ms=skip_ms, ax=axs[5], graph='IN',most_exc=most_exc_VIP)
 
 plt.show()

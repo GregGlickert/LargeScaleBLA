@@ -1,0 +1,148 @@
+{
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 10000.0,
+    "dt": 0.1,
+    "dL": 200000.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 31.0,
+    "v_init": -70.0
+  },
+  "inputs": {
+    "thalamus_pyr_A_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_pyr_A_spikes.h5",
+      "node_set": "thalamus_pyr_A"
+    },
+    "thalamus_pyr_C_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_pyr_C_spikes.h5",
+      "node_set": "thalamus_pyr_C"
+    },
+    "thalamus_som_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_som_spikes.h5",
+      "node_set": "thalamus_som"
+    },
+    "thalamus_vip_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gjgpb9/LargeScaleBLA/inputs/thalamus_vip_spikes.h5",
+      "node_set": "thalamus_vip"
+    }
+  },
+  "output": {
+    "log_file": "/home/gjgpb9/LargeScaleBLA/outputECP/log.txt",
+    "output_dir": "/home/gjgpb9/LargeScaleBLA/outputECP",
+    "spikes_file": "/home/gjgpb9/LargeScaleBLA/outputECP/spikes.h5"
+  },
+  "reports": {
+    "ecp": {
+      "cells": "all",
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "/home/gjgpb9/LargeScaleBLA/components/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+    }
+  },
+  "node_sets_file": "/home/gjgpb9/LargeScaleBLA/node_sets.json",
+  "network": "/home/gjgpb9/LargeScaleBLA/circuit_config.json",
+  "config_path": "/home/gjgpb9/LargeScaleBLA/simulation_config_base_ECP.json",
+  "config_dir": "/home/gjgpb9/LargeScaleBLA",
+  "components": {
+    "biophysical_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA/components/biophysical_neuron_models",
+    "mechanisms_dir": "/home/gjgpb9/LargeScaleBLA/components/mechanisms",
+    "morphologies_dir": "/home/gjgpb9/LargeScaleBLA/components/morphologies",
+    "point_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA/components/point_neuron_models",
+    "synaptic_models_dir": "/home/gjgpb9/LargeScaleBLA/components/synaptic_models",
+    "templates_dir": "/home/gjgpb9/LargeScaleBLA/components/templates",
+    "__pycache___dir": "/home/gjgpb9/LargeScaleBLA/components/__pycache__"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_vip_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_vip_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/tone_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/tone_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/shock_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/shock_node_types.csv"
+      }
+    ],
+    "edges": [
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_C_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_vip_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_vip_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pyr_A_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/shock_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/shock_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_som_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/thalamus_pv_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/tone_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/tone_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA/network/BLA_BLA_edges.h5"
+      }
+    ],
+    "gap_juncs": []
+  },
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    }
+  }
+}

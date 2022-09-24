@@ -15,7 +15,7 @@ nrn_load_dll("./components/mechanisms/nrnmech.dll")
 
 // Load Template(s) (some may not be needed if a folder was specified and may cause problems, remove as needed)
 //{load_file("./components/templates/templates.hoc")}
-{load_file("PN_cells.hoc")}
+{load_file("feng.hoc")}
 
 tstop = 800
 v_init = -65

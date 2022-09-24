@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #SBATCH --partition compute
-#SBATCH --nodes=2
+#SBATCH --nodes=3
 #SBATCH --ntasks-per-node=120
 #SBATCH --account=umc113
 #SBATCH --job-name=run
 #SBATCH --output=run.out
 #SBATCH --mem=240G
-#SBATCH --time 0-1:00
+#SBATCH --time 0-0:20
 
 module purge
 module load slurm

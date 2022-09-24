@@ -5,13 +5,18 @@ import os
 from bmtk.simulator.bionet.pyfunction_cache import add_synapse_model
 from neuron import h
 import numpy as np
+import random
 
 def lognorm(mean,std):
     mean = float(mean)
     std = float(std)
     mean_ = np.log(mean) - 0.5 * np.log((std/mean)**2+1)
     std_ = np.sqrt(np.log((std/mean)**2 + 1))
-    return float(np.random.lognormal(mean_,std_))
+    weight = float(np.random.lognormal(mean_,std_))
+    if (weight>=mean*5):
+        weight=mean*5
+    return weight
+
 
 def Bg2Pyr(syn_params, sec_x, sec_id):
     """Create a bg2pyr synapse
@@ -25,8 +30,14 @@ def Bg2Pyr(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gNMDAmax = float(0.5*10**-9)
+        else:
+            pass
+
     return lsyn
 
 def bginh(syn_params, sec_x, sec_id):
@@ -56,7 +67,6 @@ def interD2interD_STFD(syn_params, sec_x, sec_id):
 
     return lsyn
 
-
 def interD2pyrD_STFD(syn_params, sec_x, sec_id):
 
     lsyn = h.interD2pyrD_STFD(sec_x, sec=sec_id)
@@ -78,12 +88,18 @@ def pyrD2interD_STFD(syn_params, sec_x, sec_id):
 
     if syn_params.get('initW'):
         lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('threshold1'):
         lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
+
 
     return lsyn
 
@@ -99,6 +115,11 @@ def pyrD2pyrD_STFD(syn_params, sec_x, sec_id):
         lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
         
     return lsyn
 
@@ -110,6 +131,11 @@ def pyrD2interD_P2SOM_STFD(syn_params, sec_x, sec_id):
         lsyn.initW = float(syn_params['initW'])
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     return lsyn
 
@@ -164,7 +190,7 @@ def tone2pyrD(syn_params, sec_x, sec_id):
     :param sec_id: target section
     :return: NEURON synapse object
     """
-    lsyn = h.tone2pyrD(sec_x, sec=sec_id)
+    lsyn = h.tone2pyr(sec_x, sec=sec_id)
 
     if syn_params.get('AlphaTmax_ampa'):
         lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
@@ -188,8 +214,13 @@ def tone2pyrD(syn_params, sec_x, sec_id):
     if syn_params.get('Erev_nmda'):
         lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])  # * random.uniform(0.5,1.0) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
@@ -261,8 +292,13 @@ def tone2interD(syn_params, sec_x, sec_id):
     if syn_params.get('Erev_nmda'):
         lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])  # * random.uniform(0.5,1.0) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW

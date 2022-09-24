@@ -1,7 +1,8 @@
 {
     "level_of_detail": "pyrD2pyrD_STFD",
-    "initW_lognormal_mean": "1",
-    "initW_lognormal_std": "0.5",
+    "initW_lognormal_mean": "0.5",
+    "initW_lognormal_std": "0.2",
     "threshold1": ".2",
-    "threshold2": ".3"
+    "threshold2": ".3",
+    "Percent_NMDA_block" : 0
 }
