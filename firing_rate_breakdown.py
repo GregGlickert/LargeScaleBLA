@@ -129,7 +129,7 @@ node_set_split = [
     {"name": "IN", "start": 800 * scale, "end": 999 * scale + 4, "color": "#057ffa"}
 ]
 
-f = h5py.File('baseline/spikes.h5')
+f = h5py.File('outputECP/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
