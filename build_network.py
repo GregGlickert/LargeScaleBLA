@@ -989,7 +989,7 @@ edge_params = {
         'syn_weight': 1,
         'target_sections': ['basal'],
         'distance_range': [0.0, 9999.9],
-        'dynamics_params': 'shock2INT12.json'
+        'dynamics_params': 'shock2int.json'
     }
 }  # edges referenced by name
 

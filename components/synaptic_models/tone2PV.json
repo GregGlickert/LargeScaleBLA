@@ -1,5 +1,5 @@
 {
-    "level_of_detail": "tone2interD",
+    "level_of_detail": "tone2pv",
     "initW_lognormal_mean": "0.000002",
     "initW_lognormal_std": "0.0000001",
     "threshold1": "0.5",
