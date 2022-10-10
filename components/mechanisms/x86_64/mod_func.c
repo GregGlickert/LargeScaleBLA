@@ -5,6 +5,8 @@ extern int nrn_nobanner_;
 
 extern void _bg2pyr_reg(void);
 extern void _bginh_reg(void);
+extern void _bg_tone2pv_reg(void);
+extern void _bg_tone2pyr_reg(void);
 extern void _cadyn_reg(void);
 extern void _cal2CA3_reg(void);
 extern void _cal2_reg(void);
@@ -69,6 +71,8 @@ void modl_reg(){
 
     fprintf(stderr," modfiles//bg2pyr.mod");
     fprintf(stderr," modfiles//bginh.mod");
+    fprintf(stderr," modfiles//bg_tone2pv.mod");
+    fprintf(stderr," modfiles//bg_tone2pyr.mod");
     fprintf(stderr," modfiles//cadyn.mod");
     fprintf(stderr," modfiles//cal2CA3.mod");
     fprintf(stderr," modfiles//cal2.mod");
@@ -130,6 +134,8 @@ void modl_reg(){
   }
   _bg2pyr_reg();
   _bginh_reg();
+  _bg_tone2pv_reg();
+  _bg_tone2pyr_reg();
   _cadyn_reg();
   _cal2CA3_reg();
   _cal2_reg();

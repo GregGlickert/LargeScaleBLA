@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def spike_frequency_histogram(spikes_df, node_set, ms, skip_ms=0, ax=None, n_bins=10):
+def spike_frequency_histogram(spikes_df, node_set, ms, skip_ms=0, ax=None, n_bins=30):
     print("Type : mean (std)")
     for node in node_set:
         cells = range(node['start'], node['end'] + 1)  # +1 to be inclusive of last cell
@@ -41,7 +41,7 @@ node_set_split = [
     {"name": "IN", "start": 800 * scale, "end": 999 * scale + 4, "color": "#057ffa"}
 ]
 
-f = h5py.File('outputECP/spikes.h5')
+f = h5py.File('outputECP_baseline/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 

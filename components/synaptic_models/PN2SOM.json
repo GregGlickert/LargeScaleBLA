@@ -1,9 +1,9 @@
 {   
     "level_of_detail": "pyr2som",
-    "initW_lognormal_mean": "0.01",
-    "initW_lognormal_std": "0.007",
+    "initW_lognormal_mean": "0.012",
+    "initW_lognormal_std": "0.008",
     "old_values": "0.11 0.06",
-    "threshold1": "1.1",
-    "threshold2": "1.3",
-    "Percent_NMDA_block" : 0
+    "threshold1": "4.5",
+    "threshold2": "4.7",
+    "Percent_NMDA_block" : "0"
 }

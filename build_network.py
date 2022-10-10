@@ -304,6 +304,58 @@ network_definitions = [
             }
         ]
     },
+        {
+        # background tone
+        'network_name': 'tone_bg_pn_a',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': numPN_A,
+                'pop_name': 'tone_bg_pn_a',
+                'pop_group': 'tone_bg_pn_a',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+            {
+        # background tone
+        'network_name': 'tone_bg_pn_c',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': numPN_C,
+                'pop_name': 'tone_bg_pn_c',
+                'pop_group': 'tone_bg_pn_c',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+            {
+        # background tone
+        'network_name': 'tone_bg_pv',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': numPV,
+                'pop_name': 'tone_bg_pv',
+                'pop_group': 'tone_bg_pv',
+                'model_type': 'virtual'
+            }
+        ]
+    },
+            {
+        # background tone
+        'network_name': 'tone_bg_vip',
+        'positions_list': None,
+        'cells': [
+            {
+                'N': numVIP,
+                'pop_name': 'tone_bg_vip',
+                'pop_group': 'tone_bg_vip',
+                'model_type': 'virtual'
+            }
+        ]
+    },
     {
         # Shock
         'network_name': 'shock',
@@ -719,6 +771,42 @@ edge_definitions = [
         'param': 'TONE2VIP',
         'add_properties': 'syn_uniform_delay_section_default'
     },
+        {  # background tone to PN
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone_bg_pn_a'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PyrA'])
+        },
+        'param': 'BG_TONE2PN_A',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+            {  # background tone to PN
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone_bg_pn_c'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PyrC'])
+        },
+        'param': 'BG_TONE2PN_C',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # background tone to PV
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone_bg_pv'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['PV'])
+        },
+        'param': 'BG_TONE2PV',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
+    {  # background tone to VIP
+        'network': 'BLA',
+        'edge': {
+            'source': networks['tone_bg_vip'].nodes(),
+            'target': networks['BLA'].nodes(pop_name=['VIP'])
+        },
+        'param': 'BG_TONE2VIP',
+        'add_properties': 'syn_uniform_delay_section_default'
+    },
     {  # shock to PV and SOM
         'network': 'BLA',
         'edge': {
@@ -960,28 +1048,56 @@ edge_params = {
     #    'dynamics_params':'BG2CR_thalamus_min.json'
     # },
     'TONE2PN': {
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.7},
+        'connection_rule': tone_connector,
         'syn_weight': 1,
         'target_sections': ['apical'],
         'distance_range': [0.0, 9999.9],
         'dynamics_params': 'tone2PN.json'
     },
     'TONE2PV': {
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.7},
+        'connection_rule': tone_connector,
         'syn_weight': 1,
         'target_sections': ['basal'],
         'distance_range': [0.0, 9999.9],
         'dynamics_params': 'tone2PV.json'
     },
     'TONE2VIP': {
-        'connection_rule': rand_percent_connector,
-        'connection_params': {'prob': 0.7},
+        'connection_rule':  tone_connector,
         'syn_weight': 1,
         'target_sections': ['basal'],
         'distance_range': [0.0, 9999.9],
         'dynamics_params': 'tone2VIP.json'
+    },
+    'BG_TONE2PN_A': {
+        'connection_rule':  background_tone_connector,
+        'syn_weight': 1,
+        'target_sections': ['apical'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'BG_TONE2PN.json'
+    },
+    'BG_TONE2PN_C': {
+        'connection_rule':  background_tone_connector,
+        'connection_params': {'offset': numPN_A},
+        'syn_weight': 1,
+        'target_sections': ['apical'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'BG_TONE2PN.json'
+    },
+    'BG_TONE2PV': {
+        'connection_rule': background_tone_connector,
+        'connection_params': {'offset': numPN_A + numPN_C},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'BG_TONE2PV.json'
+    },
+    'BG_TONE2VIP': {
+        'connection_rule': background_tone_connector,
+        'connection_params': {'offset': numPN_A + numPN_C + numPV + numSOM},
+        'syn_weight': 1,
+        'target_sections': ['basal'],
+        'distance_range': [0.0, 9999.9],
+        'dynamics_params': 'BG_TONE2VIP.json'
     },
     'SHOCK2INT': {
         'connection_rule': rand_shock_connector,
@@ -1169,20 +1285,25 @@ build_input(t_sim,
             scale=4)
 
 # Usually not necessary if you've already built your simulation config
-"""
-build_env_bionet(base_dir='./',
-	network_dir=network_dir,
-	tstop=t_sim, dt = dt,
-	report_vars = ['v'],
-    v_init = -70.0,
-    celsius = 31.0,
-	spikes_inputs=[
-        ('thalamus_pyr_A','inputs/thalamus_pyr_A_spikes.h5'),
-        ('thalamus_pyr_C','inputs/thalamus_pyr_C_spikes.h5'),
-        ('thalamus_pv','inputs/thalamus_pv_spikes.h5'),
-        ('thalamus_som','inputs/thalamus_som_spikes.h5'),
-        ('thalamus_vip','inputs/thalamus_vip_spikes.h5')],
-	components_dir=components_dir,
-    config_file='simulation_config.json',
-	compile_mechanisms=False)
-"""
+
+#build_env_bionet(base_dir='./',
+#	network_dir=network_dir,
+#	tstop=t_sim, dt = dt,
+#	report_vars = ['v'],
+ #   v_init = -70.0,
+  #  celsius = 31.0,
+	#spikes_inputs=[
+     #   ('thalamus_pyr_A','inputs/thalamus_pyr_A_spikes.h5'),
+      #  ('thalamus_pyr_C','inputs/thalamus_pyr_C_spikes.h5'),
+       # ('thalamus_pv','inputs/thalamus_pv_spikes.h5'),
+        #('thalamus_som','inputs/thalamus_som_spikes.h5'),
+        #('thalamus_vip','inputs/thalamus_vip_spikes.h5'),
+        #('tone','inputs/tone_spikes.cvs'),
+        #('bg_TONE2PN','inputs/bg_TONE2PN_spikes.h5'),
+        #('bg_TONE2PV','inputs/bg_TONE2PV_spikes.h5'),
+        #('bg_TONE2VIP','inputs/bg_TONE2VIP_spikes.h5'),
+        #('shock','inputs/shock_spikes.csv')],
+#	components_dir=components_dir,
+ #   config_file='simulation_config.json',
+#	compile_mechanisms=False)
+

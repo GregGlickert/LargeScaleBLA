@@ -1,7 +1,7 @@
 {
     "level_of_detail": "tone2vip",
-    "initW_lognormal_mean": "0.000002",
-    "initW_lognormal_std": "0.0000001",
+    "initW_lognormal_mean": "9",
+    "initW_lognormal_std": "2",
     "threshold1": "0.5",
     "threshold2": "0.7",
     "Percent_NMDA_block" : 0

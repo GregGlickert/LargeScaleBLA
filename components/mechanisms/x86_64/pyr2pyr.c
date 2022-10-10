@@ -499,13 +499,12 @@ static void _modl_cleanup(){ _match_recurse=1;}
  
 static int _ode_spec1(_threadargsproto_);
 /*static int _ode_matsol1(_threadargsproto_);*/
- static int _slist1[5], _dlist1[5];
+ static int _slist1[4], _dlist1[4];
  static int release(_threadargsproto_);
  
 /*CVODE*/
  static int _ode_spec1 () {_reset=0;
  {
-   DW = eta ( _threadargscomma_ capoolcon ) * ( lambda1 * omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) - lambda2 * W ) ;
    DW = 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) * ( lambda1 * omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) - lambda2 * W ) ;
    Dr_nmda = AlphaTmax_nmda * on_nmda * ( 1.0 - r_nmda ) - Beta_nmda * r_nmda ;
    Dr_ampa = AlphaTmax_ampa * on_ampa * ( 1.0 - r_ampa ) - Beta_ampa * r_ampa ;
@@ -514,7 +513,6 @@ static int _ode_spec1(_threadargsproto_);
  return _reset;
 }
  static int _ode_matsol1 () {
- DW = DW  / (1. - dt*( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ) )) ;
  DW = DW  / (1. - dt*( ( 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ) )) ;
  Dr_nmda = Dr_nmda  / (1. - dt*( ( AlphaTmax_nmda * on_nmda )*( ( ( - 1.0 ) ) ) - ( Beta_nmda )*( 1.0 ) )) ;
  Dr_ampa = Dr_ampa  / (1. - dt*( ( AlphaTmax_ampa * on_ampa )*( ( ( - 1.0 ) ) ) - ( Beta_ampa )*( 1.0 ) )) ;
@@ -524,7 +522,6 @@ static int _ode_spec1(_threadargsproto_);
  /*END CVODE*/
  static int release () {_reset=0;
  {
-    W = W + (1. - exp(dt*(( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ))))*(- ( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( lambda1 )*( omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) ) ) ) ) / ( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ) ) - W) ;
     W = W + (1. - exp(dt*(( 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ))))*(- ( ( ( ( 1e-12 )*( limitW ) )*( eta ( _threadargscomma_ capoolcon ) ) )*( ( ( lambda1 )*( omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) ) ) ) ) / ( ( ( ( 1e-12 )*( limitW ) )*( eta ( _threadargscomma_ capoolcon ) ) )*( ( ( - ( lambda2 )*( 1.0 ) ) ) ) ) - W) ;
     r_nmda = r_nmda + (1. - exp(dt*(( AlphaTmax_nmda * on_nmda )*( ( ( - 1.0 ) ) ) - ( Beta_nmda )*( 1.0 ))))*(- ( ( ( AlphaTmax_nmda )*( on_nmda ) )*( ( 1.0 ) ) ) / ( ( ( AlphaTmax_nmda )*( on_nmda ) )*( ( ( - 1.0 ) ) ) - ( Beta_nmda )*( 1.0 ) ) - r_nmda) ;
     r_ampa = r_ampa + (1. - exp(dt*(( AlphaTmax_ampa * on_ampa )*( ( ( - 1.0 ) ) ) - ( Beta_ampa )*( 1.0 ))))*(- ( ( ( AlphaTmax_ampa )*( on_ampa ) )*( ( 1.0 ) ) ) / ( ( ( AlphaTmax_ampa )*( on_ampa ) )*( ( ( - 1.0 ) ) ) - ( Beta_ampa )*( 1.0 ) ) - r_ampa) ;
@@ -1031,7 +1028,7 @@ static double _hoc_unirand(void* _vptr) {
  return(_r);
 }
  
-static int _ode_count(int _type){ return 5;}
+static int _ode_count(int _type){ return 4;}
  
 static void _ode_spec(_NrnThread* _nt, _Memb_list* _ml, int _type) {
    Datum* _thread;
@@ -1049,7 +1046,7 @@ static void _ode_spec(_NrnThread* _nt, _Memb_list* _ml, int _type) {
 static void _ode_map(int _ieq, double** _pv, double** _pvdot, double* _pp, Datum* _ppd, double* _atol, int _type) { 
  	int _i; _p = _pp; _ppvar = _ppd;
 	_cvode_ieq = _ieq;
-	for (_i=0; _i < 5; ++_i) {
+	for (_i=0; _i < 4; ++_i) {
 		_pv[_i] = _pp + _slist1[_i];  _pvdot[_i] = _pp + _dlist1[_i];
 		_cvode_abstol(_atollist, _atol, _i);
 	}
@@ -1157,18 +1154,6 @@ static double _nrn_current(double _v){double _current=0.;v=_v;{ {
        on_ampa = 0.0 ;
        }
      }
-   if ( W >= Wmax  || W <= Wmin ) {
-     limitW = 1e-12 ;
-     }
-   else {
-     limitW = 1.0 ;
-     }
-   if ( W > Wmax ) {
-     W = Wmax ;
-     }
-   else if ( W < Wmin ) {
-     W = Wmin ;
-     }
    if ( neuroM  == 1.0 ) {
      g_nmda = gbar_nmda * r_nmda * facfactor * DA1 ( _threadargscomma_ DAstart1 , DAstop1 ) * DA2 ( _threadargscomma_ DAstart2 , DAstop2 ) ;
      }
@@ -1274,10 +1259,9 @@ static void _initlists() {
  int _i; static int _first = 1;
   if (!_first) return;
  _slist1[0] = &(W) - _p;  _dlist1[0] = &(DW) - _p;
- _slist1[1] = &(W) - _p;  _dlist1[1] = &(DW) - _p;
- _slist1[2] = &(r_nmda) - _p;  _dlist1[2] = &(Dr_nmda) - _p;
- _slist1[3] = &(r_ampa) - _p;  _dlist1[3] = &(Dr_ampa) - _p;
- _slist1[4] = &(capoolcon) - _p;  _dlist1[4] = &(Dcapoolcon) - _p;
+ _slist1[1] = &(r_nmda) - _p;  _dlist1[1] = &(Dr_nmda) - _p;
+ _slist1[2] = &(r_ampa) - _p;  _dlist1[2] = &(Dr_ampa) - _p;
+ _slist1[3] = &(capoolcon) - _p;  _dlist1[3] = &(Dcapoolcon) - _p;
 _first = 0;
 }
 
@@ -1462,17 +1446,17 @@ static const char* nmodl_file_text =
   "			on_ampa = 0\n"
   "		}\n"
   "	}\n"
-  "           if (W >= Wmax || W <= Wmin ) {     : for limiting the weight\n"
-  "	  limitW=1e-12\n"
-  "	  } else {\n"
-  "	   limitW=1\n"
-  "	  }\n"
+  "       :    if (W >= Wmax || W <= Wmin ) {     : for limiting the weight\n"
+  "	  :limitW=1e-12\n"
+  "	  :} else {\n"
+  "	   :limitW=1\n"
+  "	  :}\n"
   "	 \n"
-  "	 if (W > Wmax) { \n"
-  "		W = Wmax\n"
-  "	} else if (W < Wmin) {\n"
-  " 		W = Wmin\n"
-  "	}\n"
+  "	 :if (W > Wmax) { \n"
+  "	:	W = Wmax\n"
+  "	:} else if (W < Wmin) {\n"
+  " 	:	W = Wmin\n"
+  "	:}\n"
   "	 \n"
   "	if (neuroM==1) {\n"
   "	g_nmda = gbar_nmda*r_nmda*facfactor*DA1(DAstart1,DAstop1)*DA2(DAstart2,DAstop2)        : Dopamine effect on NMDA to reduce NMDA current amplitude\n"
@@ -1489,7 +1473,7 @@ static const char* nmodl_file_text =
   "}\n"
   "\n"
   "DERIVATIVE release {\n"
-  "	W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)\n"
+  "	:W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)\n"
   "	\n"
   "	W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)\n"
   "	r_nmda' = AlphaTmax_nmda*on_nmda*(1-r_nmda)-Beta_nmda*r_nmda\n"

@@ -1,7 +1,7 @@
 {
     "level_of_detail": "bg2pyr",
-    "initW_lognormal_mean": 14,
-    "initW_lognormal_std": 5,
-    "Percent_NMDA_block" : 0
+    "initW_lognormal_mean": "14",
+    "initW_lognormal_std": "5",
+    "Percent_NMDA_block" : "0"
 
 }

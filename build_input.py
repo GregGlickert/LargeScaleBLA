@@ -53,6 +53,31 @@ def build_input(t_sim, numPN_A = 569, numPN_C=231, numPV = 93, numSOM=107, numCR
                     mean=2,std=1,
                     output_h5='inputs/thalamus_vip_spikes.h5',
                     t_sim=t_sim)
+    
+    psg = PoissonSpikeGenerator(population='tone_bg_pn_a')
+    psg.add(node_ids=range((numPN_A)*scale),  # need same number as cells
+            firing_rate=2,    # 2 spike every 1 second Hz
+            times=(0.0, t_sim/1000))  # time is in seconds for some reason
+    psg.to_sonata('inputs/bg_TONE2PN_A_spikes.h5')
+
+    psg = PoissonSpikeGenerator(population='tone_bg_pn_c')
+    psg.add(node_ids=range((numPN_C)*scale),  # need same number as cells
+            firing_rate=2,    # 2 spike every 1 second Hz
+            times=(0.0, t_sim/1000))  # time is in seconds for some reason
+    psg.to_sonata('inputs/bg_TONE2PN_C_spikes.h5')
+
+    psg = PoissonSpikeGenerator(population='tone_bg_pv')
+    psg.add(node_ids=range((numPV)*scale),  # need same number as cells
+            firing_rate=2,    # 2 spike every 1 second Hz
+            times=(0.0, t_sim/1000))  # time is in seconds for some reason
+    psg.to_sonata('inputs/bg_TONE2PV_spikes.h5')
+
+    psg = PoissonSpikeGenerator(population='tone_bg_vip')
+    psg.add(node_ids=range((numSOM)*scale),  # need same number as cells
+            firing_rate=2,    # 2 spike every 1 second Hz
+            times=(0.0, t_sim/1000))  # time is in seconds for some reason
+    psg.to_sonata('inputs/bg_TONE2VIP_spikes.h5')
+
 #if numCR:
     #    build_poisson_input(population='thalamus_cr',
     #                    node_ids=range((numCR)*scale),

@@ -18,12 +18,6 @@
     "v_init": -70.0
   },
   "inputs": {
-    "tone_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "$BASE_DIR/inputs/tone_spikes.csv",
-      "node_set": "tone"
-    },
     "thalamus_pyr_A_spikes": {
       "input_type": "spikes",
       "module": "sonata",
@@ -36,6 +30,12 @@
       "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
       "node_set": "thalamus_pyr_C"
     },
+    "thalamus_pv_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_pv_spikes.h5",
+      "node_set": "thalamus_pv"
+    },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
@@ -47,6 +47,36 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
       "node_set": "thalamus_vip"
+    },
+    "tone_spikes": {
+      "input_type": "spikes",
+      "module": "csv",
+      "input_file": "$BASE_DIR/inputs/tone_spikes.csv",
+      "node_set": "tone"
+    },
+    "bg_TONE2PN_A_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/bg_TONE2PN_A_spikes.h5",
+      "node_set": "tone_bg_pn_a"
+    },
+    "bg_TONE2PN_C_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/bg_TONE2PN_C_spikes.h5",
+      "node_set": "tone_bg_pn_c"
+    },
+    "bg_TONE2PV_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/bg_TONE2PV_spikes.h5",
+      "node_set": "tone_bg_pv"
+    },
+    "bg_TONE2VIP_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/bg_TONE2VIP_spikes.h5",
+      "node_set": "tone_bg_vip"
     }
   },
   "output": {
@@ -63,21 +93,107 @@
       "file_name": "ecp.h5",
       "electrode_channels": "all"
       },
-    "syn_report": {
-      "cells": {"node_ids":  [257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275]},
+    "syn_report1": {
+      "cells": {"node_ids":  [1003,828,2902,1835]},
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pv2pyr",
+      "file_name": "PV2PN_cai.h5"
+    },
+    "syn_report2": {
+      "cells": {"node_ids":  [1003,828,2902,1835]},
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pv2pyr",
+      "file_name": "PV2PN_W.h5"
+    },
+    "syn_report3": {
+      "cells": {"node_ids": [3267,3356,3366,3315]},
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyr2pv",
+      "file_name": "PN2PV_W.h5"
+    },
+    "syn_report4": {
+      "cells": {"node_ids": [3267,3356,3366,3315]},
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyr2pv",
+      "file_name": "PN2PV_cai.h5"
+    },
+    "syn_report5": {
+      "cells": "all",
       "variable_name": "W",
       "module": "netcon_report",
       "sections": "all",
       "syn_type": "tone2pyr",
-      "file_name": "tone2pyr.h5"
+      "file_name": "tone2PN_W.h5"
     },
-    "syn_report2": {
-      "cells": {"node_ids":  [257,258,259,260,261,262,263,264,265,266,267,268,269,270,272,272,273,274,275]},
+    "syn_report6": {
+      "cells": "all",
       "variable_name": "capoolcon",
       "module": "netcon_report",
       "sections": "all",
       "syn_type": "tone2pyr",
-      "file_name": "tone2pyr_cai.h5"
+      "file_name": "tone2PN_cai.h5"
+    },
+    "syn_report7": {
+      "cells": "all",
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pv",
+      "file_name": "tone2PV_cai.h5"
+    },
+    "syn_report8": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pv",
+      "file_name": "tone2PV_W.h5"
+    },
+    "syn_report9": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "bg_tone2pyr",
+      "file_name": "bg_tone2PN_W.h5"
+    },
+    "syn_report10": {
+      "cells": "all",
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "bg_tone2pyr",
+      "file_name": "bg_tone2PN_cai.h5"
+    },
+    "syn_report11": {
+      "cells": "all",
+      "variable_name": "capoolcon",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "bg_tone2pv",
+      "file_name": "bg_tone2PV_cai.h5"
+    },
+    "syn_report12": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "bg_tone2pv",
+      "file_name": "bg_tone2PV_W.h5"
+    },
+    "v_report": {
+      "variable_name": "v",
+      "cells": {"node_ids":  [1003,828,2902,1835]},
+      "module": "membrane_report",
+      "sections": "soma"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

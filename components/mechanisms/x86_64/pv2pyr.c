@@ -514,12 +514,13 @@ static void _modl_cleanup(){ _match_recurse=1;}
  
 static int _ode_spec1(_threadargsproto_);
 /*static int _ode_matsol1(_threadargsproto_);*/
- static int _slist1[3], _dlist1[3];
+ static int _slist1[4], _dlist1[4];
  static int release(_threadargsproto_);
  
 /*CVODE*/
  static int _ode_spec1 () {_reset=0;
  {
+   DW = eta ( _threadargscomma_ capoolcon ) * ( lambda1 * omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) - lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) * W ) ;
    DW = 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) * ( lambda1 * omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) - lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) * W ) ;
    Dr_gaba = AlphaTmax_gaba * on_gaba * ( 1.0 - r_gaba ) - Beta_gaba * r_gaba ;
    Dcapoolcon = - fCag * Afactor * Icatotal + ( Cainf - capoolcon ) / tauCa ;
@@ -527,6 +528,7 @@ static int _ode_spec1(_threadargsproto_);
  return _reset;
 }
  static int _ode_matsol1 () {
+ DW = DW  / (1. - dt*( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) )*( 1.0 ) ) ) ) )) ;
  DW = DW  / (1. - dt*( ( 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) )*( 1.0 ) ) ) ) )) ;
  Dr_gaba = Dr_gaba  / (1. - dt*( ( AlphaTmax_gaba * on_gaba )*( ( ( - 1.0 ) ) ) - ( Beta_gaba )*( 1.0 ) )) ;
  Dcapoolcon = Dcapoolcon  / (1. - dt*( ( ( ( - 1.0 ) ) ) / tauCa )) ;
@@ -535,6 +537,7 @@ static int _ode_spec1(_threadargsproto_);
  /*END CVODE*/
  static int release () {_reset=0;
  {
+    W = W + (1. - exp(dt*(( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) )*( 1.0 ) ) ) ))))*(- ( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( lambda1 )*( omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) ) ) ) ) / ( ( eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( ( lambda2 )*( GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) ) )*( 1.0 ) ) ) ) ) - W) ;
     W = W + (1. - exp(dt*(( 1e-12 * limitW * eta ( _threadargscomma_ capoolcon ) )*( ( ( - ( lambda2 * GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) )*( 1.0 ) ) ) ))))*(- ( ( ( ( 1e-12 )*( limitW ) )*( eta ( _threadargscomma_ capoolcon ) ) )*( ( ( lambda1 )*( omega ( _threadargscomma_ capoolcon , threshold1 , threshold2 ) ) ) ) ) / ( ( ( ( 1e-12 )*( limitW ) )*( eta ( _threadargscomma_ capoolcon ) ) )*( ( ( - ( ( lambda2 )*( GAP1 ( _threadargscomma_ GAPstart1 , GAPstop1 ) ) )*( 1.0 ) ) ) ) ) - W) ;
     r_gaba = r_gaba + (1. - exp(dt*(( AlphaTmax_gaba * on_gaba )*( ( ( - 1.0 ) ) ) - ( Beta_gaba )*( 1.0 ))))*(- ( ( ( AlphaTmax_gaba )*( on_gaba ) )*( ( 1.0 ) ) ) / ( ( ( AlphaTmax_gaba )*( on_gaba ) )*( ( ( - 1.0 ) ) ) - ( Beta_gaba )*( 1.0 ) ) - r_gaba) ;
     capoolcon = capoolcon + (1. - exp(dt*(( ( ( - 1.0 ) ) ) / tauCa)))*(- ( ( ( - fCag )*( Afactor ) )*( Icatotal ) + ( ( Cainf ) ) / tauCa ) / ( ( ( ( - 1.0 ) ) ) / tauCa ) - capoolcon) ;
@@ -1439,7 +1442,7 @@ static double _hoc_unirand(void* _vptr) {
  return(_r);
 }
  
-static int _ode_count(int _type){ return 3;}
+static int _ode_count(int _type){ return 4;}
  
 static void _ode_spec(_NrnThread* _nt, _Memb_list* _ml, int _type) {
    Datum* _thread;
@@ -1458,7 +1461,7 @@ static void _ode_spec(_NrnThread* _nt, _Memb_list* _ml, int _type) {
 static void _ode_map(int _ieq, double** _pv, double** _pvdot, double* _pp, Datum* _ppd, double* _atol, int _type) { 
  	int _i; _p = _pp; _ppvar = _ppd;
 	_cvode_ieq = _ieq;
-	for (_i=0; _i < 3; ++_i) {
+	for (_i=0; _i < 4; ++_i) {
 		_pv[_i] = _pp + _slist1[_i];  _pvdot[_i] = _pp + _dlist1[_i];
 		_cvode_abstol(_atollist, _atol, _i);
 	}
@@ -1551,6 +1554,18 @@ static double _nrn_current(double _v){double _current=0.;v=_v;{ {
      }
    else {
      limitW = 1.0 ;
+     }
+   if ( W >= Wmax  || W <= Wmin ) {
+     limitW = 1e-12 ;
+     }
+   else {
+     limitW = 1.0 ;
+     }
+   if ( W > Wmax ) {
+     W = Wmax ;
+     }
+   else if ( W < Wmin ) {
+     W = Wmin ;
      }
    if ( neuroM  == 1.0 ) {
      g_gaba = gbar_gaba * r_gaba * facfactor * DA1 ( _threadargscomma_ DAstart1 , DAstop1 ) * DA2 ( _threadargscomma_ DAstart2 , DAstop2 ) ;
@@ -1652,7 +1667,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
   eca = _ion_eca;
   ica = _ion_ica;
  { error =  release();
- if(error){fprintf(stderr,"at line 182 in file pv2pyr.mod:\n	 \n"); nrn_complain(_p); abort_run(error);}
+ if(error){fprintf(stderr,"at line 171 in file pv2pyr.mod:\n	SOLVE release METHOD cnexp\n"); nrn_complain(_p); abort_run(error);}
  }}}
 
 }
@@ -1663,8 +1678,9 @@ static void _initlists() {
  int _i; static int _first = 1;
   if (!_first) return;
  _slist1[0] = &(W) - _p;  _dlist1[0] = &(DW) - _p;
- _slist1[1] = &(r_gaba) - _p;  _dlist1[1] = &(Dr_gaba) - _p;
- _slist1[2] = &(capoolcon) - _p;  _dlist1[2] = &(Dcapoolcon) - _p;
+ _slist1[1] = &(W) - _p;  _dlist1[1] = &(DW) - _p;
+ _slist1[2] = &(r_gaba) - _p;  _dlist1[2] = &(Dr_gaba) - _p;
+ _slist1[3] = &(capoolcon) - _p;  _dlist1[3] = &(Dcapoolcon) - _p;
 _first = 0;
 }
 
@@ -1842,16 +1858,16 @@ static const char* nmodl_file_text =
   "	limitW=1 }\n"
   "	\n"
   "	SOLVE release METHOD cnexp\n"
-  "	 : if (W >= Wmax || W <= Wmin ) {     : for limiting the weight\n"
-  "	 : limitW=1e-12\n"
-  "	 : } else {\n"
-  "	  : limitW=1\n"
-  "	 : }\n"
-  "	 :if (W > Wmax) { \n"
-  "		:W = Wmax\n"
-  "	:} else if (W < Wmin) {\n"
-  " 		:W = Wmin\n"
-  "	:}\n"
+  "	  if (W >= Wmax || W <= Wmin ) {     : for limiting the weight\n"
+  "	  limitW=1e-12\n"
+  "	  } else {\n"
+  "	   limitW=1\n"
+  "	  }\n"
+  "	 if (W > Wmax) { \n"
+  "		W = Wmax\n"
+  "	} else if (W < Wmin) {\n"
+  " 		W = Wmin\n"
+  "	}\n"
   "	 \n"
   "	    if (neuroM==1) {\n"
   "	g_gaba = gbar_gaba*r_gaba*facfactor*DA1(DAstart1,DAstop1)*DA2(DAstart2,DAstop2)   : Dopamine effect on GABA	\n"
@@ -1873,7 +1889,7 @@ static const char* nmodl_file_text =
   "\n"
   "DERIVATIVE release {\n"
   "    \n"
-  "	: W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)\n"
+  "	W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)\n"
   "    \n"
   "	\n"
   "	W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*GAP1(GAPstart1, GAPstop1)*W)\n"

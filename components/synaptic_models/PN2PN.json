@@ -4,5 +4,5 @@
     "initW_lognormal_std": "0.2",
     "threshold1": ".4",
     "threshold2": ".55",
-    "Percent_NMDA_block" : 0
+    "Percent_NMDA_block" : "0."
 }

@@ -1,8 +1,8 @@
 {
-    "level_of_detail": "tone2pyr",
+    "level_of_detail": "bg_tone2pyr",
     "initW_lognormal_mean": "16",
     "initW_lognormal_std": "4",
     "threshold1": "0.3",
     "threshold2": "0.4",
-    "Percent_NMDA_block" : 0
+    "Percent_NMDA_block" : "0"
 }

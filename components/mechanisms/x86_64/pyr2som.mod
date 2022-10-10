@@ -171,16 +171,16 @@ BREAKPOINT {
 			on_ampa = 0
 		}
 	}
-      if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
-	  limitW=1e-12
-	  } else {
-	   limitW=1
-	  }
-	 if (W > Wmax) { 
-		W = Wmax
-	 } else if (W < Wmin) {
- 		 W = Wmin
-	 }
+      :if (W >= Wmax || W <= Wmin ) {     : for limiting the weight
+	  :limitW=1e-12
+	  :} else {
+	   :limitW=1
+	  :}
+	 :if (W > Wmax) { 
+	:	W = Wmax
+	 :} else if (W < Wmin) {
+ 	:	 W = Wmin
+	 :}
 	
 	 if (neuroM==0) {
 	g_nmda = gbar_nmda*r_nmda*facfactor
@@ -198,7 +198,7 @@ BREAKPOINT {
 }
 
 DERIVATIVE release {
-	 W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
+	:W' = eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
    
 	W' = 1e-12*limitW*eta(capoolcon)*(lambda1*omega(capoolcon, threshold1, threshold2)-lambda2*W)	  : Long-term plasticity was implemented. (Shouval et al. 2002a, 2002b)
 

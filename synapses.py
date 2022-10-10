@@ -55,6 +55,44 @@ def bginh(syn_params, sec_x, sec_id):
 
     return lsyn
 
+def bg_tone2pyr(syn_params,sec_x,sec_id):
+    lsyn = h.bg_tone2pyr(sec_x, sec=sec_id)
+
+    if syn_params.get('initW'):
+        lsyn.initW = float(syn_params['initW'])
+    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('threshold1'):
+        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+    if syn_params.get('threshold2'):
+        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
+
+    return lsyn
+
+def bg_tone2pv(syn_params,sec_x,sec_id):
+    lsyn = h.bg_tone2pv(sec_x, sec=sec_id)
+
+    if syn_params.get('initW'):
+        lsyn.initW = float(syn_params['initW'])
+    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+    if syn_params.get('threshold1'):
+        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+    if syn_params.get('threshold2'):
+        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
+
+    return lsyn
+
 def pv2pv(syn_params, sec_x, sec_id):
 
     lsyn = h.pv2pv(sec_x, sec=sec_id)
@@ -173,6 +211,11 @@ def pyr2vip(syn_params, sec_x, sec_id):
         lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+            lsyn.gbar_nmda = float(0.5*10**-9)
+        else:
+            pass
 
     return lsyn
 
@@ -605,6 +648,10 @@ def load():
     add_synapse_model(Bg2Pyr, overwrite=False)
     add_synapse_model(bginh, 'bginh', overwrite=False)
     add_synapse_model(bginh, overwrite=False)
+    add_synapse_model(bg_tone2pyr, 'bg_tone2pyr', overwrite=False)
+    add_synapse_model(bg_tone2pyr, overwrite=False)
+    add_synapse_model(bg_tone2pv, 'bg_tone2pv', overwrite=False)
+    add_synapse_model(bg_tone2pv, overwrite=False)
 
     #pv
     add_synapse_model(pv2pv, 'pv2pv', overwrite=False)
