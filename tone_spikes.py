@@ -3,18 +3,20 @@ import h5py
 import numpy as np
 import pandas as pd
 import warnings
+plt.rcParams.update({'font.size': 16})
 
 warnings.simplefilter(action='ignore', category=UserWarning)
 
-f = h5py.File('0%tone/spikes.h5')
+f = h5py.File('outputECP_NMDA_TRIALS/spikes.h5')
+spikes_df = pd.DataFrame(
+    {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
+f = h5py.File('outputECP_NMDA_TRIALS_0.5/spikes.h5')
 spikes_df1 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('50%tone/spikes.h5')
+f = h5py.File('outputECP_NMDA_TRIALS_0.75/spikes.h5')
 spikes_df2 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('75%tone/spikes.h5')
-spikes_df3 = pd.DataFrame(
-    {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
+
 
 
 
@@ -30,16 +32,16 @@ node_set_split = [
 ]
 
 
-fig, axs = plt.subplots(1,3, figsize=(12, 6),tight_layout=True,sharey=True)
-fig.suptitle("7 500ms Tone pips", fontsize=15)
+fig, axs = plt.subplots(1,3, figsize=(14, 7),tight_layout=True,sharey=True)
+fig.suptitle("10 500ms Tone pips", fontsize=15)
 def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
     for node in node_set:
         cells = range(node['start'], node['end'] + 1)  # +1 to be inclusive of last cell
         cell_spikes = spikes_df[spikes_df['node_ids'].isin(cells)]
         if start==None:
             all_trials = pd.DataFrame(columns=['node_ids', 'timestamps'])
-            start = 500
-            end = 1000
+            start = 3000
+            end = 3500
             time = 0
             for i in range(7):
                 time = time + 500
@@ -51,7 +53,7 @@ def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
                 end = end + 1500
 
             spike_counts = all_trials.node_ids.value_counts()
-            total_seconds = (3500)/1000
+            total_seconds = (5000)/1000
             spike_counts = spike_counts / total_seconds
 
             spike_counts_mean = spike_counts.mean()
@@ -70,14 +72,14 @@ def plot(node_set=None, start=None, end=None, spikes_df=None, ax=None, title=0):
         if ax == axs[0]:
             ax.set_ylabel("mean Hz during tone")
         ax.set_title(title)
-        ax.set_ylim(0,30)
+        ax.set_ylim(0,60)
         ax.legend(loc=2, prop={'size': 8})
 
 #plot(node_set=node_set_split,start=500, end=1000, spikes_df=spikes_df, ax=axs[0], title="first tone")
 #plot(node_set=node_set_split,start=9500, end=10000, spikes_df=spikes_df, ax=axs[1], title="last tone")
-plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df1, ax=axs[0], title="baseline NMDA conductance")
-plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df2, ax=axs[1], title="50% NMDA blocked")
-plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df3, ax=axs[2], title="75% NMDA blocked")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df, ax=axs[0], title="baseline NMDA conductance")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df1, ax=axs[1], title="50% NMDA blocked")
+plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df2, ax=axs[2], title="75% NMDA blocked")
 #plot(node_set=node_set_split,start=None, end=None, spikes_df=spikes_df5, ax=axs[1], title="50% blocked")
 
 plt.show()

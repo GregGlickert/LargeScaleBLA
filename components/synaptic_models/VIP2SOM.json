@@ -1,4 +1,4 @@
 {   "level_of_detail": "vip2som",
-    "initW_lognormal_mean": "1",
-    "initW_lognormal_std": "0.3"
+    "initW_lognormal_mean": "0.000000001",
+    "initW_lognormal_std": "0.000000001"
 }

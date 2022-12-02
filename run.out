@@ -1,0 +1,71 @@
+Running model at Sat Nov 19 21:47:09 PST 2022
+numprocs=720
+NEURON -- VERSION 8.2.1 HEAD (c1590692) 2022-08-09
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2022
+See http://neuron.yale.edu/neuron/credits
+
+2022-11-19 21:47:32,363 [INFO] Created log file
+2022-11-19 21:47:33,841 [INFO] Running NEURON with mpi (720 cores).
+Additional mechanisms from files
+ "modfiles//bg2pyr.mod" "modfiles//bginh.mod" "modfiles//cadyn.mod" "modfiles//cal2CA3.mod" "modfiles//cal2.mod" "modfiles//ca.mod" "modfiles//capoolCA3.mod" "modfiles//capool.mod" "modfiles//cas.mod" "modfiles//cat.mod" "modfiles//currentclamp.mod" "modfiles//function_TMonitor.mod" "modfiles//gap.mod" "modfiles//Gfluct_new_exc.mod" "modfiles//Gfluct_new_inh.mod" "modfiles//halfgap.mod" "modfiles//hCA3.mod" "modfiles//h.mod" "modfiles//imCA3.mod" "modfiles//im.mod" "modfiles//kadist.mod" "modfiles//kaprox.mod" "modfiles//kca.mod" "modfiles//kdrca1DA.mod" "modfiles//kdrca1.mod" "modfiles//kdrCA3.mod" "modfiles//kdrinter.mod" "modfiles//leakCA3.mod" "modfiles//leakDA.mod" "modfiles//leakinter.mod" "modfiles//leak.mod" "modfiles//na3DA.mod" "modfiles//na3.mod" "modfiles//nainter.mod" "modfiles//napCA3.mod" "modfiles//nap.mod" "modfiles//natCA3.mod" "modfiles//nat.mod" "modfiles//pv2pv.mod" "modfiles//pv2pyr.mod" "modfiles//pv2som.mod" "modfiles//pyr2pv.mod" "modfiles//pyr2pyr.mod" "modfiles//pyr2som.mod" "modfiles//pyr2vip.mod" "modfiles//sahpCA3.mod" "modfiles//sahp.mod" "modfiles//sahpNE.mod" "modfiles//shock2int.mod" "modfiles//som2pv.mod" "modfiles//som2pyr.mod" "modfiles//som2vip.mod" "modfiles//tone2pv.mod" "modfiles//tone2pyr.mod" "modfiles//tone2vip.mod" "modfiles//vecevent.mod" "modfiles//vip2som.mod" "modfiles//xtra_imemrec.mod" "modfiles//xtra.mod"
+2022-11-19 21:47:35,614 [INFO] Building cells.
+2022-11-19 21:47:35,849 [INFO] Building recurrent connections
+2022-11-19 21:47:45,484 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-11-19 21:47:45,988 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-11-19 21:47:46,240 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-11-19 21:47:46,389 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-11-19 21:47:46,536 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-11-19 21:47:46,968 [INFO] Building virtual cell stimulations for tone_spikes
+2022-11-19 21:48:09,941 [INFO] Running simulation for 12500.000 ms with the time step 0.100 ms
+2022-11-19 21:48:09,942 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-11-19 21:48:09,942 [INFO] Block save every 5000 steps
+2022-11-19 21:48:18,810 [INFO]     step:5000 t_sim:500.00 ms
+2022-11-19 21:48:27,554 [INFO]     step:10000 t_sim:1000.00 ms
+2022-11-19 21:48:36,263 [INFO]     step:15000 t_sim:1500.00 ms
+2022-11-19 21:48:44,961 [INFO]     step:20000 t_sim:2000.00 ms
+2022-11-19 21:48:53,665 [INFO]     step:25000 t_sim:2500.00 ms
+2022-11-19 21:49:02,341 [INFO]     step:30000 t_sim:3000.00 ms
+2022-11-19 21:49:11,065 [INFO]     step:35000 t_sim:3500.00 ms
+2022-11-19 21:49:19,749 [INFO]     step:40000 t_sim:4000.00 ms
+2022-11-19 21:49:30,955 [INFO]     step:45000 t_sim:4500.00 ms
+2022-11-19 21:49:40,809 [INFO]     step:50000 t_sim:5000.00 ms
+2022-11-19 21:49:50,676 [INFO]     step:55000 t_sim:5500.00 ms
+2022-11-19 21:49:59,318 [INFO]     step:60000 t_sim:6000.00 ms
+2022-11-19 21:50:08,322 [INFO]     step:65000 t_sim:6500.00 ms
+2022-11-19 21:50:17,025 [INFO]     step:70000 t_sim:7000.00 ms
+2022-11-19 21:50:25,666 [INFO]     step:75000 t_sim:7500.00 ms
+2022-11-19 21:50:34,323 [INFO]     step:80000 t_sim:8000.00 ms
+2022-11-19 21:50:42,925 [INFO]     step:85000 t_sim:8500.00 ms
+2022-11-19 21:50:51,560 [INFO]     step:90000 t_sim:9000.00 ms
+2022-11-19 21:51:00,173 [INFO]     step:95000 t_sim:9500.00 ms
+2022-11-19 21:51:15,036 [INFO]     step:100000 t_sim:10000.00 ms
+2022-11-19 21:51:23,678 [INFO]     step:105000 t_sim:10500.00 ms
+2022-11-19 21:51:32,301 [INFO]     step:110000 t_sim:11000.00 ms
+2022-11-19 21:51:40,962 [INFO]     step:115000 t_sim:11500.00 ms
+2022-11-19 21:51:49,622 [INFO]     step:120000 t_sim:12000.00 ms
+2022-11-19 21:51:58,294 [INFO]     step:125000 t_sim:12500.00 ms
+2022-11-19 21:54:24,097 [INFO] Simulation completed in 6.0 minutes, 20.53 seconds 
+--------------------------------------------------------------------------
+mpirun has exited due to process rank 113 with PID 0 on
+node exp-10-23 exiting improperly. There are three reasons this could occur:
+
+1. this process did not call "init" before exiting, but others in
+the job did. This can cause a job to hang indefinitely while it waits
+for all processes to call "init". By rule, if one process calls "init",
+then ALL processes must call "init" prior to termination.
+
+2. this process called "init", but exited without calling "finalize".
+By rule, all processes that call "init" MUST call "finalize" prior to
+exiting or it will be considered an "abnormal termination"
+
+3. this process called "MPI_Abort" or "orte_abort" and the mca parameter
+orte_create_session_dirs is set to false. In this case, the run-time cannot
+detect that the abort call was an abnormal termination. Hence, the only
+error message you will receive is this one.
+
+This may have caused other processes in the application to be
+terminated by signals sent by mpirun (as reported here).
+
+You can avoid this message by specifying -quiet on the mpirun command line.
+--------------------------------------------------------------------------
+Done running model at Sat Nov 19 21:54:28 PST 2022

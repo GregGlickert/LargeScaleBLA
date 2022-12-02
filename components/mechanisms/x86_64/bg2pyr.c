@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "scoplib_ansi.h"
+#include "mech_api.h"
 #undef PI
 #define nil 0
 #include "md1redef.h"
@@ -32,9 +32,9 @@ extern double hoc_Exp(double);
 #define states states__bg2pyr 
  
 #define _threadargscomma_ _p, _ppvar, _thread, _nt,
-#define _threadargsprotocomma_ double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt,
+#define _threadargsprotocomma_ double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt,
 #define _threadargs_ _p, _ppvar, _thread, _nt
-#define _threadargsproto_ double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt
+#define _threadargsproto_ double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt
  	/*SUPPRESS 761*/
 	/*SUPPRESS 762*/
 	/*SUPPRESS 763*/
@@ -45,36 +45,67 @@ extern double hoc_Exp(double);
 #define t _nt->_t
 #define dt _nt->_dt
 #define initW _p[0]
+#define initW_columnindex 0
 #define taun1 _p[1]
+#define taun1_columnindex 1
 #define taun2 _p[2]
+#define taun2_columnindex 2
 #define gNMDAmax _p[3]
+#define gNMDAmax_columnindex 3
 #define enmda _p[4]
+#define enmda_columnindex 4
 #define taua1 _p[5]
+#define taua1_columnindex 5
 #define taua2 _p[6]
+#define taua2_columnindex 6
 #define gAMPAmax _p[7]
+#define gAMPAmax_columnindex 7
 #define eampa _p[8]
+#define eampa_columnindex 8
 #define inmda _p[9]
+#define inmda_columnindex 9
 #define gnmda _p[10]
+#define gnmda_columnindex 10
 #define gnmdas _p[11]
+#define gnmdas_columnindex 11
 #define factorn _p[12]
+#define factorn_columnindex 12
 #define normconstn _p[13]
+#define normconstn_columnindex 13
 #define iampa _p[14]
+#define iampa_columnindex 14
 #define gampa _p[15]
+#define gampa_columnindex 15
 #define gampas _p[16]
+#define gampas_columnindex 16
 #define factora _p[17]
+#define factora_columnindex 17
 #define normconsta _p[18]
+#define normconsta_columnindex 18
 #define An _p[19]
+#define An_columnindex 19
 #define Bn _p[20]
+#define Bn_columnindex 20
 #define Aa _p[21]
+#define Aa_columnindex 21
 #define Ba _p[22]
+#define Ba_columnindex 22
 #define eca _p[23]
+#define eca_columnindex 23
 #define DAn _p[24]
+#define DAn_columnindex 24
 #define DBn _p[25]
+#define DBn_columnindex 25
 #define DAa _p[26]
+#define DAa_columnindex 26
 #define DBa _p[27]
+#define DBa_columnindex 27
 #define v _p[28]
+#define v_columnindex 28
 #define _g _p[29]
+#define _g_columnindex 29
 #define _tsav _p[30]
+#define _tsav_columnindex 30
 #define _nd_area  *_ppvar[0]._pval
  
 #if MAC
@@ -94,7 +125,7 @@ extern "C" {
  static Prop* _extcall_prop;
  /* external NEURON variables */
  /* declaration of user functions */
- static double _hoc_sfunc();
+ static double _hoc_sfunc(void*);
  static int _mechtype;
 extern void _nrn_cacheloop_reg(int, int);
 extern void hoc_register_prop_size(int, int, int);
@@ -113,18 +144,18 @@ extern void hoc_reg_nmodl_filename(int, const char*);
 
  extern Prop* nrn_point_prop_;
  static int _pointtype;
- static void* _hoc_create_pnt(_ho) Object* _ho; { void* create_point_process();
+ static void* _hoc_create_pnt(Object* _ho) { void* create_point_process(int, Object*);
  return create_point_process(_pointtype, _ho);
 }
- static void _hoc_destroy_pnt();
- static double _hoc_loc_pnt(_vptr) void* _vptr; {double loc_point_process();
+ static void _hoc_destroy_pnt(void*);
+ static double _hoc_loc_pnt(void* _vptr) {double loc_point_process(int, void*);
  return loc_point_process(_pointtype, _vptr);
 }
- static double _hoc_has_loc(_vptr) void* _vptr; {double has_loc_point();
+ static double _hoc_has_loc(void* _vptr) {double has_loc_point(void*);
  return has_loc_point(_vptr);
 }
- static double _hoc_get_loc_pnt(_vptr)void* _vptr; {
- double get_loc_point_process(); return (get_loc_point_process(_vptr));
+ static double _hoc_get_loc_pnt(void* _vptr) {
+ double get_loc_point_process(void*); return (get_loc_point_process(_vptr));
 }
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
@@ -155,6 +186,7 @@ extern void hoc_reg_nmodl_filename(int, const char*);
  static HocParmUnits _hoc_parm_units[] = {
  "taun1", "ms",
  "taun2", "ms",
+ "gNMDAmax", "uS",
  "enmda", "mV",
  "taua1", "ms",
  "taua2", "ms",
@@ -178,18 +210,18 @@ extern void hoc_reg_nmodl_filename(int, const char*);
 };
  static double _sav_indep;
  static void nrn_alloc(Prop*);
-static void  nrn_init(_NrnThread*, _Memb_list*, int);
-static void nrn_state(_NrnThread*, _Memb_list*, int);
- static void nrn_cur(_NrnThread*, _Memb_list*, int);
-static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
- static void _hoc_destroy_pnt(_vptr) void* _vptr; {
+static void  nrn_init(NrnThread*, _Memb_list*, int);
+static void nrn_state(NrnThread*, _Memb_list*, int);
+ static void nrn_cur(NrnThread*, _Memb_list*, int);
+static void  nrn_jacob(NrnThread*, _Memb_list*, int);
+ static void _hoc_destroy_pnt(void* _vptr) {
    destroy_point_process(_vptr);
 }
  
 static int _ode_count(int);
 static void _ode_map(int, double**, double**, double*, Datum*, double*, int);
-static void _ode_spec(_NrnThread*, _Memb_list*, int);
-static void _ode_matsol(_NrnThread*, _Memb_list*, int);
+static void _ode_spec(NrnThread*, _Memb_list*, int);
+static void _ode_matsol(NrnThread*, _Memb_list*, int);
  
 #define _cvode_ieq _ppvar[2]._i
  static void _ode_matsol_instance1(_threadargsproto_);
@@ -265,7 +297,7 @@ static void nrn_alloc(Prop* _prop) {
  static void _net_receive(Point_process*, double*, double);
  extern Symbol* hoc_lookup(const char*);
 extern void _nrn_thread_reg(int, int, void(*)(Datum*));
-extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, _NrnThread*, int));
+extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, NrnThread*, int));
 extern void hoc_register_tolerance(int, HocStateTolerance*, Symbol***);
 extern void _cvode_abstol( Symbol**, double*, int);
 
@@ -291,7 +323,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  pnt_receive[_mechtype] = _net_receive;
  pnt_receive_size[_mechtype] = 1;
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 bg2pyr /home/gjgpb9/LargeScaleBLA/components/mechanisms/x86_64/bg2pyr.mod\n");
+ 	ivoc_help("help ?1 bg2pyr /home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/bg2pyr.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -309,7 +341,7 @@ static int _ode_spec1(_threadargsproto_);
  static int states(_threadargsproto_);
  
 /*CVODE*/
- static int _ode_spec1 (double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) {int _reset = 0; {
+ static int _ode_spec1 (double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) {int _reset = 0; {
    DAn = - An / taun1 ;
    DBn = - Bn / taun2 ;
    DAa = - Aa / taua1 ;
@@ -317,7 +349,7 @@ static int _ode_spec1(_threadargsproto_);
    }
  return _reset;
 }
- static int _ode_matsol1 (double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) {
+ static int _ode_matsol1 (double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) {
  DAn = DAn  / (1. - dt*( ( - 1.0 ) / taun1 )) ;
  DBn = DBn  / (1. - dt*( ( - 1.0 ) / taun2 )) ;
  DAa = DAa  / (1. - dt*( ( - 1.0 ) / taua1 )) ;
@@ -325,7 +357,7 @@ static int _ode_spec1(_threadargsproto_);
   return 0;
 }
  /*END CVODE*/
- static int states (double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) { {
+ static int states (double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) { {
     An = An + (1. - exp(dt*(( - 1.0 ) / taun1)))*(- ( 0.0 ) / ( ( - 1.0 ) / taun1 ) - An) ;
     Bn = Bn + (1. - exp(dt*(( - 1.0 ) / taun2)))*(- ( 0.0 ) / ( ( - 1.0 ) / taun2 ) - Bn) ;
     Aa = Aa + (1. - exp(dt*(( - 1.0 ) / taua1)))*(- ( 0.0 ) / ( ( - 1.0 ) / taua1 ) - Aa) ;
@@ -334,9 +366,9 @@ static int _ode_spec1(_threadargsproto_);
   return 0;
 }
  
-static void _net_receive (_pnt, _args, _lflag) Point_process* _pnt; double* _args; double _lflag; 
-{  double* _p; Datum* _ppvar; Datum* _thread; _NrnThread* _nt;
-   _thread = (Datum*)0; _nt = (_NrnThread*)_pnt->_vnt;   _p = _pnt->_prop->param; _ppvar = _pnt->_prop->dparam;
+static void _net_receive (Point_process* _pnt, double* _args, double _lflag) 
+{  double* _p; Datum* _ppvar; Datum* _thread; NrnThread* _nt;
+   _thread = (Datum*)0; _nt = (NrnThread*)_pnt->_vnt;   _p = _pnt->_prop->param; _ppvar = _pnt->_prop->dparam;
   if (_tsav > t){ extern char* hoc_object_name(); hoc_execerror(hoc_object_name(_pnt->ob), ":Event arrived out of order. Must call ParallelContext.set_maxstep AFTER assigning minimum NetCon.delay");}
  _tsav = t; {
    double _lx ;
@@ -388,18 +420,18 @@ return _lsfunc;
  
 static double _hoc_sfunc(void* _vptr) {
  double _r;
-   double* _p; Datum* _ppvar; Datum* _thread; _NrnThread* _nt;
+   double* _p; Datum* _ppvar; Datum* _thread; NrnThread* _nt;
    _p = ((Point_process*)_vptr)->_prop->param;
   _ppvar = ((Point_process*)_vptr)->_prop->dparam;
   _thread = _extcall_thread;
-  _nt = (_NrnThread*)((Point_process*)_vptr)->_vnt;
+  _nt = (NrnThread*)((Point_process*)_vptr)->_vnt;
  _r =  sfunc ( _p, _ppvar, _thread, _nt, *getarg(1) );
  return(_r);
 }
  
 static int _ode_count(int _type){ return 4;}
  
-static void _ode_spec(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void _ode_spec(NrnThread* _nt, _Memb_list* _ml, int _type) {
    double* _p; Datum* _ppvar; Datum* _thread;
    Node* _nd; double _v; int _iml, _cntml;
   _cntml = _ml->_nodecount;
@@ -425,7 +457,7 @@ static void _ode_matsol_instance1(_threadargsproto_) {
  _ode_matsol1 (_p, _ppvar, _thread, _nt);
  }
  
-static void _ode_matsol(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void _ode_matsol(NrnThread* _nt, _Memb_list* _ml, int _type) {
    double* _p; Datum* _ppvar; Datum* _thread;
    Node* _nd; double _v; int _iml, _cntml;
   _cntml = _ml->_nodecount;
@@ -437,7 +469,7 @@ static void _ode_matsol(_NrnThread* _nt, _Memb_list* _ml, int _type) {
  _ode_matsol_instance1(_threadargs_);
  }}
 
-static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) {
+static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) {
   int _i; double _save;{
   Aa = Aa0;
   An = An0;
@@ -457,7 +489,7 @@ static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt
 }
 }
 
-static void nrn_init(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_init(NrnThread* _nt, _Memb_list* _ml, int _type){
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; double _v; int* _ni; int _iml, _cntml;
 #if CACHEVEC
@@ -482,7 +514,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
 }
 }
 
-static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt, double _v){double _current=0.;v=_v;{ {
+static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt, double _v){double _current=0.;v=_v;{ {
    gnmda = normconstn * factorn * ( Bn - An ) ;
    gnmdas = gnmda ;
    if ( gnmdas > 1.0 ) {
@@ -502,7 +534,7 @@ static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread
 } return _current;
 }
 
-static void nrn_cur(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_cur(NrnThread* _nt, _Memb_list* _ml, int _type) {
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; int* _ni; double _rhs, _v; int _iml, _cntml;
 #if CACHEVEC
@@ -540,7 +572,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }
 
-static void nrn_jacob(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_jacob(NrnThread* _nt, _Memb_list* _ml, int _type) {
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; int* _ni; int _iml, _cntml;
 #if CACHEVEC
@@ -564,7 +596,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }
 
-static void nrn_state(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_state(NrnThread* _nt, _Memb_list* _ml, int _type) {
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; double _v = 0.0; int* _ni; int _iml, _cntml;
 #if CACHEVEC
@@ -597,10 +629,10 @@ static void _initlists(){
  double _x; double* _p = &_x;
  int _i; static int _first = 1;
   if (!_first) return;
- _slist1[0] = &(An) - _p;  _dlist1[0] = &(DAn) - _p;
- _slist1[1] = &(Bn) - _p;  _dlist1[1] = &(DBn) - _p;
- _slist1[2] = &(Aa) - _p;  _dlist1[2] = &(DAa) - _p;
- _slist1[3] = &(Ba) - _p;  _dlist1[3] = &(DBa) - _p;
+ _slist1[0] = An_columnindex;  _dlist1[0] = DAn_columnindex;
+ _slist1[1] = Bn_columnindex;  _dlist1[1] = DBn_columnindex;
+ _slist1[2] = Aa_columnindex;  _dlist1[2] = DAa_columnindex;
+ _slist1[3] = Ba_columnindex;  _dlist1[3] = DBa_columnindex;
 _first = 0;
 }
 
@@ -609,7 +641,7 @@ _first = 0;
 #endif
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components/mechanisms/modfiles/bg2pyr.mod";
+static const char* nmodl_filename = "/home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/bg2pyr.mod";
 static const char* nmodl_file_text = 
   ":Background to Pyramidal Cells AMPA+NMDA \n"
   "\n"
@@ -638,7 +670,7 @@ static const char* nmodl_file_text =
   "	:NMDA\n"
   "	taun1 = 5 (ms)\n"
   "	taun2 = 125 (ms)\n"
-  "	gNMDAmax = 0.5e-3 :0.5e-3 (uS)\n"
+  "	gNMDAmax = 0.5e-3 (uS)\n"
   "	enmda = 0 (mV)\n"
   "\n"
   "	:AMPA\n"
@@ -713,6 +745,7 @@ static const char* nmodl_file_text =
   "	:NMDA\n"
   "	An' = -An/taun1\n"
   "	Bn' = -Bn/taun2\n"
+  "	\n"
   "\n"
   "	:AMPA\n"
   "	Aa' = -Aa/taua1\n"

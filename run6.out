@@ -1,0 +1,13 @@
+numprocs=10
+NEURON -- VERSION 8.1.0 HEAD (047dd824) 2022-03-25
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2021
+See http://neuron.yale.edu/neuron/credits
+
+2022-11-11 03:41:59,303 [INFO] Created log file
+2022-11-11 03:41:59,303 [INFO] Running NEURON with mpi (10 cores).
+Additional mechanisms from files
+ "modfiles//bg2pyr.mod" "modfiles//bginh.mod" "modfiles//cadyn.mod" "modfiles//cal2CA3.mod" "modfiles//cal2.mod" "modfiles//ca.mod" "modfiles//capoolCA3.mod" "modfiles//capool.mod" "modfiles//cas.mod" "modfiles//cat.mod" "modfiles//currentclamp.mod" "modfiles//function_TMonitor.mod" "modfiles//gap.mod" "modfiles//Gfluct_new_exc.mod" "modfiles//Gfluct_new_inh.mod" "modfiles//halfgap.mod" "modfiles//hCA3.mod" "modfiles//h.mod" "modfiles//imCA3.mod" "modfiles//im.mod" "modfiles//kadist.mod" "modfiles//kaprox.mod" "modfiles//kca.mod" "modfiles//kdrca1DA.mod" "modfiles//kdrca1.mod" "modfiles//kdrCA3.mod" "modfiles//kdrinter.mod" "modfiles//leakCA3.mod" "modfiles//leakDA.mod" "modfiles//leakinter.mod" "modfiles//leak.mod" "modfiles//na3DA.mod" "modfiles//na3.mod" "modfiles//nainter.mod" "modfiles//napCA3.mod" "modfiles//nap.mod" "modfiles//natCA3.mod" "modfiles//nat.mod" "modfiles//pv2pv.mod" "modfiles//pv2pyr.mod" "modfiles//pv2som.mod" "modfiles//pyr2pv.mod" "modfiles//pyr2pyr.mod" "modfiles//pyr2som.mod" "modfiles//pyr2vip.mod" "modfiles//sahpCA3.mod" "modfiles//sahp.mod" "modfiles//sahpNE.mod" "modfiles//shock2int.mod" "modfiles//som2pv.mod" "modfiles//som2pyr.mod" "modfiles//som2vip.mod" "modfiles//tone2pv.mod" "modfiles//tone2pyr.mod" "modfiles//tone2vip.mod" "modfiles//vecevent.mod" "modfiles//vip2som.mod" "modfiles//xtra_imemrec.mod" "modfiles//xtra.mod"
+2022-11-11 03:41:59,848 [INFO] Building cells.
+2022-11-11 03:42:00,689 [INFO] Building recurrent connections
+mpiexec: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 3854 ON engr-nelvm-res CANCELLED AT 2022-11-11T03:42:33 ***

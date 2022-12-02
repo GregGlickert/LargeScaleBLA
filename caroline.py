@@ -1,5 +1,5 @@
 
-joke = input("Is Caroline a dumb dumb answer yes or no: ")
+joke = input("Is caroline a dumb dumb answer yes or no: ")
 if joke =='yes':
     print("correct")
 if joke =='no':

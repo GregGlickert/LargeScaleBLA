@@ -1,0 +1,56 @@
+numprocs=60
+NEURON -- VERSION 8.1.0 HEAD (047dd824) 2022-03-25
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2021
+See http://neuron.yale.edu/neuron/credits
+
+2022-11-17 13:42:28,726 [INFO] Created log file
+2022-11-17 13:42:28,727 [INFO] Running NEURON with mpi (60 cores).
+Additional mechanisms from files
+ "modfiles//bg2pyr.mod" "modfiles//bginh.mod" "modfiles//cadyn.mod" "modfiles//cal2CA3.mod" "modfiles//cal2.mod" "modfiles//ca.mod" "modfiles//capoolCA3.mod" "modfiles//capool.mod" "modfiles//cas.mod" "modfiles//cat.mod" "modfiles//currentclamp.mod" "modfiles//function_TMonitor.mod" "modfiles//gap.mod" "modfiles//Gfluct_new_exc.mod" "modfiles//Gfluct_new_inh.mod" "modfiles//halfgap.mod" "modfiles//hCA3.mod" "modfiles//h.mod" "modfiles//imCA3.mod" "modfiles//im.mod" "modfiles//kadist.mod" "modfiles//kaprox.mod" "modfiles//kca.mod" "modfiles//kdrca1DA.mod" "modfiles//kdrca1.mod" "modfiles//kdrCA3.mod" "modfiles//kdrinter.mod" "modfiles//leakCA3.mod" "modfiles//leakDA.mod" "modfiles//leakinter.mod" "modfiles//leak.mod" "modfiles//na3DA.mod" "modfiles//na3.mod" "modfiles//nainter.mod" "modfiles//napCA3.mod" "modfiles//nap.mod" "modfiles//natCA3.mod" "modfiles//nat.mod" "modfiles//pv2pv.mod" "modfiles//pv2pyr.mod" "modfiles//pv2som.mod" "modfiles//pyr2pv.mod" "modfiles//pyr2pyr.mod" "modfiles//pyr2som.mod" "modfiles//pyr2vip.mod" "modfiles//sahpCA3.mod" "modfiles//sahp.mod" "modfiles//sahpNE.mod" "modfiles//shock2int.mod" "modfiles//som2pv.mod" "modfiles//som2pyr.mod" "modfiles//som2vip.mod" "modfiles//tone2pv.mod" "modfiles//tone2pyr.mod" "modfiles//tone2vip.mod" "modfiles//vecevent.mod" "modfiles//vip2som.mod" "modfiles//xtra_imemrec.mod" "modfiles//xtra.mod"
+2022-11-17 13:42:29,240 [INFO] Building cells.
+2022-11-17 13:42:29,429 [INFO] Building recurrent connections
+2022-11-17 13:43:17,605 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-11-17 13:43:18,604 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-11-17 13:43:19,370 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-11-17 13:43:19,795 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-11-17 13:43:20,129 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-11-17 13:43:20,623 [INFO] Building virtual cell stimulations for tone_spikes
+2022-11-17 13:43:20,916 [INFO] Running simulation for 5000.000 ms with the time step 0.100 ms
+2022-11-17 13:43:20,916 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-11-17 13:43:20,916 [INFO] Block save every 5000 steps
+2022-11-17 13:45:00,955 [INFO]     step:5000 t_sim:500.00 ms
+2022-11-17 13:46:37,155 [INFO]     step:10000 t_sim:1000.00 ms
+2022-11-17 13:48:12,623 [INFO]     step:15000 t_sim:1500.00 ms
+2022-11-17 13:49:50,860 [INFO]     step:20000 t_sim:2000.00 ms
+2022-11-17 13:51:27,466 [INFO]     step:25000 t_sim:2500.00 ms
+2022-11-17 13:53:02,922 [INFO]     step:30000 t_sim:3000.00 ms
+2022-11-17 13:54:41,331 [INFO]     step:35000 t_sim:3500.00 ms
+2022-11-17 13:56:17,171 [INFO]     step:40000 t_sim:4000.00 ms
+2022-11-17 13:57:53,423 [INFO]     step:45000 t_sim:4500.00 ms
+2022-11-17 13:59:30,972 [INFO]     step:50000 t_sim:5000.00 ms
+2022-11-17 13:59:31,395 [INFO] Simulation completed in 16.0 minutes, 10.48 seconds 
+--------------------------------------------------------------------------
+mpiexec has exited due to process rank 55 with PID 347553 on
+node engr-nelvm-res exiting improperly. There are three reasons this could occur:
+
+1. this process did not call "init" before exiting, but others in
+the job did. This can cause a job to hang indefinitely while it waits
+for all processes to call "init". By rule, if one process calls "init",
+then ALL processes must call "init" prior to termination.
+
+2. this process called "init", but exited without calling "finalize".
+By rule, all processes that call "init" MUST call "finalize" prior to
+exiting or it will be considered an "abnormal termination"
+
+3. this process called "MPI_Abort" or "orte_abort" and the mca parameter
+orte_create_session_dirs is set to false. In this case, the run-time cannot
+detect that the abort call was an abnormal termination. Hence, the only
+error message you will receive is this one.
+
+This may have caused other processes in the application to be
+terminated by signals sent by mpiexec (as reported here).
+
+You can avoid this message by specifying -quiet on the mpiexec command line.
+
+--------------------------------------------------------------------------
+Done running model at Thu Nov 17 13:59:32 CST 2022

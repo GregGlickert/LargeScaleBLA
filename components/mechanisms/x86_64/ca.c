@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "scoplib_ansi.h"
+#include "mech_api.h"
 #undef PI
 #define nil 0
 #include "md1redef.h"
@@ -48,18 +48,31 @@ extern double hoc_Exp(double);
 #define t nrn_threads->_t
 #define dt nrn_threads->_dt
 #define gbar _p[0]
+#define gbar_columnindex 0
 #define gca _p[1]
+#define gca_columnindex 1
 #define minf _p[2]
+#define minf_columnindex 2
 #define hinf _p[3]
+#define hinf_columnindex 3
 #define mtau _p[4]
+#define mtau_columnindex 4
 #define htau _p[5]
+#define htau_columnindex 5
 #define m _p[6]
+#define m_columnindex 6
 #define h _p[7]
+#define h_columnindex 7
 #define ica _p[8]
+#define ica_columnindex 8
 #define eca _p[9]
+#define eca_columnindex 9
 #define Dm _p[10]
+#define Dm_columnindex 10
 #define Dh _p[11]
+#define Dh_columnindex 11
 #define _g _p[12]
+#define _g_columnindex 12
 #define _ion_eca	*_ppvar[0]._pval
 #define _ion_ica	*_ppvar[1]._pval
 #define _ion_dicadv	*_ppvar[2]._pval
@@ -180,10 +193,10 @@ extern void hoc_reg_nmodl_filename(int, const char*);
 };
  static double _sav_indep;
  static void nrn_alloc(Prop*);
-static void  nrn_init(_NrnThread*, _Memb_list*, int);
-static void nrn_state(_NrnThread*, _Memb_list*, int);
- static void nrn_cur(_NrnThread*, _Memb_list*, int);
-static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
+static void  nrn_init(NrnThread*, _Memb_list*, int);
+static void nrn_state(NrnThread*, _Memb_list*, int);
+ static void nrn_cur(NrnThread*, _Memb_list*, int);
+static void  nrn_jacob(NrnThread*, _Memb_list*, int);
  
 static int _ode_count(int);
  /* connect range variables in _p that hoc is supposed to know about */
@@ -228,7 +241,7 @@ static void nrn_alloc(Prop* _prop) {
  static void _update_ion_pointer(Datum*);
  extern Symbol* hoc_lookup(const char*);
 extern void _nrn_thread_reg(int, int, void(*)(Datum*));
-extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, _NrnThread*, int));
+extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, NrnThread*, int));
 extern void hoc_register_tolerance(int, HocStateTolerance*, Symbol***);
 extern void _cvode_abstol( Symbol**, double*, int);
 
@@ -251,13 +264,19 @@ extern void _cvode_abstol( Symbol**, double*, int);
   hoc_register_dparam_semantics(_mechtype, 2, "ca_ion");
  	hoc_register_cvode(_mechtype, _ode_count, 0, 0, 0);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 ca /home/gjgpb9/LargeScaleBLA/components/mechanisms/x86_64/ca.mod\n");
+ 	ivoc_help("help ?1 ca /home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/ca.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
- static double FARADAY = 96485.3;
- static double R = 8.3145;
- static double PI = 3.14159;
+ 
+#define FARADAY _nrnunit_FARADAY[_nrnunit_use_legacy_]
+static double _nrnunit_FARADAY[2] = {0x1.78e555060882cp+16, 96485.3}; /* 96485.3321233100141 */
+ 
+#define R _nrnunit_R[_nrnunit_use_legacy_]
+static double _nrnunit_R[2] = {0x1.0a1013e8990bep+3, 8.3145}; /* 8.3144626181532395 */
+ 
+#define PI _nrnunit_PI[_nrnunit_use_legacy_]
+static double _nrnunit_PI[2] = {0x1.921fb54442d18p+1, 3.14159}; /* 3.14159265358979312 */
  static double _zmexp , _zhexp ;
  static double *_t_minf;
  static double *_t__zmexp;
@@ -437,7 +456,7 @@ static void initmodel() {
 }
 }
 
-static void nrn_init(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_init(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; double _v; int* _ni; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -468,7 +487,7 @@ static double _nrn_current(double _v){double _current=0.;v=_v;{ {
 } return _current;
 }
 
-static void nrn_cur(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_cur(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; int* _ni; double _rhs, _v; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -505,7 +524,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }}
 
-static void nrn_jacob(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_jacob(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; int* _ni; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -525,7 +544,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }}
 
-static void nrn_state(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_state(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; double _v = 0.0; int* _ni; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -565,7 +584,7 @@ _first = 0;
 }
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components/mechanisms/modfiles/ca.mod";
+static const char* nmodl_filename = "/home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/ca.mod";
 static const char* nmodl_file_text = 
   "\n"
   "COMMENT\n"

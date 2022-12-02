@@ -46,6 +46,18 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
       "node_set": "thalamus_vip"
+    },
+    "tone_spikes": {
+      "input_type": "spikes",
+      "module": "cvs",
+      "input_file": "$BASE_DIR/inputs/tone_spikes.cvs",
+      "node_set": "tone"
+    },
+    "shock_spikes": {
+      "input_type": "spikes",
+      "module": "csv",
+      "input_file": "$BASE_DIR/inputs/shock_spikes.csv",
+      "node_set": "shock"
     }
   },
   "output": {
@@ -61,6 +73,5 @@
       "sections": "soma"
     }
   },
-  "node_sets_file": "$BASE_DIR/node_sets.json",
-  "network": "$BASE_DIR/circuit_config.json"
+  "node_sets_file": "$BASE_DIR/node_sets.json"
 }

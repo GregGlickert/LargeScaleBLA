@@ -16,7 +16,7 @@ def get_PSTH(node_id,df):
     i = 0
     while(i < 10):
         for j in range(len(x0)):
-            if(x0[j] >= timestamp+(i*3500) and x0[j] <= timestamp+(i*3500+1500)):
+            if(x0[j] >= timestamp+(i*500) and x0[j] <= timestamp+(i*500+1500)):
                 value = (x0[j]-(i*3500) - timestamp)
                 value = value/1000
                 value = value - 0.5

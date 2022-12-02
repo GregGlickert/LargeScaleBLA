@@ -1,4 +1,4 @@
-begintemplate PN_A_feng
+begintemplate PN_A
 
 	public soma, dend, apic, connect2target, type,drv, insert_mechs,cclA
 	create soma[1], dend[1], apic[1]
@@ -235,7 +235,7 @@ begintemplate PN_A_feng
 		if (numarg() == 2) ($o2 = nc)
 		return nc
 	}		
-endtemplate PN_A_feng
+endtemplate PN_A
 
 ///////////////////////////////////////////////////////////
 
@@ -244,7 +244,7 @@ endtemplate PN_A_feng
 ///// Type C cell in BL  /////
 /////===================/////
 
-begintemplate PN_C_feng
+begintemplate PN_C
 	public soma, dend, apic, connect2target, type,drv, insert_mechs,cclA
 	create soma[1], dend[1], apic[1]
 
@@ -474,10 +474,10 @@ begintemplate PN_C_feng
 		if (numarg() == 2) ($o2 = nc)
 		return nc
 	}	
-endtemplate PN_C_feng
+endtemplate PN_C
 
 
-begintemplate InterneuronCellf_feng
+begintemplate InterneuronCellf
 	public soma, dend, connect2target, type,connect_gap,LFPtemp_xtra,drv,insert_mechs
 	create soma[1], dend[1]
 
@@ -650,4 +650,4 @@ begintemplate InterneuronCellf_feng
 		if (numarg() == 2) ($o2 = nc)
 			return nc
 		}
-endtemplate InterneuronCellf_feng
+endtemplate InterneuronCellf

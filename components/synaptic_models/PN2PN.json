@@ -1,8 +1,9 @@
 {
     "level_of_detail": "pyr2pyr",
-    "initW_lognormal_mean": "0.5",
-    "initW_lognormal_std": "0.2",
+    "initW_lognormal_mean": "0",
+    "initW_lognormal_std": "0.000000000001",
     "threshold1": ".4",
     "threshold2": ".55",
-    "Percent_NMDA_block" : "0."
+    "Percent_NMDA_block" : "0",
+    "Percent_AMPA_block" : "0"
 }

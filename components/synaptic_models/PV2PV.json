@@ -1,5 +1,5 @@
 {
     "level_of_detail": "pv2pv",
-    "initW_lognormal_mean": "20",
-    "initW_lognormal_std": "15"
+    "initW_lognormal_mean": "1",
+    "initW_lognormal_std": "0.7"
 }

@@ -1,0 +1,418 @@
+numprocs=20
+NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
+See http://neuron.yale.edu/neuron/credits
+
+2022-10-17 23:36:07,064 [INFO] Created log file
+2022-10-17 23:36:07,065 [INFO] Running NEURON with mpi (20 cores).
+Additional mechanisms from files
+ modfiles//bg2pyr.mod modfiles//bginh.mod modfiles//bg_tone2pv.mod modfiles//bg_tone2pyr.mod modfiles//cadyn.mod modfiles//cal2CA3.mod modfiles//cal2.mod modfiles//ca.mod modfiles//capoolCA3.mod modfiles//capool.mod modfiles//cas.mod modfiles//cat.mod modfiles//currentclamp.mod modfiles//function_TMonitor.mod modfiles//gap.mod modfiles//Gfluct_new_exc.mod modfiles//Gfluct_new_inh.mod modfiles//halfgap.mod modfiles//hCA3.mod modfiles//h.mod modfiles//imCA3.mod modfiles//im.mod modfiles//kadist.mod modfiles//kaprox.mod modfiles//kca.mod modfiles//kdrca1DA.mod modfiles//kdrca1.mod modfiles//kdrCA3.mod modfiles//kdrinter.mod modfiles//leakCA3.mod modfiles//leakDA.mod modfiles//leakinter.mod modfiles//leak.mod modfiles//na3DA.mod modfiles//na3.mod modfiles//nainter.mod modfiles//napCA3.mod modfiles//nap.mod modfiles//natCA3.mod modfiles//nat.mod modfiles//pv2pv.mod modfiles//pv2pyr.mod modfiles//pv2som.mod modfiles//pyr2pv.mod modfiles//pyr2pyr.mod modfiles//pyr2som.mod modfiles//pyr2vip.mod modfiles//sahpCA3.mod modfiles//sahp.mod modfiles//sahpNE.mod modfiles//shock2int.mod modfiles//som2pv.mod modfiles//som2pyr.mod modfiles//som2vip.mod modfiles//tone2pv.mod modfiles//tone2pyr.mod modfiles//tone2vip.mod modfiles//vecevent.mod modfiles//vip2som.mod modfiles//xtra_imemrec.mod modfiles//xtra.mod
+2022-10-17 23:36:09,629 [INFO] Building cells.
+2022-10-17 23:36:10,302 [INFO] Building recurrent connections
+2022-10-17 23:40:47,847 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-10-17 23:40:58,700 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-10-17 23:41:03,560 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-10-17 23:41:04,599 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-10-17 23:41:07,078 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-10-17 23:41:08,930 [INFO] Building virtual cell stimulations for tone_spikes
+2022-10-17 23:43:57,127 [INFO] Running simulation for 19000.000 ms with the time step 0.100 ms
+2022-10-17 23:43:57,127 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-10-17 23:43:57,127 [INFO] Block save every 5000 steps
+2022-10-17 23:58:10,288 [INFO]     step:5000 t_sim:500.00 ms
+2022-10-18 00:12:49,173 [INFO]     step:10000 t_sim:1000.00 ms
+2022-10-18 00:27:45,504 [INFO]     step:15000 t_sim:1500.00 ms
+2022-10-18 00:42:44,256 [INFO]     step:20000 t_sim:2000.00 ms
+2022-10-18 00:59:57,955 [INFO]     step:25000 t_sim:2500.00 ms
+2022-10-18 01:14:47,924 [INFO]     step:30000 t_sim:3000.00 ms
+2022-10-18 01:30:14,009 [INFO]     step:35000 t_sim:3500.00 ms
+2022-10-18 01:45:14,592 [INFO]     step:40000 t_sim:4000.00 ms
+2022-10-18 02:00:22,073 [INFO]     step:45000 t_sim:4500.00 ms
+2022-10-18 02:15:27,424 [INFO]     step:50000 t_sim:5000.00 ms
+2022-10-18 02:30:35,899 [INFO]     step:55000 t_sim:5500.00 ms
+2022-10-18 02:45:38,917 [INFO]     step:60000 t_sim:6000.00 ms
+2022-10-18 03:01:33,398 [INFO]     step:65000 t_sim:6500.00 ms
+2022-10-18 03:16:44,312 [INFO]     step:70000 t_sim:7000.00 ms
+2022-10-18 03:33:21,621 [INFO]     step:75000 t_sim:7500.00 ms
+2 nrniv: PyObject method call failed: post_fadvance
+2  near line 0
+2  ^
+3 nrniv: PyObject method call failed: post_fadvance
+3  near line 0
+3  ^
+5 nrniv: PyObject method call failed: post_fadvance
+5  near line 0
+5  ^
+10 nrniv: PyObject method call failed: post_fadvance
+10  near line 0
+10  ^
+15 nrniv: PyObject method call failed: post_fadvance
+15  near line 0
+15  ^
+17 nrniv: PyObject method call failed: post_fadvance
+17  near line 0
+17  ^
+18 nrniv: PyObject method call failed: post_fadvance
+18  near line 0
+18  ^
+19 nrniv: PyObject method call failed: post_fadvance
+19  near line 0
+19  ^
+4 nrniv: PyObject method call failed: post_fadvance
+4  near line 0
+4  ^
+6 nrniv: PyObject method call failed: post_fadvance
+6  near line 0
+6  ^
+7 nrniv: PyObject method call failed: post_fadvance
+7  near line 0
+7  ^
+11 nrniv: PyObject method call failed: post_fadvance
+11  near line 0
+11  ^
+13 nrniv: PyObject method call failed: post_fadvance
+13  near line 0
+13  ^
+14 nrniv: PyObject method call failed: post_fadvance
+14  near line 0
+14  ^
+16 nrniv: PyObject method call failed: post_fadvance
+16  near line 0
+16  ^
+12 nrniv: PyObject method call failed: post_fadvance
+12  near line 0
+12  ^
+        4 advance()
+      4 step()
+        7 advance()
+      7 step()
+    7 continuerun(        12 advance()
+      12 step()
+    12 continuerun(        16 advance()
+      16 step()
+    16 continuerun(        17 advance()
+      17 step()
+    17 continuerun(        19 advance()
+      19 step()
+    19 continuerun(        2 advance()
+      2 step()
+    2 continuerun(        3 advance()
+      3 step()
+    3 continuerun(    4 continuerun(        5 advance()
+      5 step()
+    5 continuerun(        6 advance()
+      6 step()
+    6 continuerun(        10 advance()
+      10 step()
+    10 continuerun(        11 advance()
+      11 step()
+    11 continuerun(        13 advance()
+      13 step()
+    13 continuerun(        14 advance()
+      14 step()
+    14 continuerun(        15 advance()
+      15 step()
+    15 continuerun(        18 advance()
+      18 step()
+    18 continuerun(8 nrniv: PyObject method call failed: post_fadvance
+8  near line 0
+8  ^
+        8 advance()
+      8 step()
+    8 continuerun(19000)
+  3 run(19000)
+19000)
+  5 run(19000)
+19000)
+  7 run(19000)
+19000)
+  8 run(19000)
+19000)
+  10 run(19000)
+19000)
+  11 run(19000)
+19000)
+  14 run(19000)
+19000)
+  15 run(19000)
+19000)
+  18 run(19000)
+19000)
+  19 run(19000)
+0 nrniv: PyObject method call failed: post_fadvance
+0  near line 0
+0  ^
+        0 advance()
+      0 step()
+    0 continuerun(19000)
+  0 run(19000)
+19000)
+  2 run(19000)
+19000)
+  4 run(19000)
+19000)
+  6 run(19000)
+19000)
+  12 run(19000)
+19000)
+  13 run(19000)
+19000)
+  16 run(19000)
+19000)
+  17 run(19000)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_2_pn2pv_iampa.h5', file descriptor = 50, errno = 28, error message = 'no space left on device', buf = 0x20f7aec0, total write size = 188848, bytes this sub-write = 188848, bytes actually written = 18446744073709551615, offset = 12122324992)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_5_pn2pv_iampa.h5', file descriptor = 54, errno = 28, error message = 'no space left on device', buf = 0x20db1ff0, total write size = 344088, bytes this sub-write = 344088, bytes actually written = 18446744073709551615, offset = 12228755456)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_14_pn2pv_iampa.h5', file descriptor = 72, errno = 28, error message = 'no space left on device', buf = 0x1e6bc420, total write size = 158328, bytes this sub-write = 158328, bytes actually written = 18446744073709551615, offset = 11650465792)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_15_pn2pv_iampa.h5', file descriptor = 78, errno = 28, error message = 'no space left on device', buf = 0x22c7c4a8, total write size = 369208, bytes this sub-write = 369208, bytes actually written = 18446744073709551615, offset = 11632377856)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_17_pn2pv_iampa.h5', file descriptor = 76, errno = 28, error message = 'no space left on device', buf = 0x20393238, total write size = 364920, bytes this sub-write = 364920, bytes actually written = 18446744073709551615, offset = 11567104000)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:39 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_19_pn2pv_iampa.h5', file descriptor = 73, errno = 28, error message = 'no space left on device', buf = 0x217bccf8, total write size = 467016, bytes this sub-write = 467016, bytes actually written = 18446744073709551615, offset = 11583438848)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_0_pn2pv_iampa.h5', file descriptor = 44, errno = 28, error message = 'no space left on device', buf = 0x1e456998, total write size = 384992, bytes this sub-write = 384992, bytes actually written = 18446744073709551615, offset = 12201754624)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_3_pn2pv_iampa.h5', file descriptor = 52, errno = 28, error message = 'no space left on device', buf = 0x22bad9c0, total write size = 430408, bytes this sub-write = 430408, bytes actually written = 18446744073709551615, offset = 12169248768)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_4_pn2pv_iampa.h5', file descriptor = 52, errno = 28, error message = 'no space left on device', buf = 0x204f7ce0, total write size = 380840, bytes this sub-write = 380840, bytes actually written = 18446744073709551615, offset = 12170297344)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_6_pn2pv_iampa.h5', file descriptor = 58, errno = 28, error message = 'no space left on device', buf = 0x202e5cc0, total write size = 337400, bytes this sub-write = 337400, bytes actually written = 18446744073709551615, offset = 12234260480)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_7_pn2pv_iampa.h5', file descriptor = 60, errno = 28, error message = 'no space left on device', buf = 0x2086dbf0, total write size = 267456, bytes this sub-write = 267456, bytes actually written = 18446744073709551615, offset = 12288000000)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.dset_rw
+  File "h5py/_proxy.pyx", line 93, in h5py._proxy.H5PY_H5Dwrite
+OSError: Can't prepare for writing data (File write failed: time = tue oct 18 03:33:38 2022
+, filename = '/home/gjgpb9/largescalebla/outputecp_tone_0.5/.bmtk_tmp_cellvars_8_pn2pv_iampa.h5', file descriptor = 62, errno = 28, error message = 'no space left on device', buf = 0x21a014c8, total write size = 429072, bytes this sub-write = 429072, bytes actually written = 18446744073709551615, offset = 12158763008)
+Traceback (most recent call last):
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/biosimulator.py", line 382, in post_fadvance
+    mod.block(self, time_step_interval)
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/simulator/bionet/modules/record_netcons.py", line 148, in block
+    self._var_recorder.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 374, in flush
+    pop_grp.flush()
+  File "/opt/python-bmtk/lib/python3.7/site-packages/bmtk/utils/reports/compartment/compartment_writer.py", line 266, in flush
+    self._data_block.data_block[blk_beg:blk_end, :] = self._data_block.buffer_block[:block_size, :]
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/opt/python-bmtk/lib/python3.7/site-packages/h5py/_hl/dataset.py", line 630, in __setitem__
+    self.id.write(mspace, fspace, val, mtype, dxpl=self._dxpl)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5d.pyx", line 221, in h5py.h5d.DatasetID.write
+  File "h5py/_proxy.pyx", line 132, in h5py._proxy.d

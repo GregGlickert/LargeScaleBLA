@@ -1,0 +1,39 @@
+2022-11-19 21:47:32,363 [INFO] Created log file
+2022-11-19 21:47:33,841 [INFO] Running NEURON with mpi (720 cores).
+2022-11-19 21:47:35,614 [INFO] Building cells.
+2022-11-19 21:47:35,849 [INFO] Building recurrent connections
+2022-11-19 21:47:45,484 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-11-19 21:47:45,988 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-11-19 21:47:46,240 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-11-19 21:47:46,389 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-11-19 21:47:46,536 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-11-19 21:47:46,968 [INFO] Building virtual cell stimulations for tone_spikes
+2022-11-19 21:48:09,941 [INFO] Running simulation for 12500.000 ms with the time step 0.100 ms
+2022-11-19 21:48:09,942 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-11-19 21:48:09,942 [INFO] Block save every 5000 steps
+2022-11-19 21:48:18,810 [INFO]     step:5000 t_sim:500.00 ms
+2022-11-19 21:48:27,554 [INFO]     step:10000 t_sim:1000.00 ms
+2022-11-19 21:48:36,263 [INFO]     step:15000 t_sim:1500.00 ms
+2022-11-19 21:48:44,961 [INFO]     step:20000 t_sim:2000.00 ms
+2022-11-19 21:48:53,665 [INFO]     step:25000 t_sim:2500.00 ms
+2022-11-19 21:49:02,341 [INFO]     step:30000 t_sim:3000.00 ms
+2022-11-19 21:49:11,065 [INFO]     step:35000 t_sim:3500.00 ms
+2022-11-19 21:49:19,749 [INFO]     step:40000 t_sim:4000.00 ms
+2022-11-19 21:49:30,955 [INFO]     step:45000 t_sim:4500.00 ms
+2022-11-19 21:49:40,809 [INFO]     step:50000 t_sim:5000.00 ms
+2022-11-19 21:49:50,676 [INFO]     step:55000 t_sim:5500.00 ms
+2022-11-19 21:49:59,318 [INFO]     step:60000 t_sim:6000.00 ms
+2022-11-19 21:50:08,322 [INFO]     step:65000 t_sim:6500.00 ms
+2022-11-19 21:50:17,025 [INFO]     step:70000 t_sim:7000.00 ms
+2022-11-19 21:50:25,666 [INFO]     step:75000 t_sim:7500.00 ms
+2022-11-19 21:50:34,323 [INFO]     step:80000 t_sim:8000.00 ms
+2022-11-19 21:50:42,925 [INFO]     step:85000 t_sim:8500.00 ms
+2022-11-19 21:50:51,560 [INFO]     step:90000 t_sim:9000.00 ms
+2022-11-19 21:51:00,173 [INFO]     step:95000 t_sim:9500.00 ms
+2022-11-19 21:51:15,036 [INFO]     step:100000 t_sim:10000.00 ms
+2022-11-19 21:51:23,678 [INFO]     step:105000 t_sim:10500.00 ms
+2022-11-19 21:51:32,301 [INFO]     step:110000 t_sim:11000.00 ms
+2022-11-19 21:51:40,962 [INFO]     step:115000 t_sim:11500.00 ms
+2022-11-19 21:51:49,622 [INFO]     step:120000 t_sim:12000.00 ms
+2022-11-19 21:51:58,294 [INFO]     step:125000 t_sim:12500.00 ms
+2022-11-19 21:54:24,097 [INFO] Simulation completed in 6.0 minutes, 20.53 seconds 

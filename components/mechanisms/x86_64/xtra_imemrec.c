@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "scoplib_ansi.h"
+#include "mech_api.h"
 #undef PI
 #define nil 0
 #include "md1redef.h"
@@ -44,11 +44,17 @@ extern double hoc_Exp(double);
 #define t nrn_threads->_t
 #define dt nrn_threads->_dt
 #define rx _p[0]
+#define rx_columnindex 0
 #define x _p[1]
+#define x_columnindex 1
 #define y _p[2]
+#define y_columnindex 2
 #define z _p[3]
+#define z_columnindex 3
 #define er _p[4]
+#define er_columnindex 4
 #define LFPtemp _p[5]
+#define LFPtemp_columnindex 5
 #define im	*_ppvar[0]._pval
 #define _p_im	_ppvar[0]._pval
 #define ex	*_ppvar[1]._pval
@@ -134,10 +140,10 @@ extern void hoc_reg_nmodl_filename(int, const char*);
  0,0,0
 };
  static double _sav_indep;
- static void _ba1() , _ba2() ;
+ static void _ba1(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, NrnThread* _nt) , _ba2(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, NrnThread* _nt) ;
  static void nrn_alloc(Prop*);
-static void  nrn_init(_NrnThread*, _Memb_list*, int);
-static void nrn_state(_NrnThread*, _Memb_list*, int);
+static void  nrn_init(NrnThread*, _Memb_list*, int);
+static void nrn_state(NrnThread*, _Memb_list*, int);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
  "7.7.0",
@@ -178,7 +184,7 @@ static void nrn_alloc(Prop* _prop) {
  static void _initlists();
  extern Symbol* hoc_lookup(const char*);
 extern void _nrn_thread_reg(int, int, void(*)(Datum*));
-extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, _NrnThread*, int));
+extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, NrnThread*, int));
 extern void hoc_register_tolerance(int, HocStateTolerance*, Symbol***);
 extern void _cvode_abstol( Symbol**, double*, int);
 
@@ -199,7 +205,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_reg_ba(_mechtype, _ba1, 11);
  	hoc_reg_ba(_mechtype, _ba2, 22);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 xtraimemrec /home/gjgpb9/LargeScaleBLA/components/mechanisms/x86_64/xtra_imemrec.mod\n");
+ 	ivoc_help("help ?1 xtraimemrec /home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/xtra_imemrec.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -211,7 +217,7 @@ static int _ninits = 0;
 static int _match_recurse=1;
 static void _modl_cleanup(){ _match_recurse=1;}
  /* BEFORE BREAKPOINT */
- static void _ba1(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, _NrnThread* _nt)  {
+ static void _ba1(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, NrnThread* _nt)  {
     _p = _pp; _ppvar = _ppd;
   v = NODEV(_nd);
  ex = is * rx * ( 1e6 ) ;
@@ -219,7 +225,7 @@ static void _modl_cleanup(){ _match_recurse=1;}
    LFPtemp = LFP ;
    }
  /* AFTER SOLVE */
- static void _ba2(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, _NrnThread* _nt)  {
+ static void _ba2(Node*_nd, double* _pp, Datum* _ppd, Datum* _thread, NrnThread* _nt)  {
     _p = _pp; _ppvar = _ppd;
   v = NODEV(_nd);
  er = ( 10.0 ) * 0.1 * im * area ;
@@ -240,7 +246,7 @@ static void initmodel() {
 }
 }
 
-static void nrn_init(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_init(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; double _v; int* _ni; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -265,7 +271,7 @@ static double _nrn_current(double _v){double _current=0.;v=_v;{
 } return _current;
 }
 
-static void nrn_state(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_state(NrnThread* _nt, _Memb_list* _ml, int _type){
 Node *_nd; double _v = 0.0; int* _ni; int _iml, _cntml;
 #if CACHEVEC
     _ni = _ml->_nodeindices;
@@ -298,7 +304,7 @@ _first = 0;
 }
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components/mechanisms/modfiles/xtra_imemrec.mod";
+static const char* nmodl_filename = "/home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/xtra_imemrec.mod";
 static const char* nmodl_file_text = 
   ": $Id: xtra.mod,v 1.4 2014/08/18 23:15:25 ted Exp ted $\n"
   "\n"

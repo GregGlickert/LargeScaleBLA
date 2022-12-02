@@ -24,11 +24,31 @@
     "spikes_file": "spikes.h5"
   },
   "reports": {
-    "v_report": {
-      "variable_name": "v",
+    "ecp": {
       "cells": "all",
-      "module": "membrane_report",
-      "sections": "soma"
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+      },
+    "syn_report1": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pyr",
+      "file_name": "tone2pyr.h5",
+      "dt": 100
+    },
+    "syn_report2": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "tone2pv",
+      "file_name": "tone2pv.h5",
+      "dt": 100
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

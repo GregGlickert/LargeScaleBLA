@@ -1,4 +1,4 @@
 {   "level_of_detail": "som2pv",
-    "initW_lognormal_mean": "3.5",
-    "initW_lognormal_std": "1"
+    "initW_lognormal_mean": "0",
+    "initW_lognormal_std": "0.0000000000001"
 }

@@ -2,14 +2,15 @@ import matplotlib.pyplot as plt
 import h5py
 import numpy as np
 import pandas as pd
+plt.rcParams.update({'font.size': 16})
 
-f = h5py.File('baseline/spikes.h5')
+f = h5py.File('outputECP_NMDA_BASELINE/spikes.h5')
 spikes_df1 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('50%baseline/spikes.h5')
+f = h5py.File('outputECP_NMDA_BASELINE_0.5/spikes.h5')
 spikes_df2 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
-f = h5py.File('75%baseline/spikes.h5')
+f = h5py.File('outputECP_NMDA_BASELINE_0.75/spikes.h5')
 spikes_df3 = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
@@ -25,7 +26,7 @@ node_set_split = [
     {"name": "IN", "start": 800 * scale, "end": 999 * scale + 4, "color": "#057ffa"}
 ]
 
-fig, axs = plt.subplots(1,3, figsize=(12, 6),tight_layout=True,sharey=True)
+fig, axs = plt.subplots(1,3, figsize=(14, 7),tight_layout=True,sharey=True)
 fig.suptitle("Spontaneous case", fontsize=15)
 def plot(node_set,skip_ms,spikes_df,ax,title=0):
     spikes = []
@@ -34,7 +35,7 @@ def plot(node_set,skip_ms,spikes_df,ax,title=0):
         cell_spikes = spikes_df[spikes_df['node_ids'].isin(cells)]
         cell_spikes = cell_spikes[cell_spikes['timestamps'] > skip_ms]
         spike_counts = cell_spikes.node_ids.value_counts()
-        total_seconds = (10000) / 1000
+        total_seconds = (10000-skip_ms) / 1000
         spike_counts = spike_counts / total_seconds
         spikes.append(spike_counts)
         spike_counts_mean = spike_counts.mean()
@@ -53,7 +54,7 @@ spike_w_NMDA=plot(node_set=node_set_split,skip_ms=0,spikes_df=spikes_df1,ax=axs[
 spike_wo_NMDA=plot(node_set=node_set_split,skip_ms=0,spikes_df=spikes_df2,ax=axs[1],title=' 50% NMDA block')
 spike_wo_NMDA=plot(node_set=node_set_split,skip_ms=0,spikes_df=spikes_df3,ax=axs[2],title=' 75% NMDA block')
 
-plt.ylim(0,6)
+plt.ylim(0,45)
 
 #PN_spikes = (spike_w_NMDA[0].mean()+spike_w_NMDA[1].mean()) - (spike_wo_NMDA[0].mean()+spike_wo_NMDA[1].mean())
 #PV_spikes = (spike_w_NMDA[2].mean() - spike_wo_NMDA[2].mean())

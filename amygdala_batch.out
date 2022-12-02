@@ -3,39 +3,21 @@ NEURON -- VERSION 7.7.2 7.7 (2b7985ba) 2019-06-20
 Duke, Yale, and the BlueBrain Project -- Copyright 1984-2018
 See http://neuron.yale.edu/neuron/credits
 
-2022-07-28 11:42:51,385 [INFO] Created log file
-2022-07-28 11:42:51,386 [INFO] Running NEURON with mpi (60 cores).
+2022-10-11 23:56:51,257 [INFO] Created log file
+2022-10-11 23:56:51,258 [INFO] Running NEURON with mpi (60 cores).
 Additional mechanisms from files
- modfiles//bg2pyr.mod modfiles//bginh.mod modfiles//cadyn.mod modfiles//cal2CA3.mod modfiles//cal2.mod modfiles//ca.mod modfiles//capoolCA3.mod modfiles//capool.mod modfiles//cas.mod modfiles//cat.mod modfiles//currentclamp.mod modfiles//function_TMonitor.mod modfiles//gap.mod modfiles//Gfluct_new_exc.mod modfiles//Gfluct_new_inh.mod modfiles//halfgap.mod modfiles//hCA3.mod modfiles//h.mod modfiles//imCA3.mod modfiles//im.mod modfiles//interD2interD_SOMPV_STFD_new.mod modfiles//interD2interD_STFD_new.mod modfiles//interD2pyrD_CR2P_STFD_new.mod modfiles//interD2pyrD_SOM2P_STFD_new.mod modfiles//interD2pyrD_STFD_new.mod modfiles//kadist.mod modfiles//kaprox.mod modfiles//kca.mod modfiles//kdrca1DA.mod modfiles//kdrca1.mod modfiles//kdrCA3.mod modfiles//kdrinter.mod modfiles//leakCA3.mod modfiles//leakDA.mod modfiles//leakinter.mod modfiles//leak.mod modfiles//na3DA.mod modfiles//na3.mod modfiles//nainter.mod modfiles//napCA3.mod modfiles//nap.mod modfiles//natCA3.mod modfiles//nat.mod modfiles//pyrD2interD_P2CR_STFD.mod modfiles//pyrD2interD_P2SOM_STFD.mod modfiles//pyrD2interD_STFD.mod modfiles//pyrD2pyrD_STFD_new.mod modfiles//sahpCA3.mod modfiles//sahp.mod modfiles//sahpNE.mod modfiles//tone2interD.mod modfiles//tone2pyr.mod modfiles//vecevent.mod modfiles//xtra_imemrec.mod modfiles//xtra.mod
-2022-07-28 11:42:54,085 [INFO] Building cells.
-2022-07-28 11:42:54,510 [INFO] Building recurrent connections
-2022-07-28 11:44:40,841 [INFO] Building virtual cell stimulations for tone_spikes
-2022-07-28 11:44:40,900 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
-2022-07-28 11:44:49,690 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
-2022-07-28 11:44:51,428 [INFO] Building virtual cell stimulations for thalamus_som_spikes
-2022-07-28 11:44:53,187 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
-2022-07-28 11:45:15,554 [INFO] Running simulation for 10000.000 ms with the time step 0.100 ms
-2022-07-28 11:45:15,555 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
-2022-07-28 11:45:15,555 [INFO] Block save every 5000 steps
-2022-07-28 11:47:01,922 [INFO]     step:5000 t_sim:500.00 ms
-2022-07-28 11:48:50,086 [INFO]     step:10000 t_sim:1000.00 ms
-2022-07-28 11:50:37,616 [INFO]     step:15000 t_sim:1500.00 ms
-2022-07-28 11:52:24,784 [INFO]     step:20000 t_sim:2000.00 ms
-2022-07-28 11:54:13,286 [INFO]     step:25000 t_sim:2500.00 ms
-2022-07-28 11:56:00,983 [INFO]     step:30000 t_sim:3000.00 ms
-2022-07-28 11:57:48,534 [INFO]     step:35000 t_sim:3500.00 ms
-2022-07-28 11:59:37,599 [INFO]     step:40000 t_sim:4000.00 ms
-2022-07-28 12:01:26,112 [INFO]     step:45000 t_sim:4500.00 ms
-2022-07-28 12:03:14,251 [INFO]     step:50000 t_sim:5000.00 ms
-2022-07-28 12:05:03,433 [INFO]     step:55000 t_sim:5500.00 ms
-2022-07-28 12:06:52,471 [INFO]     step:60000 t_sim:6000.00 ms
-2022-07-28 12:08:41,179 [INFO]     step:65000 t_sim:6500.00 ms
-2022-07-28 12:10:31,131 [INFO]     step:70000 t_sim:7000.00 ms
-2022-07-28 12:12:20,809 [INFO]     step:75000 t_sim:7500.00 ms
-2022-07-28 12:14:10,017 [INFO]     step:80000 t_sim:8000.00 ms
-2022-07-28 12:16:00,561 [INFO]     step:85000 t_sim:8500.00 ms
-2022-07-28 12:17:50,474 [INFO]     step:90000 t_sim:9000.00 ms
-2022-07-28 12:19:40,151 [INFO]     step:95000 t_sim:9500.00 ms
-2022-07-28 12:21:30,984 [INFO]     step:100000 t_sim:10000.00 ms
-2022-07-28 12:21:32,326 [INFO] Simulation completed in 36.0 minutes, 18.71 seconds 
-Done running model at Thu Jul 28 12:21:33 CDT 2022
+ modfiles//bg2pyr.mod modfiles//bginh.mod modfiles//bg_tone2pv.mod modfiles//bg_tone2pyr.mod modfiles//cadyn.mod modfiles//cal2CA3.mod modfiles//cal2.mod modfiles//ca.mod modfiles//capoolCA3.mod modfiles//capool.mod modfiles//cas.mod modfiles//cat.mod modfiles//currentclamp.mod modfiles//function_TMonitor.mod modfiles//gap.mod modfiles//Gfluct_new_exc.mod modfiles//Gfluct_new_inh.mod modfiles//halfgap.mod modfiles//hCA3.mod modfiles//h.mod modfiles//imCA3.mod modfiles//im.mod modfiles//kadist.mod modfiles//kaprox.mod modfiles//kca.mod modfiles//kdrca1DA.mod modfiles//kdrca1.mod modfiles//kdrCA3.mod modfiles//kdrinter.mod modfiles//leakCA3.mod modfiles//leakDA.mod modfiles//leakinter.mod modfiles//leak.mod modfiles//na3DA.mod modfiles//na3.mod modfiles//nainter.mod modfiles//napCA3.mod modfiles//nap.mod modfiles//natCA3.mod modfiles//nat.mod modfiles//pv2pv.mod modfiles//pv2pyr.mod modfiles//pv2som.mod modfiles//pyr2pv.mod modfiles//pyr2pyr.mod modfiles//pyr2som.mod modfiles//pyr2vip.mod modfiles//sahpCA3.mod modfiles//sahp.mod modfiles//sahpNE.mod modfiles//shock2int.mod modfiles//som2pv.mod modfiles//som2pyr.mod modfiles//som2vip.mod modfiles//tone2pv.mod modfiles//tone2pyr.mod modfiles//tone2vip.mod modfiles//vecevent.mod modfiles//vip2som.mod modfiles//xtra_imemrec.mod modfiles//xtra.mod
+2022-10-11 23:56:54,373 [INFO] Building cells.
+2022-10-11 23:56:54,863 [INFO] Building recurrent connections
+2022-10-11 23:58:41,802 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2022-10-11 23:58:46,998 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2022-10-11 23:58:49,218 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2022-10-11 23:58:49,866 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2022-10-11 23:58:50,425 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
+2022-10-11 23:58:51,452 [INFO] Building virtual cell stimulations for tone_spikes
+2022-10-12 00:01:20,143 [INFO] Running simulation for 500.000 ms with the time step 0.100 ms
+2022-10-12 00:01:20,144 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2022-10-12 00:01:20,144 [INFO] Block save every 5000 steps
+2022-10-12 00:03:34,401 [INFO]     step:5000 t_sim:500.00 ms
+2022-10-12 00:03:42,355 [INFO] Simulation completed in 2.0 minutes, 37.09 seconds 
+Done running model at Wed Oct 12 00:03:43 CDT 2022

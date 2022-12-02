@@ -1,7 +1,7 @@
 {
     "level_of_detail": "pv2pyr",
-    "initW_lognormal_mean": "1.7",
-    "initW_lognormal_std": "0.7",
-    "threshold1": "1",
-    "threshold2": "1.2"
+    "initW_lognormal_mean": "0.6",
+    "initW_lognormal_std": "0.0000000000001",
+    "threshold1": "4",
+    "threshold2": "4.2"
 }

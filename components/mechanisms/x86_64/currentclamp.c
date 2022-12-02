@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "scoplib_ansi.h"
+#include "mech_api.h"
 #undef PI
 #define nil 0
 #include "md1redef.h"
@@ -31,9 +31,9 @@ extern double hoc_Exp(double);
 #define _net_receive _net_receive__currentclamp 
  
 #define _threadargscomma_ _p, _ppvar, _thread, _nt,
-#define _threadargsprotocomma_ double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt,
+#define _threadargsprotocomma_ double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt,
 #define _threadargs_ _p, _ppvar, _thread, _nt
-#define _threadargsproto_ double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt
+#define _threadargsproto_ double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt
  	/*SUPPRESS 761*/
 	/*SUPPRESS 762*/
 	/*SUPPRESS 763*/
@@ -44,11 +44,17 @@ extern double hoc_Exp(double);
 #define t _nt->_t
 #define dt _nt->_dt
 #define del _p[0]
+#define del_columnindex 0
 #define dur _p[1]
+#define dur_columnindex 1
 #define amp _p[2]
+#define amp_columnindex 2
 #define i _p[3]
+#define i_columnindex 3
 #define v _p[4]
+#define v_columnindex 4
 #define _g _p[5]
+#define _g_columnindex 5
 #define _nd_area  *_ppvar[0]._pval
  
 #if MAC
@@ -86,18 +92,18 @@ extern void hoc_reg_nmodl_filename(int, const char*);
 
  extern Prop* nrn_point_prop_;
  static int _pointtype;
- static void* _hoc_create_pnt(_ho) Object* _ho; { void* create_point_process();
+ static void* _hoc_create_pnt(Object* _ho) { void* create_point_process(int, Object*);
  return create_point_process(_pointtype, _ho);
 }
- static void _hoc_destroy_pnt();
- static double _hoc_loc_pnt(_vptr) void* _vptr; {double loc_point_process();
+ static void _hoc_destroy_pnt(void*);
+ static double _hoc_loc_pnt(void* _vptr) {double loc_point_process(int, void*);
  return loc_point_process(_pointtype, _vptr);
 }
- static double _hoc_has_loc(_vptr) void* _vptr; {double has_loc_point();
+ static double _hoc_has_loc(void* _vptr) {double has_loc_point(void*);
  return has_loc_point(_vptr);
 }
- static double _hoc_get_loc_pnt(_vptr)void* _vptr; {
- double get_loc_point_process(); return (get_loc_point_process(_vptr));
+ static double _hoc_get_loc_pnt(void* _vptr) {
+ double get_loc_point_process(void*); return (get_loc_point_process(_vptr));
 }
  extern void _nrn_setdata_reg(int, void(*)(Prop*));
  static void _setdata(Prop* _prop) {
@@ -139,11 +145,11 @@ extern void hoc_reg_nmodl_filename(int, const char*);
 };
  static double _sav_indep;
  static void nrn_alloc(Prop*);
-static void  nrn_init(_NrnThread*, _Memb_list*, int);
-static void nrn_state(_NrnThread*, _Memb_list*, int);
- static void nrn_cur(_NrnThread*, _Memb_list*, int);
-static void  nrn_jacob(_NrnThread*, _Memb_list*, int);
- static void _hoc_destroy_pnt(_vptr) void* _vptr; {
+static void  nrn_init(NrnThread*, _Memb_list*, int);
+static void nrn_state(NrnThread*, _Memb_list*, int);
+ static void nrn_cur(NrnThread*, _Memb_list*, int);
+static void  nrn_jacob(NrnThread*, _Memb_list*, int);
+ static void _hoc_destroy_pnt(void* _vptr) {
    destroy_point_process(_vptr);
 }
  /* connect range variables in _p that hoc is supposed to know about */
@@ -187,7 +193,7 @@ static void nrn_alloc(Prop* _prop) {
  static void _initlists();
  extern Symbol* hoc_lookup(const char*);
 extern void _nrn_thread_reg(int, int, void(*)(Datum*));
-extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, _NrnThread*, int));
+extern void _nrn_thread_table_reg(int, void(*)(double*, Datum*, Datum*, NrnThread*, int));
 extern void hoc_register_tolerance(int, HocStateTolerance*, Symbol***);
 extern void _cvode_abstol( Symbol**, double*, int);
 
@@ -208,7 +214,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
   hoc_register_dparam_semantics(_mechtype, 0, "area");
   hoc_register_dparam_semantics(_mechtype, 1, "pntproc");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 currentclamp /home/gjgpb9/LargeScaleBLA/components/mechanisms/x86_64/currentclamp.mod\n");
+ 	ivoc_help("help ?1 currentclamp /home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/currentclamp.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -220,7 +226,7 @@ static int _ninits = 0;
 static int _match_recurse=1;
 static void _modl_cleanup(){ _match_recurse=1;}
 
-static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt) {
+static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) {
   int _i; double _save;{
  {
    i = 0.0 ;
@@ -229,7 +235,7 @@ static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt
 }
 }
 
-static void nrn_init(_NrnThread* _nt, _Memb_list* _ml, int _type){
+static void nrn_init(NrnThread* _nt, _Memb_list* _ml, int _type){
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; double _v; int* _ni; int _iml, _cntml;
 #if CACHEVEC
@@ -261,7 +267,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
 }
 }
 
-static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread* _nt, double _v){double _current=0.;v=_v;{ {
+static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt, double _v){double _current=0.;v=_v;{ {
    at_time ( _nt, del ) ;
    at_time ( _nt, del + dur ) ;
    if ( t < del + dur  && t > del ) {
@@ -276,7 +282,7 @@ static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, _NrnThread
 } return _current;
 }
 
-static void nrn_cur(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_cur(NrnThread* _nt, _Memb_list* _ml, int _type) {
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; int* _ni; double _rhs, _v; int _iml, _cntml;
 #if CACHEVEC
@@ -328,7 +334,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }
 
-static void nrn_jacob(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_jacob(NrnThread* _nt, _Memb_list* _ml, int _type) {
 double* _p; Datum* _ppvar; Datum* _thread;
 Node *_nd; int* _ni; int _iml, _cntml;
 #if CACHEVEC
@@ -358,7 +364,7 @@ for (_iml = 0; _iml < _cntml; ++_iml) {
  
 }
 
-static void nrn_state(_NrnThread* _nt, _Memb_list* _ml, int _type) {
+static void nrn_state(NrnThread* _nt, _Memb_list* _ml, int _type) {
 
 }
 
@@ -376,7 +382,7 @@ _first = 0;
 #endif
 
 #if NMODL_TEXT
-static const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components/mechanisms/modfiles/currentclamp.mod";
+static const char* nmodl_filename = "/home/gglick9/LargeScaleBLA/components/mechanisms/modfiles/currentclamp.mod";
 static const char* nmodl_file_text = 
   ": Current clamp\n"
   "\n"

@@ -90,21 +90,23 @@ node_set_split = [
     {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-f = h5py.File('outputECP/spikes.h5')
+f = h5py.File('outputECP_NMDA_TRIALS/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
 start1 = 0
-end1 = 10000
+end1 = 1000
 dt = 0.1
 steps_per_ms = 1 / dt
 skip_seconds = 5
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=start1, end=end1, ax=axs[0])
-spike_frequency_bar_graph(spikes_df,node_set_split,start=start1, end=end1, ax=axs[1], ms=(end1-start1))
+raster(spikes_df, node_set_split, start=0, end=20000, ax=axs[0])
+spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=10000, ax=axs[1], ms=(12500-0))
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
+#raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
+#spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))
 plt.show()
 #trace = plot_traces(report_path='outputECP/v_report.h5',node_ids=[3999])
 

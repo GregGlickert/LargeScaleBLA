@@ -1,5 +1,6 @@
 {
     "level_of_detail": "som2pyr",
-    "initW_lognormal_mean": "0.6",
-    "initW_lognormal_std": "0.2"
+    "initW_lognormal_mean": "0.3",
+    "initW_lognormal_std": "0.0000000000001",
+    "old_values": "4.5,1.5"
 }

@@ -3,8 +3,11 @@ import pandas as pd
 import random
 import math
 
-all_synapses = pd.DataFrame([],columns=['source_gid','target_gid'])
+np.random.seed(123412)
+random.seed(123412)
 
+all_synapses = pd.DataFrame([],columns=['source_gid','target_gid'])
+tone_synapses = random.sample(range(4000), 2800)
 ##############################################################################
 ############################## CONNECT CELLS #################################
 
@@ -20,7 +23,7 @@ def one_to_one(source, target):
 
     return tmp_nsyn
 
-def one_to_one_offset(source, target, offset=0):
+def one_to_one_offset(source, target, offset=0,):
 
     sid = source.node_id
     tid = target.node_id - offset
@@ -103,7 +106,6 @@ def syn_dist_delay_feng_section(source, target, sec_id=None, sec_x=0.9):
     return syn_dist_delay_feng(source, target), sec_id, sec_x
 
 def syn_uniform_delay_section(source, target, sec_id=None, sec_x=0.9, mean=0.5,std=1):
-    
     if sec_id is None: # allows for overriding
         sec_id = get_target_sec_id(source, target)
 
@@ -409,6 +411,26 @@ def rand_percent_connector(source, target, prob):
         return 0
     else:
         return 1
+
+def tone_connector(source,target):
+    sid = source.node_id
+    tid = target.node_id
+    if tid>3572:
+        tid = tid - 428
+    if tid in tone_synapses:
+        return 1
+    else:
+        return 0
+
+def background_tone_connector(source,target,offset=0):
+    sid = source.node_id
+    tid = target.node_id
+    offset_tid = tid - offset
+    if sid == offset_tid:
+        print(sid)
+        return 1
+    else:
+        return 0
 
 def rand_shock_connector(source, target, prob): # shock is using a regular gaba syn and needs to be stronger so
     sid = source.node_id                        # so i just put more syns on it

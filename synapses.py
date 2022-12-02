@@ -7,15 +7,21 @@ from neuron import h
 import numpy as np
 import random
 
+all_syn_block = True
+
 def lognorm(mean,std):
     mean = float(mean)
     std = float(std)
-    mean_ = np.log(mean) - 0.5 * np.log((std/mean)**2+1)
-    std_ = np.sqrt(np.log((std/mean)**2 + 1))
-    weight = float(np.random.lognormal(mean_,std_))
-    if (weight>=mean*5):
-        weight=mean*5
-    return weight
+    if mean == 0:
+        return 0
+    else:
+        mean_ = np.log(mean) - 0.5 * np.log((std/mean)**2+1)
+        std_ = np.sqrt(np.log((std/mean)**2 + 1))
+        weight = float(np.random.lognormal(mean_,std_))
+        if (weight>=mean*5):
+            weight=mean*5
+        return weight
+
 
 def Bg2Pyr(syn_params, sec_x, sec_id):
     """Create a bg2pyr synapse
@@ -32,10 +38,24 @@ def Bg2Pyr(syn_params, sec_x, sec_id):
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gNMDAmax = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gNMDAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gAMPAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+
+            
 
     return lsyn
 
@@ -67,11 +87,22 @@ def bg_tone2pyr(syn_params,sec_x,sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gNMDAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
 
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gAMPAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
     return lsyn
 
 def bg_tone2pv(syn_params,sec_x,sec_id):
@@ -86,10 +117,22 @@ def bg_tone2pv(syn_params,sec_x,sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gNMDAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gAMPAmax = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     return lsyn
 
@@ -151,10 +194,22 @@ def pyr2pv(syn_params, sec_x, sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
 
     return lsyn
@@ -172,10 +227,22 @@ def pyr2pyr(syn_params, sec_x, sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
         
     return lsyn
 
@@ -192,10 +259,22 @@ def pyr2som(syn_params, sec_x, sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(8)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     return lsyn
 
@@ -212,10 +291,22 @@ def pyr2vip(syn_params, sec_x, sec_id):
     if syn_params.get('threshold2'):
         lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     return lsyn
 
@@ -313,10 +404,22 @@ def tone2pyr(syn_params, sec_x, sec_id):
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
@@ -391,10 +494,22 @@ def tone2pv(syn_params, sec_x, sec_id):
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
@@ -469,10 +584,22 @@ def tone2vip(syn_params, sec_x, sec_id):
     if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-            lsyn.gbar_nmda = float(0.5*10**-9)
-        else:
-            pass
+        if all_syn_block == False:
+            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                lsyn.gbar_nmda  = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+        if all_syn_block == False:
+            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                lsyn.gbar_ampa = float(0.5*10**-9)
+            else:
+                pass
+        if all_syn_block == True:
+            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
