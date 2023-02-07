@@ -1190,5 +1190,7 @@ build_env_bionet(base_dir='./',
         ('tone','tone_spikes_baseline.cvs')],
 	components_dir=components_dir,
     config_file='simulation_config.json',
+    overwrite_config=True,
 	compile_mechanisms=False)
+
 

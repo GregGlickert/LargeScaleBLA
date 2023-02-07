@@ -1,33 +1,32 @@
-from bmtk.analyzer.compartment import plot_traces
 import h5py
 import matplotlib.pyplot as plt
+import numpy as np
 
-#fig1 = plot_traces(report_path='outputECP_NMDA/PN2PN_A_iampa.h5',node_ids=1424,show=False)
-#fig2 = plot_traces(report_path='outputECP_NMDA/PN2PN_A_inmda.h5',node_ids=1424,show=False)
-#fig3 = plot_traces(report_path='outputECP_NMDA/tone2PN_A_inmda.h5',node_ids=1424,show=False)
-#fig4 = plot_traces(report_path='outputECP_NMDA/tone2PN_A_iampa.h5',node_ids=1424,show=False)
-#fig5 = plot_traces(report_path='outputECP_NMDA/bg2PN_A_iampa.h5',node_ids=1424,show=False)
-#fig6 = plot_traces(report_path='outputECP_NMDA/bg2PN_A_inmda.h5',node_ids=1424,show=False)
 
-#plot_traces(report_path='outputECP_NMDA_test/v_report1.h5',show=False)
-#plot_traces(report_path='outputECP_NMDA_test/v_report2.h5',show=False)
-#plot_traces(report_path='outputECP_NMDA_test/v_report1.h5',show=False)
-#plot_traces(report_path='outputECP_NMDA_test/PN2PN_A_iampa.h5',node_ids=1424,show=False)
-#plot_traces(report_path='outputECP_NMDA_test/PN2PN_A_inmda.h5',node_ids=1424)
-#plt.show()
+first_col_5 = np.loadtxt("voltage_reports/voltage_report_gid_5.txt")[:, 0]
+second_col_5 = np.loadtxt("voltage_reports/voltage_report_gid_5.txt")[:, 1]
 
-f = h5py.File('outputECP_NMDA_test/PN2PN_A_inmda.h5')
-data = (f['report']['BLA']['data'][:])
+first_col_0 = np.loadtxt("voltage_reports/voltage_report_gid_0.txt")[:, 0]
+second_col_0 = np.loadtxt("voltage_reports/voltage_report_gid_0.txt")[:, 1]
 
-plt.plot(data)
-plt.title('NMDA current')
+first_col_1 = np.loadtxt("voltage_reports/voltage_report_gid_1.txt")[:, 0]
+second_col_1 = np.loadtxt("voltage_reports/voltage_report_gid_1.txt")[:, 1]
+
+first_col_2 = np.loadtxt("voltage_reports/voltage_report_gid_2.txt")[:, 0]
+second_col_2 = np.loadtxt("voltage_reports/voltage_report_gid_2.txt")[:, 1]
+
+first_col_3 = np.loadtxt("voltage_reports/voltage_report_gid_3.txt")[:, 0]
+second_col_3 = np.loadtxt("voltage_reports/voltage_report_gid_3.txt")[:, 1]
+
+first_col_4 = np.loadtxt("voltage_reports/voltage_report_gid_4.txt")[:, 0]
+second_col_4 = np.loadtxt("voltage_reports/voltage_report_gid_4.txt")[:, 1]
+
+fig, axs = plt.subplots(3,2)
+
+axs[0, 0].plot(first_col_5, second_col_5)
+axs[0, 1].plot(first_col_2, second_col_2)
+axs[1, 0].plot(first_col_0, second_col_0)
+axs[1, 1].plot(first_col_1, second_col_1)
+axs[2, 1].plot(first_col_3, second_col_3)
+axs[2, 0].plot(first_col_4, second_col_4)
 plt.show()
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,61 @@
+{
+  "network": "/home/gjgpb9/LargeScaleBLA/circuit_config.json",
+  "simulation": "/home/gjgpb9/LargeScaleBLA/simulation_config.json",
+  "config_path": "/home/gjgpb9/LargeScaleBLA/config.json",
+  "config_dir": "/home/gjgpb9/LargeScaleBLA",
+  "components": {
+    "__pycache___dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/__pycache__",
+    "biophysical_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/biophysical_neuron_models",
+    "filter_models_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/filter_models",
+    "mechanisms_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/mechanisms",
+    "morphologies_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/morphologies",
+    "point_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/point_neuron_models",
+    "synaptic_models_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/synaptic_models",
+    "templates_dir": "/home/gjgpb9/LargeScaleBLA/biophys_components/templates"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA/network/biophysical_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA/network/biophysical_node_types.csv"
+      }
+    ],
+    "edges": [],
+    "gap_juncs": []
+  },
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 1000,
+    "dt": 0.1,
+    "dL": 20.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 34.0,
+    "v_init": -80.0
+  },
+  "output": {
+    "log_file": "/home/gjgpb9/LargeScaleBLA/output/log.txt",
+    "output_dir": "/home/gjgpb9/LargeScaleBLA/output",
+    "spikes_file": "/home/gjgpb9/LargeScaleBLA/output/spikes.h5"
+  },
+  "reports": {
+    "v_report": {
+      "variable_name": "v",
+      "cells": "all",
+      "module": "membrane_report",
+      "sections": "soma"
+    }
+  },
+  "node_sets_file": "/home/gjgpb9/LargeScaleBLA/node_sets.json",
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    }
+  }
+}

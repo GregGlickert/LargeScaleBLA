@@ -1,5 +1,11 @@
 {
     "level_of_detail": "pyr2pyr",
+    "use_blueBrain_synapse": "False",
+    "initW_lognormal_mean_bb": "0",
+    "initW_lognormal_std_bb": "0.000000000001",
+    "theta_d_GB" : "4.4",
+    "theta_p_GB" : "4.55",
+    "PARAMETERS FOR WHEN USING FENGS SYN": 0,
     "initW_lognormal_mean": "0",
     "initW_lognormal_std": "0.000000000001",
     "threshold1": ".4",

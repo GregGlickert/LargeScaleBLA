@@ -2,7 +2,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 12500.0,
+    "tstop": 5000,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -16,163 +16,121 @@
     "thalamus_pyr_A_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/home/gglick9/LargeScaleBLA/inputs/thalamus_pyr_A_spikes.h5",
+      "input_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/inputs/thalamus_pyr_A_spikes.h5",
       "node_set": "thalamus_pyr_A"
     },
     "thalamus_pyr_C_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/home/gglick9/LargeScaleBLA/inputs/thalamus_pyr_C_spikes.h5",
+      "input_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/inputs/thalamus_pyr_C_spikes.h5",
       "node_set": "thalamus_pyr_C"
     },
     "thalamus_pv_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/home/gglick9/LargeScaleBLA/inputs/thalamus_pv_spikes.h5",
+      "input_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/inputs/thalamus_pv_spikes.h5",
       "node_set": "thalamus_pv"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/home/gglick9/LargeScaleBLA/inputs/thalamus_som_spikes.h5",
+      "input_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
     "thalamus_vip_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "/home/gglick9/LargeScaleBLA/inputs/thalamus_vip_spikes.h5",
+      "input_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/inputs/thalamus_vip_spikes.h5",
       "node_set": "thalamus_vip"
-    },
-    "tone_spikes": {
-      "input_type": "spikes",
-      "module": "csv",
-      "input_file": "tone_spikes_baseline.csv",
-      "node_set": "tone"
     }
   },
   "output": {
-    "log_file": "/home/gglick9/LargeScaleBLA/outputECP/log.txt",
-    "output_dir": "/home/gglick9/LargeScaleBLA/outputECP",
-    "spikes_file": "/home/gglick9/LargeScaleBLA/outputECP/spikes.h5"
+    "log_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/outputECP/log.txt",
+    "output_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/outputECP",
+    "spikes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/outputECP/spikes.h5"
   },
-  "reports": {
-    "syn_report1": {
-      "cells": "all",
-      "variable_name": "W",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pyr",
-      "file_name": "tone2pyr_w.h5",
-      "dt": 100
-    },
-    "syn_report2": {
-      "cells": "all",
-      "variable_name": "W",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pv",
-      "file_name": "tone2pv_w.h5",
-      "dt": 100
-    },
-    "syn_report3": {
-      "cells": "all",
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pyr",
-      "file_name": "tone2pyr_cai.h5",
-      "dt": 1
-    },
-    "syn_report4": {
-      "cells": "all",
-      "variable_name": "capoolcon",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "tone2pv",
-      "file_name": "tone2pv_cai.h5",
-      "dt": 1
-    }
-  },
-  "node_sets_file": "/home/gglick9/LargeScaleBLA/node_sets.json",
-  "network": "/home/gglick9/LargeScaleBLA/circuit_config.json",
-  "config_path": "/home/gglick9/LargeScaleBLA/simulation_config_spikes_only.json",
-  "config_dir": "/home/gglick9/LargeScaleBLA",
+  "reports": {},
+  "node_sets_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/node_sets.json",
+  "network": "/home/gjgpb9/LargeScaleBLA_work_in_pro/circuit_simulation_config.json",
+  "config_path": "/home/gjgpb9/LargeScaleBLA_work_in_pro/simulation_config_spikes_only.json",
+  "config_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro",
   "components": {
-    "biophysical_neuron_models_dir": "/home/gglick9/LargeScaleBLA/components/biophysical_neuron_models",
-    "mechanisms_dir": "/home/gglick9/LargeScaleBLA/components/mechanisms",
-    "morphologies_dir": "/home/gglick9/LargeScaleBLA/components/morphologies",
-    "point_neuron_models_dir": "/home/gglick9/LargeScaleBLA/components/point_neuron_models",
-    "synaptic_models_dir": "/home/gglick9/LargeScaleBLA/components/synaptic_models",
-    "templates_dir": "/home/gglick9/LargeScaleBLA/components/templates",
-    "__pycache___dir": "/home/gglick9/LargeScaleBLA/components/__pycache__"
+    "biophysical_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/biophysical_neuron_models",
+    "filter_models_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/filter_models",
+    "mechanisms_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/mechanisms",
+    "morphologies_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/morphologies",
+    "point_neuron_models_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/point_neuron_models",
+    "synaptic_models_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/synaptic_models",
+    "templates_dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/templates",
+    "__pycache___dir": "/home/gjgpb9/LargeScaleBLA_work_in_pro/components/__pycache__"
   },
   "networks": {
     "nodes": [
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/BLA_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/BLA_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/BLA_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/BLA_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_A_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_A_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_A_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_A_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_C_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_C_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_C_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_C_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pv_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pv_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pv_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pv_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/thalamus_som_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_som_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_som_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_som_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/thalamus_vip_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_vip_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_vip_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_vip_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/tone_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/tone_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/tone_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/tone_node_types.csv"
       },
       {
-        "nodes_file": "/home/gglick9/LargeScaleBLA/network/shock_nodes.h5",
-        "node_types_file": "/home/gglick9/LargeScaleBLA/network/shock_node_types.csv"
+        "nodes_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/shock_nodes.h5",
+        "node_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/shock_node_types.csv"
       }
     ],
     "edges": [
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_A_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_A_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/BLA_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/BLA_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/tone_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/tone_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_C_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_C_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/BLA_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/BLA_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pv_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pv_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_vip_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/thalamus_vip_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_vip_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_vip_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_som_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/thalamus_som_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_A_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_pyr_A_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_C_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pyr_C_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_som_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/thalamus_som_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/shock_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/shock_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/tone_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/tone_BLA_edges.h5"
       },
       {
-        "edge_types_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pv_BLA_edge_types.csv",
-        "edges_file": "/home/gglick9/LargeScaleBLA/network/thalamus_pv_BLA_edges.h5"
+        "edge_types_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/shock_BLA_edge_types.csv",
+        "edges_file": "/home/gjgpb9/LargeScaleBLA_work_in_pro/network/shock_BLA_edges.h5"
       }
     ],
     "gap_juncs": []

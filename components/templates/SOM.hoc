@@ -211,10 +211,10 @@ proc insert_mechs(){
                 r = $1
                 soma[0]{
                         noiseRandObj_exc=new Random()
-                        noiseRandObj_exc.Random123(123)
+                        noiseRandObj_exc.Random123(r)
                         noiseRandObj_exc.normal(0,1)
 
-                        noise_exc = new Gfluct2_exc(0.5)
+                        noise_exc = new Gfluct_exc(0.5)
 
                         noise_exc.g_e0 = 0.000121//TB7/31/21
                         noise_exc.g_i0 = 0
@@ -226,10 +226,10 @@ proc insert_mechs(){
                         noise_exc.setRandObj(noiseRandObj_exc)
 
                         noiseRandObj_inh=new Random()
-                        noiseRandObj_inh.Random123(123)
+                        noiseRandObj_inh.Random123(r)
                         noiseRandObj_inh.normal(0,1)
 
-                        noise_inh = new Gfluct2_inh(0.5)
+                        noise_inh = new Gfluct_inh(0.5)
 
                         noise_inh.g_e0 = 0
                         noise_inh.g_i0 = 0.00573

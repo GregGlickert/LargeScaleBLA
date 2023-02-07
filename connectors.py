@@ -427,7 +427,7 @@ def background_tone_connector(source,target,offset=0):
     tid = target.node_id
     offset_tid = tid - offset
     if sid == offset_tid:
-        print(sid)
+        #print(sid)
         return 1
     else:
         return 0

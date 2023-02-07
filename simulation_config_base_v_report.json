@@ -41,6 +41,23 @@
       "module": "sonata",
       "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
+    },
+    "thalamus_vip_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
+      "node_set": "thalamus_vip"
+    },
+    "current_clamp": {
+      "input_type": "current_clamp",
+      "module": "IClamp",
+      "node_set": "all",
+      "gids": [
+        0
+      ],
+      "amp": 0.4,
+      "delay": 1000.0,
+      "duration": 400.0
     }
   },
   "output": {

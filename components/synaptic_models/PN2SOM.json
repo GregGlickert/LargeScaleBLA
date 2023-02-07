@@ -1,5 +1,11 @@
 {   
     "level_of_detail": "pyr2som",
+    "use_blueBrain_synapse": "False",
+    "initW_lognormal_mean_bb": "0.3",
+    "initW_lognormal_std_bb": "0.000000000001",
+    "theta_d_GB" : "4.5",
+    "theta_p_GB" : "4.7",
+    "PARAMETERS FOR WHEN USING FENGS SYN": 0,
     "initW_lognormal_mean": "0.3",
     "initW_lognormal_std": "0.0000000000001",
     "old_values": "0.11 0.06",
