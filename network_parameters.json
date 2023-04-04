@@ -1,0 +1,14 @@
+{
+    "network_cell_scale": 10,
+    "network_area": 1200,
+    "simulation_time": 47,
+    "Tone_trials": "False",
+    "Number_of_tone_trials": 30,
+    "simulation_json": "simulation_config_spikes_only.json",
+    "output_path": "outputECP"
+
+
+
+
+
+}

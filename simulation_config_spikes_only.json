@@ -42,11 +42,11 @@
       "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
-    "thalamus_vip_spikes": {
+    "tone_spikes": {
       "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
-      "node_set": "thalamus_vip"
+      "module": "csv",
+      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.csv",
+      "node_set": "tone"
     }
   },
   "output": {
@@ -54,7 +54,16 @@
     "output_dir": "$OUTPUT_DIR",
     "spikes_file": "spikes.h5"
   },
-  "reports": {},
+  "reports": {
+    "ecp": {
+      "cells": "all",
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+      }
+  },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_simulation_config.json"
 }

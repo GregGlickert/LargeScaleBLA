@@ -1,5 +1,12 @@
 {
     "level_of_detail": "pv2pv",
+    "use_blueBrain_synapse": "True",
+    "tau_r_GABAA": "0.2", 
+    "tau_d_GABAA": "8", 
+    "tau_r_GABAB": "3.5",
+    "tau_d_GABAB": "260.9",
+    "initW_lognormal_mean": "3",
+    "initW_lognormal_std": "0.5",
     "AlphaTmax_gaba": "1.853",
     "Beta_gaba": "0.147",
     "Cdur_gaba": "0.7254",

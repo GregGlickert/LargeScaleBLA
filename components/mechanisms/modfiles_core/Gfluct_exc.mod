@@ -89,7 +89,7 @@ ENDCOMMENT
 INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
 
 NEURON {
-	POINT_PROCESS Gfluct_exc
+	POINT_PROCESS Gfluct
 	RANGE g_e, g_i, E_e, E_i, g_e0, g_i0, g_e1, g_i1
 	RANGE std_e, std_i, tau_e, tau_i, D_e, D_i
 	NONSPECIFIC_CURRENT i
@@ -170,7 +170,7 @@ BREAKPOINT {
 	if(g_e < 0) { g_e = 0 }
 	g_i = g_i0 + g_i1
 	if(g_i < 0) { g_i = 0 }
-	i = g_e * (v - E_e)
+	i = g_e * (v - E_e) + g_i * (v - E_i)
 }
 
 

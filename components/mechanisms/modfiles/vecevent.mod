@@ -29,23 +29,22 @@ NET_RECEIVE (w) {
 }
 
 VERBATIM
+#ifndef NRN_VERSION_GTEQ_8_2_0
 extern double* vector_vec();
 extern int vector_capacity();
 extern void* vector_arg();
-//extern void hoc_obj_ref(void*);
-//extern void hoc_obj_unref(void*);
-//extern void** vector_pobj(void*);
+#endif
 ENDVERBATIM
 
 DESTRUCTOR {
 VERBATIM {
-  void** vv;
-  void* vtmp;
+  IvocVect* vtmp;
+  IvocVect** vv;
   if (ifarg(1)) {
-    vtmp = vector_arg(1);
+    vtmp = (IvocVect*) vector_arg(1);
     hoc_obj_ref(*vector_pobj(vtmp));
   }
-  vv = (void**)(&space);
+  vv = (IvocVect**)(&space);
   if (*vv) {
     hoc_obj_unref(*vector_pobj(*vv));
   }
@@ -56,10 +55,10 @@ ENDVERBATIM
 
 PROCEDURE element() {
 VERBATIM	
-  { void* vv; int i, size; double* px;
+  { int i, size; double* px;
 	i = (int)index;
 	if (i >= 0) {
-		vv = *((void**)(&space));
+		IvocVect* vv = *((IvocVect**)(&space));
 		if (vv) {
 			size = vector_capacity(vv);
 			px = vector_vec(vv);
@@ -79,9 +78,8 @@ ENDVERBATIM
 
 PROCEDURE play() {
 VERBATIM
-	void** vv;
-	vv = (void**)(&space);
-	*vv = (void*)0;
+	IvocVect** vv = (IvocVect**)(&space);
+	*vv = (IvocVect*)0;
 	if (ifarg(1)) {
 		*vv = vector_arg(1);
 	hoc_obj_ref(*vector_pobj(*vv));

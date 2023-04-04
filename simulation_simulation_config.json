@@ -41,12 +41,6 @@
       "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
-    "thalamus_vip_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
-      "node_set": "thalamus_vip"
-    },
     "tone_spikes": {
       "input_type": "spikes",
       "module": "cvs",

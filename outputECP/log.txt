@@ -1,13 +1,23 @@
-2023-02-03 00:54:59,543 [INFO] Created log file
-2023-02-03 00:54:59,545 [INFO] Running NEURON with mpi (100 cores).
-2023-02-03 00:55:00,721 [INFO] Building cells.
-2023-02-03 00:55:00,793 [INFO] Building recurrent connections
-2023-02-03 00:55:48,003 [INFO] Running core neuron sim
-2023-02-03 00:55:48,004 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
-2023-02-03 00:55:48,170 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
-2023-02-03 00:55:48,259 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
-2023-02-03 00:55:48,294 [INFO] Building virtual cell stimulations for thalamus_som_spikes
-2023-02-03 00:55:48,324 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
-2023-02-03 00:55:48,362 [INFO] Running simulation for 5000.000 ms with the time step 0.100 ms
-2023-02-03 00:55:48,362 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
-2023-02-03 00:55:48,362 [INFO] Block save every 5000 steps
+2023-04-04 15:23:16,780 [INFO] Created log file
+2023-04-04 15:23:16,917 [INFO] Running NEURON with mpi (120 cores).
+2023-04-04 15:23:17,342 [INFO] Building cells.
+2023-04-04 15:23:17,402 [INFO] Building recurrent connections
+2023-04-04 15:23:18,636 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2023-04-04 15:23:19,035 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2023-04-04 15:23:19,303 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2023-04-04 15:23:19,381 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2023-04-04 15:23:19,481 [INFO] Building virtual cell stimulations for tone_spikes
+2023-04-04 15:23:19,858 [INFO] Running simulation for 5000.000 ms with the time step 0.100 ms
+2023-04-04 15:23:19,858 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2023-04-04 15:23:19,858 [INFO] Block save every 5000 steps
+2023-04-04 15:23:45,066 [INFO]     step:5000 t_sim:500.00 ms
+2023-04-04 15:24:14,511 [INFO]     step:10000 t_sim:1000.00 ms
+2023-04-04 15:24:47,153 [INFO]     step:15000 t_sim:1500.00 ms
+2023-04-04 15:25:21,349 [INFO]     step:20000 t_sim:2000.00 ms
+2023-04-04 15:25:57,239 [INFO]     step:25000 t_sim:2500.00 ms
+2023-04-04 15:26:34,349 [INFO]     step:30000 t_sim:3000.00 ms
+2023-04-04 15:27:11,072 [INFO]     step:35000 t_sim:3500.00 ms
+2023-04-04 15:27:48,866 [INFO]     step:40000 t_sim:4000.00 ms
+2023-04-04 15:28:26,228 [INFO]     step:45000 t_sim:4500.00 ms
+2023-04-04 15:29:03,881 [INFO]     step:50000 t_sim:5000.00 ms
+2023-04-04 15:29:05,473 [INFO] Simulation completed in 5.0 minutes, 45.62 seconds 

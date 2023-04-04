@@ -105,7 +105,7 @@ PARAMETER {
     E_AMPA          = 0         (mV)        : Reversal potential
     gmax0_AMPA      = 1.0       (nS)        : Initial peak conductance
     gmax_d_AMPA     = 1.0       (nS)        : Peak conductance in the depressed state
-    gmax_p_AMPA     = 2.0       (nS)        : Peak conductance in the potentitated state
+    gmax_p_AMPA     = 1.01       (nS)        : Peak conductance in the potentitated state
     : NMDA Receptor
     mgo_NMDA        = 1         (mM)        : Extracellular magnesium concentration
     scale_NMDA      = 2.552     (mM)        : Scale of the mg block (Vargas-Caballero and Robinson 2003)

@@ -83,11 +83,12 @@ node_set = [
 ]
 
 node_set_split = [
-    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "blue"},
-    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "olive"},
-    {"name": "PV", "start": 800 * scale, "end": 892 * scale+ 3, "color": "purple"},
-    {"name": "SOM", "start": 893 * scale, "end": 999 * scale + 4, "color": "green"},
-    {"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale , "color": "blue"},
+    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale, "color": "olive"},
+    #{"name": "PN", "start": 0 * scale, "end": 799 * scale, "color": "olive"},
+    {"name": "PV", "start": 800 * scale, "end": 899 * scale, "color": "purple"},
+    {"name": "SOM", "start": 899 * scale, "end": 999 * scale, "color": "green"}
+    #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
 f = h5py.File('outputECP/spikes.h5')
@@ -98,12 +99,12 @@ start1 = 0
 end1 = 1000
 dt = 0.1
 steps_per_ms = 1 / dt
-skip_seconds = 5
+skip_seconds = 15
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=0, end=5000, ax=axs[0])
-spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=5000, ax=axs[1], ms=(12500-0))
+raster(spikes_df, node_set_split, start=0, end=35000, ax=axs[0])
+spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=5000, ax=axs[1], ms=(5000-0))
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 #raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))

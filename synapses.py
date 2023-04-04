@@ -22,7 +22,6 @@ def lognorm(mean,std):
             weight=mean*5
         return weight
 
-
 def Bg2Pyr(syn_params, sec_x, sec_id):
     """Create a bg2pyr synapse
     :param syn_params: parameters of a synapse
@@ -78,169 +77,551 @@ def bginh(syn_params, sec_x, sec_id):
     return lsyn
 
 def bg_tone2pyr(syn_params,sec_x,sec_id):
-    lsyn = h.bg_tone2pyr(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gNMDAmax = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gAMPAmax = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
-    return lsyn
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.tone2pyr(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gNMDAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gAMPAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+        return lsyn
 
 def bg_tone2pv(syn_params,sec_x,sec_id):
-    lsyn = h.bg_tone2pv(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'True':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gNMDAmax = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gAMPAmax = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
 
-    return lsyn
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.tone2pv(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gNMDAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gAMPAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+        return lsyn
 
 def pv2pv(syn_params, sec_x, sec_id):
 
-    lsyn = h.pv2pv(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
+        if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        return lsyn
 
-    return lsyn
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.pv2pv(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def pv2som(syn_params, sec_x, sec_id):
-
-    lsyn = h.pv2som(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    return lsyn
+        return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.pv2som(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def pv2pyr(syn_params, sec_x, sec_id):
-
-    lsyn = h.pv2pyr(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    return lsyn
+        return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.pv2pyr(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def pyr2pv(syn_params, sec_x, sec_id):
-    
-    if syn_params['use_blueBrain_synapse'] == 'True':
-        lsyn = h.GluSynapse(sec_x, sec=sec_id)
-        if syn_params.get('initW_lognormal_mean_bb') and syn_params.get('initW_lognormal_std_bb'):
-            lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.AMPA_NMDA_STP_LTP_PN2PV(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
         if syn_params.get('theta_d_GB'):
             lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
         if syn_params.get('theta_p_GB'):
             lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.pyr2pv(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gNMDAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gAMPAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
         return lsyn
 
-    lsyn = h.pyr2pv(sec_x, sec=sec_id)
+def pyr2pyr(syn_params, sec_x, sec_id):
+    """
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
+    """
+    lsyn = h.AMPA_NMDA_STP_PN2PN(sec_x, sec=sec_id)
+    lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+    lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+    lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+    lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+    lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
     if syn_params.get('Percent_NMDA_block'): # from 0 to 1
         if all_syn_block == False:
             if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
+                lsyn.gmax_NMDA = float(0.55*10**-9)
             else:
                 pass
         if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+            lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
 
     if syn_params.get('Percent_AMPA_block'): # from 0 to 1
         if all_syn_block == False:
             if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
+                lsyn.gmax_AMPA  = float(0.55*10**-9)
             else:
                 pass
         if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
-
-
+            lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+    
     return lsyn
+    """
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.pyr2pyr(sec_x, sec=sec_id)
 
-def pyr2pyr(syn_params, sec_x, sec_id):
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gNMDAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
 
-    if syn_params['use_blueBrain_synapse'] == 'True':
-        lsyn = h.GluSynapse(sec_x, sec=sec_id)
-        if syn_params.get('initW_lognormal_mean_bb') and syn_params.get('initW_lognormal_std_bb'):
-            lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gAMPAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+        return lsyn
+    """
+def pyr2som(syn_params, sec_x, sec_id):
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
         if syn_params.get('theta_d_GB'):
             lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
         if syn_params.get('theta_p_GB'):
             lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.pyr2som(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gNMDAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gNMDAmax = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gAMPAmax = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gAMPAmax = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
         return lsyn
+
+def pyr2vip(syn_params, sec_x, sec_id):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
+
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
+
     if syn_params['use_blueBrain_synapse'] == 'False':
-        lsyn = h.pyr2pyr(sec_x, sec=sec_id)
+        lsyn = h.pyr2vip(sec_x, sec=sec_id)
         if syn_params.get('initW'):
             lsyn.initW = float(syn_params['initW'])
         elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
@@ -269,140 +650,105 @@ def pyr2pyr(syn_params, sec_x, sec_id):
             
         return lsyn
 
-def pyr2som(syn_params, sec_x, sec_id):
-    
+def som2pyr(syn_params, sec_x, sec_id):
     if syn_params['use_blueBrain_synapse'] == 'True':
-        lsyn = h.GluSynapse(sec_x, sec=sec_id)
-        if syn_params.get('initW_lognormal_mean_bb') and syn_params.get('initW_lognormal_std_bb'):
-            lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
-        if syn_params.get('theta_d_GB'):
-            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
-        if syn_params.get('theta_p_GB'):
-            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
         return lsyn
 
-    lsyn = h.pyr2som(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.som2pyr(sec_x, sec=sec_id)
 
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(8)
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
-
-    return lsyn
-
-def pyr2vip(syn_params, sec_x, sec_id):
-
-    lsyn = h.pyr2vip(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
-
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
-
-    return lsyn
-
-def som2pyr(syn_params, sec_x, sec_id):
-
-    lsyn = h.som2pyr(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-
-    return lsyn
+        return lsyn
 
 def som2vip(syn_params, sec_x, sec_id):
-
-    lsyn = h.som2vip(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    return lsyn
+        return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.som2vip(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def som2pv(syn_params, sec_x, sec_id):
-
-    lsyn = h.som2pv(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    return lsyn
+        return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.som2pv(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def vip2som(syn_params, sec_x, sec_id):
-
-    lsyn = h.pv2pv(sec_x, sec=sec_id)
-
-    if syn_params.get('initW'):
-        lsyn.initW = float(syn_params['initW'])
-    elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+    if syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.GABA_AB_STP(sec_x, sec=sec_id)
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        lsyn.tau_r_GABAA = float(syn_params['tau_r_GABAA'])
+        lsyn.tau_d_GABAA = float(syn_params['tau_d_GABAA'])  
+        lsyn.tau_r_GABAB = float(syn_params['tau_r_GABAB']) 
+        lsyn.tau_d_GABAB = float(syn_params['tau_d_GABAB'])
 
-    return lsyn
+        return lsyn
+
+    if syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.pv2pv(sec_x, sec=sec_id)
+
+        if syn_params.get('initW'):
+            lsyn.initW = float(syn_params['initW'])
+        elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+
+        return lsyn
 
 def tone2pyr(syn_params, sec_x, sec_id):
     """Create a tone2pyr synapse
@@ -411,88 +757,145 @@ def tone2pyr(syn_params, sec_x, sec_id):
     :param sec_id: target section
     :return: NEURON synapse object
     """
-    lsyn = h.tone2pyr(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse'] == 'True' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.AMPA_NMDA_STP_LTP_tone2PN(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('AlphaTmax_ampa'):
-        lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
-    if syn_params.get('Beta_ampa'):
-        lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
-    if syn_params.get('Cdur_ampa'):
-        lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
-    if syn_params.get('gbar_ampa'):
-        lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
-    if syn_params.get('Erev_ampa'):
-        lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('AlphaTmax_nmda'):
-        lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
-    if syn_params.get('Beta_nmda'):
-        lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
-    if syn_params.get('Cdur_nmda'):
-        lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
-    if syn_params.get('gbar_nmda'):
-        lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
-    if syn_params.get('Erev_nmda'):
-        lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
 
-    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+    if syn_params['use_blueBrain_synapse'] == 'False' and syn_params['use_blueBrain_synapse_no_LTP'] == 'False':
+        lsyn = h.tone2pyr(sec_x, sec=sec_id)
 
-    if syn_params.get('Wmax'):
-        lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
-    if syn_params.get('Wmin'):
-        lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
-    # delay = float(syn_params['initW']) # par.x(3) + delayDistance
-    # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+        if syn_params.get('AlphaTmax_ampa'):
+            lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
+        if syn_params.get('Beta_ampa'):
+            lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
+        if syn_params.get('Cdur_ampa'):
+            lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
+        if syn_params.get('gbar_ampa'):
+            lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
+        if syn_params.get('Erev_ampa'):
+            lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
 
-    if syn_params.get('lambda1'):
-        lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
-    if syn_params.get('lambda2'):
-        lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('tauD1'):
-        lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
-    if syn_params.get('d1'):
-        lsyn.d1 = float(syn_params['d1'])  # par.x(11)
-    if syn_params.get('tauD2'):
-        lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
-    if syn_params.get('d2'):
-        lsyn.d2 = float(syn_params['d2'])  # par.x(13)
-    if syn_params.get('tauF'):
-        lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
-    if syn_params.get('f'):
-        lsyn.f = float(syn_params['f'])  # par.x(15)
+        if syn_params.get('AlphaTmax_nmda'):
+            lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
+        if syn_params.get('Beta_nmda'):
+            lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
+        if syn_params.get('Cdur_nmda'):
+            lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
+        if syn_params.get('gbar_nmda'):
+            lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
+        if syn_params.get('Erev_nmda'):
+            lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('bACH'):
-        lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
-    if syn_params.get('aDA'):
-        lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
-    if syn_params.get('bDA'):
-        lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
-    if syn_params.get('wACH'):
-        lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+        if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_nmda  = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
 
-    return lsyn
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_ampa = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+
+        if syn_params.get('Wmax'):
+            lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
+        if syn_params.get('Wmin'):
+            lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
+        # delay = float(syn_params['initW']) # par.x(3) + delayDistance
+        # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+
+        if syn_params.get('lambda1'):
+            lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
+        if syn_params.get('lambda2'):
+            lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('tauD1'):
+            lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
+        if syn_params.get('d1'):
+            lsyn.d1 = float(syn_params['d1'])  # par.x(11)
+        if syn_params.get('tauD2'):
+            lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
+        if syn_params.get('d2'):
+            lsyn.d2 = float(syn_params['d2'])  # par.x(13)
+        if syn_params.get('tauF'):
+            lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
+        if syn_params.get('f'):
+            lsyn.f = float(syn_params['f'])  # par.x(15)
+
+        if syn_params.get('bACH'):
+            lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
+        if syn_params.get('aDA'):
+            lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
+        if syn_params.get('bDA'):
+            lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
+        if syn_params.get('wACH'):
+            lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+
+        return lsyn
 
 def tone2pv(syn_params, sec_x, sec_id):
     """Create a tone2pyr synapse
@@ -501,88 +904,145 @@ def tone2pv(syn_params, sec_x, sec_id):
     :param sec_id: target section
     :return: NEURON synapse object
     """
-    lsyn = h.tone2pv(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'False' and syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.AMPA_NMDA_STP_LTP_tone2PV(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('AlphaTmax_ampa'):
-        lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
-    if syn_params.get('Beta_ampa'):
-        lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
-    if syn_params.get('Cdur_ampa'):
-        lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
-    if syn_params.get('gbar_ampa'):
-        lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
-    if syn_params.get('Erev_ampa'):
-        lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('AlphaTmax_nmda'):
-        lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
-    if syn_params.get('Beta_nmda'):
-        lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
-    if syn_params.get('Cdur_nmda'):
-        lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
-    if syn_params.get('gbar_nmda'):
-        lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
-    if syn_params.get('Erev_nmda'):
-        lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
 
-    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'False' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.tone2pv(sec_x, sec=sec_id)
 
-    if syn_params.get('Wmax'):
-        lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
-    if syn_params.get('Wmin'):
-        lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
-    # delay = float(syn_params['initW']) # par.x(3) + delayDistance
-    # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+        if syn_params.get('AlphaTmax_ampa'):
+            lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
+        if syn_params.get('Beta_ampa'):
+            lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
+        if syn_params.get('Cdur_ampa'):
+            lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
+        if syn_params.get('gbar_ampa'):
+            lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
+        if syn_params.get('Erev_ampa'):
+            lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
 
-    if syn_params.get('lambda1'):
-        lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
-    if syn_params.get('lambda2'):
-        lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('tauD1'):
-        lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
-    if syn_params.get('d1'):
-        lsyn.d1 = float(syn_params['d1'])  # par.x(11)
-    if syn_params.get('tauD2'):
-        lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
-    if syn_params.get('d2'):
-        lsyn.d2 = float(syn_params['d2'])  # par.x(13)
-    if syn_params.get('tauF'):
-        lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
-    if syn_params.get('f'):
-        lsyn.f = float(syn_params['f'])  # par.x(15)
+        if syn_params.get('AlphaTmax_nmda'):
+            lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
+        if syn_params.get('Beta_nmda'):
+            lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
+        if syn_params.get('Cdur_nmda'):
+            lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
+        if syn_params.get('gbar_nmda'):
+            lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
+        if syn_params.get('Erev_nmda'):
+            lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('bACH'):
-        lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
-    if syn_params.get('aDA'):
-        lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
-    if syn_params.get('bDA'):
-        lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
-    if syn_params.get('wACH'):
-        lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+        if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_nmda  = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
 
-    return lsyn
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_ampa = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+
+        if syn_params.get('Wmax'):
+            lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
+        if syn_params.get('Wmin'):
+            lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
+        # delay = float(syn_params['initW']) # par.x(3) + delayDistance
+        # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+
+        if syn_params.get('lambda1'):
+            lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
+        if syn_params.get('lambda2'):
+            lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('tauD1'):
+            lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
+        if syn_params.get('d1'):
+            lsyn.d1 = float(syn_params['d1'])  # par.x(11)
+        if syn_params.get('tauD2'):
+            lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
+        if syn_params.get('d2'):
+            lsyn.d2 = float(syn_params['d2'])  # par.x(13)
+        if syn_params.get('tauF'):
+            lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
+        if syn_params.get('f'):
+            lsyn.f = float(syn_params['f'])  # par.x(15)
+
+        if syn_params.get('bACH'):
+            lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
+        if syn_params.get('aDA'):
+            lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
+        if syn_params.get('bDA'):
+            lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
+        if syn_params.get('wACH'):
+            lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+
+        return lsyn
 
 def tone2vip(syn_params, sec_x, sec_id):
     """Create a tone2pyr synapse
@@ -591,88 +1051,145 @@ def tone2vip(syn_params, sec_x, sec_id):
         :param sec_id: target section
         :return: NEURON synapse object
         """
-    lsyn = h.tone2vip(sec_x, sec=sec_id)
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'False' and syn_params['use_blueBrain_synapse'] == 'True':
+        lsyn = h.AMPA_NMDA_STP_LTP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-    if syn_params.get('AlphaTmax_ampa'):
-        lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
-    if syn_params.get('Beta_ampa'):
-        lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
-    if syn_params.get('Cdur_ampa'):
-        lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
-    if syn_params.get('gbar_ampa'):
-        lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
-    if syn_params.get('Erev_ampa'):
-        lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 1) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('AlphaTmax_nmda'):
-        lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
-    if syn_params.get('Beta_nmda'):
-        lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
-    if syn_params.get('Cdur_nmda'):
-        lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
-    if syn_params.get('gbar_nmda'):
-        lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
-    if syn_params.get('Erev_nmda'):
-        lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'True' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.AMPA_NMDA_STP(sec_x, sec=sec_id)
+        lsyn.initW = lognorm(syn_params['initW_lognormal_mean_bb'],syn_params['initW_lognormal_std_bb'])
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_NMDA = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.001) #default NMDA_max
 
-    if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
-        lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
-    if syn_params.get('Percent_NMDA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
-                lsyn.gbar_nmda  = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gmax_AMPA  = float(0.55*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gmax_AMPA  = float((1-float(syn_params['Percent_AMPA_block'])) * 0.001) #default NMDA_max
+            return lsyn
 
-    if syn_params.get('Percent_AMPA_block'): # from 0 to 1
-        if all_syn_block == False:
-            if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
-                lsyn.gbar_ampa = float(0.5*10**-9)
-            else:
-                pass
-        if all_syn_block == True:
-            lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+    if syn_params['use_blueBrain_synapse_no_LTP'] == 'False' and syn_params['use_blueBrain_synapse'] == 'False':
+        lsyn = h.tone2vip(sec_x, sec=sec_id)
 
-    if syn_params.get('Wmax'):
-        lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
-    if syn_params.get('Wmin'):
-        lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
-    # delay = float(syn_params['initW']) # par.x(3) + delayDistance
-    # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+        if syn_params.get('AlphaTmax_ampa'):
+            lsyn.AlphaTmax_ampa = float(syn_params['AlphaTmax_ampa'])  # par.x(21)
+        if syn_params.get('Beta_ampa'):
+            lsyn.Beta_ampa = float(syn_params['Beta_ampa'])  # par.x(22)
+        if syn_params.get('Cdur_ampa'):
+            lsyn.Cdur_ampa = float(syn_params['Cdur_ampa'])  # par.x(23)
+        if syn_params.get('gbar_ampa'):
+            lsyn.gbar_ampa = float(syn_params['gbar_ampa'])  # par.x(24)
+        if syn_params.get('Erev_ampa'):
+            lsyn.Erev_ampa = float(syn_params['Erev_ampa'])  # par.x(16)
 
-    if syn_params.get('lambda1'):
-        lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
-    if syn_params.get('lambda2'):
-        lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
-    if syn_params.get('threshold1'):
-        lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
-    if syn_params.get('threshold2'):
-        lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
-    if syn_params.get('tauD1'):
-        lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
-    if syn_params.get('d1'):
-        lsyn.d1 = float(syn_params['d1'])  # par.x(11)
-    if syn_params.get('tauD2'):
-        lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
-    if syn_params.get('d2'):
-        lsyn.d2 = float(syn_params['d2'])  # par.x(13)
-    if syn_params.get('tauF'):
-        lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
-    if syn_params.get('f'):
-        lsyn.f = float(syn_params['f'])  # par.x(15)
+        if syn_params.get('AlphaTmax_nmda'):
+            lsyn.AlphaTmax_nmda = float(syn_params['AlphaTmax_nmda'])  # par.x(25)
+        if syn_params.get('Beta_nmda'):
+            lsyn.Beta_nmda = float(syn_params['Beta_nmda'])  # par.x(26)
+        if syn_params.get('Cdur_nmda'):
+            lsyn.Cdur_nmda = float(syn_params['Cdur_nmda'])  # par.x(27)
+        if syn_params.get('gbar_nmda'):
+            lsyn.gbar_nmda = float(syn_params['gbar_nmda'])  # par.x(28)
+        if syn_params.get('Erev_nmda'):
+            lsyn.Erev_nmda = float(syn_params['Erev_nmda'])  # par.x(16)
 
-    if syn_params.get('bACH'):
-        lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
-    if syn_params.get('aDA'):
-        lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
-    if syn_params.get('bDA'):
-        lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
-    if syn_params.get('wACH'):
-        lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+        if syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
+            lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
+        if syn_params.get('Percent_NMDA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_NMDA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_nmda  = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_nmda  = float((1-float(syn_params['Percent_NMDA_block'])) * 0.5e-3) #default NMDA_max
 
-    return lsyn
+        if syn_params.get('Percent_AMPA_block'): # from 0 to 1
+            if all_syn_block == False:
+                if float(syn_params['Percent_AMPA_block']) >= random.uniform(0,1):
+                    lsyn.gbar_ampa = float(0.5*10**-9)
+                else:
+                    pass
+            if all_syn_block == True:
+                lsyn.gbar_ampa = float((1-float(syn_params['Percent_AMPA_block'])) * 1e-3) #default NMDA_max
+
+        if syn_params.get('Wmax'):
+            lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW  # par.x(1) * lsyn.initW
+        if syn_params.get('Wmin'):
+            lsyn.Wmin = float(syn_params['Wmin']) * lsyn.initW  # par.x(2) * lsyn.initW
+        # delay = float(syn_params['initW']) # par.x(3) + delayDistance
+        # lcon = new NetCon(&v(0.5), lsyn, 0, delay, 1)
+
+        if syn_params.get('lambda1'):
+            lsyn.lambda1 = float(syn_params['lambda1'])  # par.x(6)
+        if syn_params.get('lambda2'):
+            lsyn.lambda2 = float(syn_params['lambda2'])  # par.x(7)
+        if syn_params.get('threshold1'):
+            lsyn.threshold1 = float(syn_params['threshold1'])  # par.x(8)
+        if syn_params.get('threshold2'):
+            lsyn.threshold2 = float(syn_params['threshold2'])  # par.x(9)
+        if syn_params.get('tauD1'):
+            lsyn.tauD1 = float(syn_params['tauD1'])  # par.x(10)
+        if syn_params.get('d1'):
+            lsyn.d1 = float(syn_params['d1'])  # par.x(11)
+        if syn_params.get('tauD2'):
+            lsyn.tauD2 = float(syn_params['tauD2'])  # par.x(12)
+        if syn_params.get('d2'):
+            lsyn.d2 = float(syn_params['d2'])  # par.x(13)
+        if syn_params.get('tauF'):
+            lsyn.tauF = float(syn_params['tauF'])  # par.x(14)
+        if syn_params.get('f'):
+            lsyn.f = float(syn_params['f'])  # par.x(15)
+
+        if syn_params.get('bACH'):
+            lsyn.bACH = float(syn_params['bACH'])  # par.x(17)
+        if syn_params.get('aDA'):
+            lsyn.aDA = float(syn_params['aDA'])  # par.x(18)
+        if syn_params.get('bDA'):
+            lsyn.bDA = float(syn_params['bDA'])  # par.x(19)
+        if syn_params.get('wACH'):
+            lsyn.wACH = float(syn_params['wACH'])  # par.x(20)
+
+        return lsyn
 
 def shock2int(syn_params, sec_x, sec_id):
     """Create a int2pyr synapse

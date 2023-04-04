@@ -31,9 +31,8 @@ def run(config_file):
     add_weight_function(lognormal)
     add_weight_function(gaussianBL)
 
-
-    #conf = bionet.Config.from_json(config_file, validate=True)
-    conf = corebmtk.Config.from_json(config_file, validate=True)
+    #conf = corebmtk.Config.from_json(config_file, validate=True)
+    conf = bionet.Config.from_json(config_file, validate=True)
     conf.build_env()
 
     graph = bionet.BioNetwork.from_config(conf)
@@ -43,8 +42,8 @@ def run(config_file):
     for node in pop.get_nodes():
         node._node._node_type_props['morphology'] = node.model_template[1]
 
-    sim = corebmtk.CoreBioSimulator.from_config(conf, network=graph,gpu=False)
-    #sim = bionet.BioSimulator.from_config(conf, network=graph)
+    #sim = corebmtk.CoreBioSimulator.from_config(conf, network=graph,gpu=False)
+    sim = bionet.BioSimulator.from_config(conf, network=graph)
     
     # This calls insert_mechs() on each cell to use its gid as a seed
     # to the random number generator, so that each cell gets a different
@@ -55,10 +54,10 @@ def run(config_file):
         cells[cell].hobj.insert_mechs((cells[cell].gid))
         pass
     
-    voltage_gids = [0,1,2,3,4,5]
-    reports.voltage_record(voltage_gids)
+    #voltage_gids = [0,1,2,3,4,5]
+    #reports.voltage_record(voltage_gids)
     sim.run()
-    reports.save_voltage()
+    #reports.save_voltage()
     bionet.nrn.quit_execution()
 
 

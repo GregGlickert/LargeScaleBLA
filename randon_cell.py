@@ -18,7 +18,7 @@ tone_synapses = random.sample(range(4000), 2800)
 random_PN_A_array = random.sample(range(2276), 30)
 random_PN_C_array = random.sample(range(2277,3199),30)
 print(random_PN_C_array)
-exit(-1)
+
 random_PV_array = random.sample(range(3200,3568),30)
 random_SOM_array = random.sample(range(3569,4000),30)
 

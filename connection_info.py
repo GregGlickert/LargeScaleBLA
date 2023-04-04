@@ -2,6 +2,8 @@ import sys
 
 import numpy as np
 import pandas as pd
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 from bmtools.cli.plugins.util.util import relation_matrix
 
@@ -75,5 +77,5 @@ if __name__ == '__main__':
     if __file__ != sys.argv[-1]:
         run(sys.argv[-1])
     else:
-        run('simulation_config_base.json')
+        run('simulation_config_spikes_only.json')
 

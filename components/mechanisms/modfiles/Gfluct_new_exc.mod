@@ -156,6 +156,7 @@ INITIAL {
 
 BEFORE BREAKPOINT {
     noise = randGen()
+	printf("%g\n",noise)
 }
 
 BREAKPOINT {
@@ -196,8 +197,13 @@ PROCEDURE oup() {		: use Scop function normrand(mean, std_dev)
 
 
 VERBATIM
+#ifndef NRN_VERSION_GTEQ_8_2_0
 double nrn_random_pick(void* r);
 void* nrn_random_arg(int argpos);
+#define RANDCAST
+#else
+#define RANDCAST (Rand*)
+#endif
 ENDVERBATIM
 
 FUNCTION randGen() {
@@ -208,7 +214,7 @@ VERBATIM
       : each instance. However, the corresponding hoc Random
       : distribution MUST be set to Random.normal(0,1)
       */
-      _lrandGen = nrn_random_pick(_p_randObjPtr);
+      _lrandGen = nrn_random_pick(RANDCAST _p_randObjPtr);
    }else{
       hoc_execerror("Random object ref not set correctly for randObjPtr"," only via hoc Random");
    }

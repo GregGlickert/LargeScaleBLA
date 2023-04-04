@@ -1,89 +1,42 @@
-numprocs=100
+numprocs=120
 NEURON -- VERSION 9.0.dev-1279-gc8174d5c9+ master (c8174d5c9+) 2023-02-02
 Duke, Yale, and the BlueBrain Project -- Copyright 1984-2022
 See http://neuron.yale.edu/neuron/credits
 
+2023-04-04 15:23:16,780 [INFO] Created log file
+2023-04-04 15:23:16,917 [INFO] Running NEURON with mpi (120 cores).
 Additional mechanisms from files
- "modfiles_core//bg2pyr.mod" "modfiles_core//cadyn.mod" "modfiles_core//cal2CA3.mod" "modfiles_core//cal2.mod" "modfiles_core//capoolCA3.mod" "modfiles_core//capool.mod" "modfiles_core//cas.mod" "modfiles_core//cat.mod" "modfiles_core//currentclamp.mod" "modfiles_core//function_TMonitor.mod" "modfiles_core//Gfluct_exc.mod" "modfiles_core//Gfluct_inh.mod" "modfiles_core//Gfluct_new_exc.mod" "modfiles_core//Gfluct_new_inh.mod" "modfiles_core//halfgap.mod" "modfiles_core//hCA3.mod" "modfiles_core//h.mod" "modfiles_core//imCA3.mod" "modfiles_core//im.mod" "modfiles_core//kadist.mod" "modfiles_core//kaprox.mod" "modfiles_core//kca.mod" "modfiles_core//kdrca1DA.mod" "modfiles_core//kdrca1.mod" "modfiles_core//kdrCA3.mod" "modfiles_core//kdrinter.mod" "modfiles_core//leakCA3.mod" "modfiles_core//leakDA.mod" "modfiles_core//leakinter.mod" "modfiles_core//leak.mod" "modfiles_core//na3DA.mod" "modfiles_core//na3.mod" "modfiles_core//nainter.mod" "modfiles_core//napCA3.mod" "modfiles_core//nap.mod" "modfiles_core//natCA3.mod" "modfiles_core//nat.mod" "modfiles_core//pv2pv.mod" "modfiles_core//pv2pyr.mod" "modfiles_core//pv2som.mod" "modfiles_core//pyr2pv.mod" "modfiles_core//pyr2pyr.mod" "modfiles_core//pyr2som.mod" "modfiles_core//pyr2vip.mod" "modfiles_core//sahpCA3.mod" "modfiles_core//sahp.mod" "modfiles_core//sahpNE.mod" "modfiles_core//SOM2PV.mod" "modfiles_core//SOM2PYR.mod" "modfiles_core//vecevent_coreneuron.mod"
-2023-02-03 00:54:59,543 [INFO] Created log file
-2023-02-03 00:54:59,545 [INFO] Running NEURON with mpi (100 cores).
-2023-02-03 00:55:00,721 [INFO] Building cells.
-2023-02-03 00:55:00,793 [INFO] Building recurrent connections
-2023-02-03 00:55:48,003 [INFO] Running core neuron sim
-2023-02-03 00:55:48,004 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
-2023-02-03 00:55:48,170 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
-2023-02-03 00:55:48,259 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
-2023-02-03 00:55:48,294 [INFO] Building virtual cell stimulations for thalamus_som_spikes
-2023-02-03 00:55:48,324 [INFO] Building virtual cell stimulations for thalamus_vip_spikes
-2023-02-03 00:55:48,362 [INFO] Running simulation for 5000.000 ms with the time step 0.100 ms
-2023-02-03 00:55:48,362 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
-2023-02-03 00:55:48,362 [INFO] Block save every 5000 steps
- num_mpi=100
- num_omp_thread=1
+ "modfiles_core//AMPA_NMDA.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_PN2PV.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_tone2PN.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_tone2PV.mod" "modfiles_core//AMPA_NMDA_STP_LTP.mod" "modfiles_core//AMPA_NMDA_STP_LTP_PN2PV_old.mod" "modfiles_core//AMPA_NMDA_STP_LTP_tone2PN_old.mod" "modfiles_core//AMPA_NMDA_STP_LTP_tone2PV_old.mod" "modfiles_core//AMPA_NMDA_STP.mod" "modfiles_core//AMPA_NMDA_STP_PN2PN.mod" "modfiles_core//bg2pyr.mod" "modfiles_core//cadyn.mod" "modfiles_core//cal2CA3.mod" "modfiles_core//cal2.mod" "modfiles_core//capoolCA3.mod" "modfiles_core//capool.mod" "modfiles_core//cas.mod" "modfiles_core//cat.mod" "modfiles_core//currentclamp.mod" "modfiles_core//function_TMonitor.mod" "modfiles_core//GABA_AB.mod" "modfiles_core//GABA_AB_STP.mod" "modfiles_core//Gfluct_exc.mod" "modfiles_core//Gfluct_inh.mod" "modfiles_core//Gfluct_new_exc.mod" "modfiles_core//Gfluct_new_inh.mod" "modfiles_core//halfgap.mod" "modfiles_core//hCA3.mod" "modfiles_core//h.mod" "modfiles_core//imCA3.mod" "modfiles_core//im.mod" "modfiles_core//kadist.mod" "modfiles_core//kaprox.mod" "modfiles_core//kca.mod" "modfiles_core//kdrca1DA.mod" "modfiles_core//kdrca1.mod" "modfiles_core//kdrCA3.mod" "modfiles_core//kdrinter.mod" "modfiles_core//leakCA3.mod" "modfiles_core//leakDA.mod" "modfiles_core//leakinter.mod" "modfiles_core//leak.mod" "modfiles_core//na3DA.mod" "modfiles_core//na3.mod" "modfiles_core//nainter.mod" "modfiles_core//napCA3.mod" "modfiles_core//nap.mod" "modfiles_core//natCA3.mod" "modfiles_core//nat.mod" "modfiles_core//pv2pv.mod" "modfiles_core//pv2pyr.mod" "modfiles_core//pv2som.mod" "modfiles_core//pyr2pv.mod" "modfiles_core//pyr2pyr.mod" "modfiles_core//pyr2som.mod" "modfiles_core//pyr2vip.mod" "modfiles_core//sahpCA3.mod" "modfiles_core//sahp.mod" "modfiles_core//sahpNE.mod" "modfiles_core//som2pv.mod" "modfiles_core//som2pyr.mod" "modfiles_core//tone2pv.mod" "modfiles_core//tone2pyr.mod" "modfiles_core//tone2vip.mod" "modfiles_core//vecevent_coreneuron.mod"
+2023-04-04 15:23:17,342 [INFO] Building cells.
+2023-04-04 15:23:17,402 [INFO] Building recurrent connections
+2023-04-04 15:23:18,636 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2023-04-04 15:23:19,035 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2023-04-04 15:23:19,303 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2023-04-04 15:23:19,381 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2023-04-04 15:23:19,481 [INFO] Building virtual cell stimulations for tone_spikes
+2023-04-04 15:23:19,858 [INFO] Running simulation for 5000.000 ms with the time step 0.100 ms
+2023-04-04 15:23:19,858 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2023-04-04 15:23:19,858 [INFO] Block save every 5000 steps
+2023-04-04 15:23:45,066 [INFO]     step:5000 t_sim:500.00 ms
+2023-04-04 15:24:14,511 [INFO]     step:10000 t_sim:1000.00 ms
+2023-04-04 15:24:47,153 [INFO]     step:15000 t_sim:1500.00 ms
+2023-04-04 15:25:21,349 [INFO]     step:20000 t_sim:2000.00 ms
+2023-04-04 15:25:57,239 [INFO]     step:25000 t_sim:2500.00 ms
+2023-04-04 15:26:34,349 [INFO]     step:30000 t_sim:3000.00 ms
+2023-04-04 15:27:11,072 [INFO]     step:35000 t_sim:3500.00 ms
+2023-04-04 15:27:48,866 [INFO]     step:40000 t_sim:4000.00 ms
+2023-04-04 15:28:26,228 [INFO]     step:45000 t_sim:4500.00 ms
+2023-04-04 15:29:03,881 [INFO]     step:50000 t_sim:5000.00 ms
+2023-04-04 15:29:05,473 [INFO] Simulation completed in 5.0 minutes, 45.62 seconds 
 
- 
- Duke, Yale, and the BlueBrain Project -- Copyright 1984-2020
- Version : 9.0.0 c8174d5c9 (2023-02-02 11:10:22 +0100)
- 
- Additional mechanisms from files
- Gfluct_exc.mod Gfluct_inh.mod Gfluct_new_exc.mod Gfluct_new_inh.mod SOM2PV.mod SOM2PYR.mod bg2pyr.mod cadyn.mod cal2.mod cal2CA3.mod capool.mod capoolCA3.mod cas.mod cat.mod currentclamp.mod exp2syn.mod expsyn.mod function_TMonitor.mod h.mod hCA3.mod halfgap.mod hh.mod im.mod imCA3.mod kadist.mod kaprox.mod kca.mod kdrCA3.mod kdrca1.mod kdrca1DA.mod kdrinter.mod leak.mod leakCA3.mod leakDA.mod leakinter.mod na3.mod na3DA.mod nainter.mod nap.mod napCA3.mod nat.mod natCA3.mod netstim.mod passive.mod pattern.mod pv2pv.mod pv2pyr.mod pv2som.mod pyr2pv.mod pyr2pyr.mod pyr2som.mod pyr2vip.mod sahp.mod sahpCA3.mod sahpNE.mod stim.mod svclmp.mod vecevent_coreneuron.mod
-
- Memory (MBs) :             After mk_mech : Max 360.3047, Min 324.4609, Avg 333.8743 
- Memory (MBs) :            After MPI_Init : Max 360.3047, Min 324.4609, Avg 333.8743 
- Memory (MBs) :          Before nrn_setup : Max 360.3047, Min 324.4609, Avg 333.8912 
- Setup Done   : 0.12 seconds 
- Model size   : 2.71 GB
- Memory (MBs) :          After nrn_setup  : Max 386.2148, Min 350.0664, Avg 359.8757 
-GENERAL PARAMETERS
---mpi=true
---mpi-lib=
---gpu=false
---dt=0.1
---tstop=5000
-
-GPU
---nwarp=65536
---cell-permute=0
---cuda-interface=false
-
-INPUT PARAMETERS
---voltage=1000
---seed=-1
---datpath=.
---filesdat=files.dat
---pattern=
---report-conf=
---restore=     
-
-PARALLEL COMPUTATION PARAMETERS
---threading=false
---skip_mpi_finalize=true
-
-SPIKE EXCHANGE
---ms_phases=2
---ms_subintervals=2
---multisend=false
---spk_compress=0
---binqueue=false
-
-CONFIGURATION
---spikebuf=100000
---prcellgid=-1
---forwardskip=0
---celsius=31
---mindelay=0.500001
---report-buffer-size=4
-
-OUTPUT PARAMETERS
---dt_io=0.1
---outpath=.
---checkpoint=
-
- Start time (t) = 0
-
- Memory (MBs) :  After mk_spikevec_buffer : Max 386.2148, Min 350.0664, Avg 359.8757 
- Memory (MBs) :     After nrn_finitialize : Max 386.2148, Min 350.0664, Avg 359.8757 
-
-psolve |                                                         | t: 0.00   ETA: 0h00m00spsolve |                                                         | t: 30.50  ETA: 0h13m34spsolve |                                                         | t: 62.50  ETA: 0h13m10snrn_timeout t=83.7
-application called MPI_Abort(MPI_COMM_WORLD, 0) - process 0
-Done running model at Fri Feb  3 01:02:28 CST 2023
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 3532761 RUNNING AT engr-nelvm-res
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Killed (signal 9)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+Done running model at Tue Apr  4 15:29:06 CDT 2023

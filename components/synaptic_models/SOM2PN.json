@@ -1,6 +1,10 @@
 {
     "level_of_detail": "som2pyr",
-    "initW_lognormal_mean": "0.3",
-    "initW_lognormal_std": "0.0000000000001",
-    "old_values": "4.5,1.5"
+    "initW_lognormal_mean": "4",
+    "initW_lognormal_std": "1.5",
+    "use_blueBrain_synapse": "True",
+    "tau_r_GABAA": "0.2", 
+    "tau_d_GABAA": "8", 
+    "tau_r_GABAB": "3.5",
+    "tau_d_GABAB": "260.9"
 }

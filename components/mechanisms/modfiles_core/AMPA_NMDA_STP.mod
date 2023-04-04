@@ -28,6 +28,7 @@ NEURON {
     RANGE tau_r_AMPA, tau_d_AMPA, tau_r_NMDA, tau_d_NMDA
     RANGE Use, u, Dep, Fac, u0, mg, NMDA_ratio
     RANGE i, i_AMPA, i_NMDA, g_AMPA, g_NMDA, g, e
+    RANGE gmax_AMPA, gmax_NMDA
     NONSPECIFIC_CURRENT i
     RANGE synapseID, verboseLevel
     RANGE conductance
@@ -48,7 +49,8 @@ PARAMETER {
     Fac = 10           (ms)  : Relaxation time constant from facilitation
     e = 0              (mV)  : AMPA and NMDA reversal potential
     mg = 1             (mM)  : Initial concentration of mg2+
-    gmax = .001        (uS)  : Weight conversion factor (from nS to uS)
+    gmax_NMDA = .001        (uS)  : Weight conversion factor (from nS to uS)
+    gmax_AMPA = .001
     u0 = 0                   : Initial value of u, which is the running value of Use
     NMDA_ratio = 0.71  (1)   : The ratio of NMDA to AMPA
     synapseID = 0
@@ -106,8 +108,8 @@ INITIAL{
 BREAKPOINT {
     SOLVE state METHOD cnexp
     mggate = 1 / (1 + exp(0.062 (/mV) * -(v)) * (mg / 3.57 (mM))) :mggate kinetics - Jahr & Stevens 1990
-    g_AMPA = gmax*(B_AMPA-A_AMPA) :compute time varying conductance as the difference of state variables B_AMPA and A_AMPA
-    g_NMDA = gmax*(B_NMDA-A_NMDA) * mggate :compute time varying conductance as the difference of state variables B_NMDA and A_NMDA and mggate kinetics
+    g_AMPA = gmax_AMPA*(B_AMPA-A_AMPA) :compute time varying conductance as the difference of state variables B_AMPA and A_AMPA
+    g_NMDA = gmax_NMDA*(B_NMDA-A_NMDA) * mggate :compute time varying conductance as the difference of state variables B_NMDA and A_NMDA and mggate kinetics
     g = g_AMPA + g_NMDA
     i_AMPA = g_AMPA*(v-e) * initW :compute the AMPA driving force based on the time varying conductance, membrane potential, and AMPA reversal
     i_NMDA = g_NMDA*(v-e) * initW :compute the NMDA driving force based on the time varying conductance, membrane potential, and NMDA reversal
