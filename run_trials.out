@@ -1,0 +1,50 @@
+numprocs=140
+NEURON -- VERSION 9.0.dev-1279-gc8174d5c9+ master (c8174d5c9+) 2023-02-02
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2022
+See http://neuron.yale.edu/neuron/credits
+
+2023-04-22 20:52:32,890 [INFO] Created log file
+2023-04-22 20:52:32,935 [INFO] Running NEURON with mpi (140 cores).
+Additional mechanisms from files
+ "modfiles_core//AMPA_NMDA.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_PN2PV.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_tone2PN.mod" "modfiles_core//AMPA_NMDA_STP_LTP_mixed_feng_tone2PV.mod" "modfiles_core//AMPA_NMDA_STP_LTP.mod" "modfiles_core//AMPA_NMDA_STP_LTP_PN2PV_old.mod" "modfiles_core//AMPA_NMDA_STP_LTP_tone2PN_old.mod" "modfiles_core//AMPA_NMDA_STP_LTP_tone2PV_old.mod" "modfiles_core//AMPA_NMDA_STP.mod" "modfiles_core//AMPA_NMDA_STP_PN2PN.mod" "modfiles_core//bg2pyr.mod" "modfiles_core//cadyn.mod" "modfiles_core//cal2CA3.mod" "modfiles_core//cal2.mod" "modfiles_core//capoolCA3.mod" "modfiles_core//capool.mod" "modfiles_core//cas.mod" "modfiles_core//cat.mod" "modfiles_core//currentclamp.mod" "modfiles_core//function_TMonitor.mod" "modfiles_core//GABA_AB.mod" "modfiles_core//GABA_AB_STP.mod" "modfiles_core//Gfluct_exc.mod" "modfiles_core//Gfluct_inh.mod" "modfiles_core//Gfluct_new_exc.mod" "modfiles_core//Gfluct_new_inh.mod" "modfiles_core//halfgap.mod" "modfiles_core//hCA3.mod" "modfiles_core//h.mod" "modfiles_core//imCA3.mod" "modfiles_core//im.mod" "modfiles_core//kadist.mod" "modfiles_core//kaprox.mod" "modfiles_core//kca.mod" "modfiles_core//kdrca1DA.mod" "modfiles_core//kdrca1.mod" "modfiles_core//kdrCA3.mod" "modfiles_core//kdrinter.mod" "modfiles_core//leakCA3.mod" "modfiles_core//leakDA.mod" "modfiles_core//leakinter.mod" "modfiles_core//leak.mod" "modfiles_core//na3DA.mod" "modfiles_core//na3.mod" "modfiles_core//nainter.mod" "modfiles_core//napCA3.mod" "modfiles_core//nap.mod" "modfiles_core//natCA3.mod" "modfiles_core//nat.mod" "modfiles_core//pv2pv.mod" "modfiles_core//pv2pyr.mod" "modfiles_core//pv2som.mod" "modfiles_core//pyr2pv.mod" "modfiles_core//pyr2pyr.mod" "modfiles_core//pyr2som.mod" "modfiles_core//pyr2vip.mod" "modfiles_core//sahpCA3.mod" "modfiles_core//sahp.mod" "modfiles_core//sahpNE.mod" "modfiles_core//shock2int.mod" "modfiles_core//shock2int_non_change.mod" "modfiles_core//som2pv.mod" "modfiles_core//som2pyr.mod" "modfiles_core//tone2pv.mod" "modfiles_core//tone2pyr.mod" "modfiles_core//tone2vip.mod" "modfiles_core//vecevent_coreneuron.mod"
+2023-04-22 20:52:33,895 [INFO] Building cells.
+2023-04-22 20:52:34,134 [INFO] Building recurrent connections
+2023-04-22 20:52:41,505 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2023-04-22 20:52:43,569 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2023-04-22 20:52:45,500 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2023-04-22 20:52:46,079 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2023-04-22 20:52:46,363 [INFO] Building virtual cell stimulations for tone_spikes
+2023-04-22 20:53:43,555 [INFO] Running simulation for 9000.000 ms with the time step 0.100 ms
+2023-04-22 20:53:43,556 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2023-04-22 20:53:43,556 [INFO] Block save every 5000 steps
+2023-04-22 20:55:51,384 [INFO]     step:5000 t_sim:500.00 ms
+2023-04-22 20:58:08,299 [INFO]     step:10000 t_sim:1000.00 ms
+2023-04-22 21:00:32,812 [INFO]     step:15000 t_sim:1500.00 ms
+2023-04-22 21:03:04,408 [INFO]     step:20000 t_sim:2000.00 ms
+2023-04-22 21:05:39,280 [INFO]     step:25000 t_sim:2500.00 ms
+2023-04-22 21:08:16,540 [INFO]     step:30000 t_sim:3000.00 ms
+2023-04-22 21:10:58,645 [INFO]     step:35000 t_sim:3500.00 ms
+2023-04-22 21:13:36,779 [INFO]     step:40000 t_sim:4000.00 ms
+2023-04-22 21:16:15,897 [INFO]     step:45000 t_sim:4500.00 ms
+2023-04-22 21:18:58,746 [INFO]     step:50000 t_sim:5000.00 ms
+2023-04-22 21:21:34,671 [INFO]     step:55000 t_sim:5500.00 ms
+2023-04-22 21:24:09,514 [INFO]     step:60000 t_sim:6000.00 ms
+2023-04-22 21:26:50,256 [INFO]     step:65000 t_sim:6500.00 ms
+2023-04-22 21:29:27,397 [INFO]     step:70000 t_sim:7000.00 ms
+2023-04-22 21:32:03,145 [INFO]     step:75000 t_sim:7500.00 ms
+2023-04-22 21:34:46,808 [INFO]     step:80000 t_sim:8000.00 ms
+2023-04-22 21:37:23,646 [INFO]     step:85000 t_sim:8500.00 ms
+2023-04-22 21:40:00,073 [INFO]     step:90000 t_sim:9000.00 ms
+2023-04-22 21:50:05,058 [INFO] Simulation completed in 56.0 minutes, 40.56 seconds 
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 1251758 RUNNING AT engr-nelvm-res
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Killed (signal 9)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
+Done running model at Sat Apr 22 21:50:06 CDT 2023

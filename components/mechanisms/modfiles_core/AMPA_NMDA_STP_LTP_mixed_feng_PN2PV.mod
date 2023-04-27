@@ -56,6 +56,7 @@ NEURON {
     RANGE mgo_NMDA, scale_NMDA, slope_NMDA
     RANGE tau_r_NMDA, tau_d_NMDA, E_NMDA
     RANGE gmax_NMDA, g_NMDA
+    RANGE i_NMDA, i_AMPA
     : Stochastic Tsodyks-Markram Multi-Vesicular Release
     RANGE Use0_TM, Dep_TM, Fac_TM, Nrrp_TM
     RANGE Use_d_TM, Use_p_TM
@@ -190,6 +191,8 @@ ASSIGNED {
     limitW
     Wmax
     Wmin
+    i_NMDA
+    i_AMPA
 }
 
 STATE {
@@ -240,7 +243,7 @@ INITIAL{
 }
 
 BREAKPOINT {
-    LOCAL Eca_syn, mggate, i_AMPA, i_NMDA, Pf_NMDA, gca_bar_abs_VDCC, gca_VDCC
+    LOCAL Eca_syn, mggate, Pf_NMDA, gca_bar_abs_VDCC, gca_VDCC
     SOLVE state METHOD derivimplicit
     
     :limiting weight change added by Greg Glickert

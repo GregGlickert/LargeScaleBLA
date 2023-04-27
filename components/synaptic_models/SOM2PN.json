@@ -1,7 +1,7 @@
 {
     "level_of_detail": "som2pyr",
-    "initW_lognormal_mean": "4",
-    "initW_lognormal_std": "1.5",
+    "initW_lognormal_mean": "17",
+    "initW_lognormal_std": "5",
     "use_blueBrain_synapse": "True",
     "tau_r_GABAA": "0.2", 
     "tau_d_GABAA": "8", 

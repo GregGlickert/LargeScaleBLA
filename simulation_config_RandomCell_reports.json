@@ -1,7 +1,7 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/outputECP",
+    "$OUTPUT_DIR": "$BASE_DIR/outputECP_block_50",
     "$COMPONENTS_DIR": "$BASE_DIR/components"
   },
   "target_simulator": "NEURON",
@@ -45,7 +45,7 @@
     "tone_spikes": {
       "input_type": "spikes",
       "module": "csv",
-      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.csv",
+      "input_file": "$BASE_DIR/inputs/tone_spikes_trials.csv",
       "node_set": "tone"
     }
   },
@@ -64,7 +64,7 @@
       "electrode_channels": "all"
       },
       "syn_report": {
-        "cells": {"node_ids": [13, 728, 112, 296, 730, 450, 511, 707, 461, 243, 795, 57, 790, 7, 494, 119, 599, 4, 167, 657, 180, 319, 391, 466, 165, 42, 710, 136, 275, 779, 757, 562, 522, 692, 549, 286, 694, 377, 639, 509]},
+        "cells": "all",
         "variable_name": "W",
         "module": "netcon_report",
         "sections": "all",
@@ -72,7 +72,7 @@
         "file_name": "tone2PN.h5"
       },
       "syn_report1": {
-        "cells": {"node_ids": [13, 728, 112, 296, 730, 450, 511, 707, 461, 243, 795, 57, 790, 7, 494, 119, 599, 4, 167, 657, 180, 319, 391, 466, 165, 42, 710, 136, 275, 779, 757, 562, 522, 692, 549, 286, 694, 377, 639, 509]},
+        "cells": "all",
         "variable_name": "rho_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -80,7 +80,7 @@
         "file_name": "tone2PN_rho.h5"
       },
       "syn_report2": {
-        "cells": {"node_ids": [13, 728, 112, 296, 730, 450, 511, 707, 461, 243, 795, 57, 790, 7, 494, 119, 599, 4, 167, 657, 180, 319, 391, 466, 165, 42, 710, 136, 275, 779, 757, 562, 522, 692, 549, 286, 694, 377, 639, 509]},
+        "cells": "all",
         "variable_name": "effcai_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -88,7 +88,7 @@
         "file_name": "tone2PN_cai.h5"
       },
       "syn_report3": {
-        "cells": {"node_ids": [13, 728, 112, 296, 730, 450, 511, 707, 461, 243, 795, 57, 790, 7, 494, 119, 599, 4, 167, 657, 180, 319, 391, 466, 165, 42, 710, 136, 275, 779, 757, 562, 522, 692, 549, 286, 694, 377, 639, 509]},
+        "cells": "all",
         "variable_name": "pot_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -96,7 +96,7 @@
         "file_name": "tone2PN_pot_flag.h5"
       },
       "syn_report4": {
-        "cells": {"node_ids": [13, 728, 112, 296, 730, 450, 511, 707, 461, 243, 795, 57, 790, 7, 494, 119, 599, 4, 167, 657, 180, 319, 391, 466, 165, 42, 710, 136, 275, 779, 757, 562, 522, 692, 549, 286, 694, 377, 639, 509]},
+        "cells": "all",
         "variable_name": "dep_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -104,7 +104,7 @@
         "file_name": "tone2PN_dep_flag.h5"
       },
       "syn_report11": {
-        "cells": {"node_ids": [801, 891, 814, 837, 898, 856, 863, 888, 857, 830, 807, 800, 861, 897, 874, 892, 820, 882, 822, 839, 848, 858, 883, 805, 817, 834, 870, 865, 868, 835, 881, 847, 893, 851, 828, 889, 833, 806, 831, 887]},
+        "cells": "all",
         "variable_name": "W",
         "module": "netcon_report",
         "sections": "all",
@@ -112,7 +112,7 @@
         "file_name": "tone2PV.h5"
       },
       "syn_report12": {
-        "cells": {"node_ids": [801, 891, 814, 837, 898, 856, 863, 888, 857, 830, 807, 800, 861, 897, 874, 892, 820, 882, 822, 839, 848, 858, 883, 805, 817, 834, 870, 865, 868, 835, 881, 847, 893, 851, 828, 889, 833, 806, 831, 887]},
+        "cells": "all",
         "variable_name": "rho_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -120,7 +120,7 @@
         "file_name": "tone2PV_rho.h5"
       },
       "syn_report13": {
-        "cells": {"node_ids": [801, 891, 814, 837, 898, 856, 863, 888, 857, 830, 807, 800, 861, 897, 874, 892, 820, 882, 822, 839, 848, 858, 883, 805, 817, 834, 870, 865, 868, 835, 881, 847, 893, 851, 828, 889, 833, 806, 831, 887]},
+        "cells": "all",
         "variable_name": "effcai_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -128,7 +128,7 @@
         "file_name": "tone2PV_cai.h5"
       },
       "syn_report14": {
-        "cells": {"node_ids": [801, 891, 814, 837, 898, 856, 863, 888, 857, 830, 807, 800, 861, 897, 874, 892, 820, 882, 822, 839, 848, 858, 883, 805, 817, 834, 870, 865, 868, 835, 881, 847, 893, 851, 828, 889, 833, 806, 831, 887]},
+        "cells": "all",
         "variable_name": "pot_GB",
         "module": "netcon_report",
         "sections": "all",
@@ -136,7 +136,7 @@
         "file_name": "tone2PV_pot_flag.h5"
       },
       "syn_report15": {
-        "cells": {"node_ids": [801, 891, 814, 837, 898, 856, 863, 888, 857, 830, 807, 800, 861, 897, 874, 892, 820, 882, 822, 839, 848, 858, 883, 805, 817, 834, 870, 865, 868, 835, 881, 847, 893, 851, 828, 889, 833, 806, 831, 887]},
+        "cells": "all",
         "variable_name": "dep_GB",
         "module": "netcon_report",
         "sections": "all",

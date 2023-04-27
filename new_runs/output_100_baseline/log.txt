@@ -1,0 +1,43 @@
+2023-04-22 12:28:03,651 [INFO] Created log file
+2023-04-22 12:28:04,408 [INFO] Running NEURON with mpi (600 cores).
+2023-04-22 12:28:05,815 [INFO] Building cells.
+2023-04-22 12:28:05,855 [INFO] Building recurrent connections
+2023-04-22 12:28:07,684 [INFO] Building virtual cell stimulations for thalamus_pyr_A_spikes
+2023-04-22 12:28:08,512 [INFO] Building virtual cell stimulations for thalamus_pyr_C_spikes
+2023-04-22 12:28:09,298 [INFO] Building virtual cell stimulations for thalamus_pv_spikes
+2023-04-22 12:28:09,544 [INFO] Building virtual cell stimulations for thalamus_som_spikes
+2023-04-22 12:28:09,690 [INFO] Building virtual cell stimulations for tone_spikes
+2023-04-22 12:28:14,026 [INFO] Running simulation for 15000.000 ms with the time step 0.100 ms
+2023-04-22 12:28:14,027 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2023-04-22 12:28:14,027 [INFO] Block save every 5000 steps
+2023-04-22 12:28:30,201 [INFO]     step:5000 t_sim:500.00 ms
+2023-04-22 12:28:47,540 [INFO]     step:10000 t_sim:1000.00 ms
+2023-04-22 12:29:05,547 [INFO]     step:15000 t_sim:1500.00 ms
+2023-04-22 12:29:24,124 [INFO]     step:20000 t_sim:2000.00 ms
+2023-04-22 12:29:43,176 [INFO]     step:25000 t_sim:2500.00 ms
+2023-04-22 12:30:02,306 [INFO]     step:30000 t_sim:3000.00 ms
+2023-04-22 12:30:21,360 [INFO]     step:35000 t_sim:3500.00 ms
+2023-04-22 12:30:40,560 [INFO]     step:40000 t_sim:4000.00 ms
+2023-04-22 12:30:59,817 [INFO]     step:45000 t_sim:4500.00 ms
+2023-04-22 12:31:19,206 [INFO]     step:50000 t_sim:5000.00 ms
+2023-04-22 12:31:38,487 [INFO]     step:55000 t_sim:5500.00 ms
+2023-04-22 12:31:57,661 [INFO]     step:60000 t_sim:6000.00 ms
+2023-04-22 12:32:17,371 [INFO]     step:65000 t_sim:6500.00 ms
+2023-04-22 12:32:36,870 [INFO]     step:70000 t_sim:7000.00 ms
+2023-04-22 12:32:56,673 [INFO]     step:75000 t_sim:7500.00 ms
+2023-04-22 12:33:16,345 [INFO]     step:80000 t_sim:8000.00 ms
+2023-04-22 12:33:35,987 [INFO]     step:85000 t_sim:8500.00 ms
+2023-04-22 12:33:55,624 [INFO]     step:90000 t_sim:9000.00 ms
+2023-04-22 12:34:15,435 [INFO]     step:95000 t_sim:9500.00 ms
+2023-04-22 12:34:35,081 [INFO]     step:100000 t_sim:10000.00 ms
+2023-04-22 12:34:54,820 [INFO]     step:105000 t_sim:10500.00 ms
+2023-04-22 12:35:14,483 [INFO]     step:110000 t_sim:11000.00 ms
+2023-04-22 12:35:34,173 [INFO]     step:115000 t_sim:11500.00 ms
+2023-04-22 12:35:53,815 [INFO]     step:120000 t_sim:12000.00 ms
+2023-04-22 12:36:13,623 [INFO]     step:125000 t_sim:12500.00 ms
+2023-04-22 12:36:33,156 [INFO]     step:130000 t_sim:13000.00 ms
+2023-04-22 12:36:52,683 [INFO]     step:135000 t_sim:13500.00 ms
+2023-04-22 12:37:12,208 [INFO]     step:140000 t_sim:14000.00 ms
+2023-04-22 12:37:31,753 [INFO]     step:145000 t_sim:14500.00 ms
+2023-04-22 12:37:51,426 [INFO]     step:150000 t_sim:15000.00 ms
+2023-04-22 12:38:00,645 [INFO] Simulation completed in 9.0 minutes, 49.24 seconds 

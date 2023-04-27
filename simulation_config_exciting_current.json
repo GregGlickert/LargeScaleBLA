@@ -1,13 +1,13 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/outputEC_trials",
+    "$OUTPUT_DIR": "$BASE_DIR/output_currents_baseline_blocked_server",
     "$COMPONENTS_DIR": "$BASE_DIR/components"
   },
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 10000,
+    "tstop": 15000,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -42,16 +42,10 @@
       "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
-    "thalamus_vip_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_vip_spikes.h5",
-      "node_set": "thalamus_vip"
-    },
     "tone_spikes": {
       "input_type": "spikes",
       "module": "csv",
-      "input_file": "$BASE_DIR/inputs/tone_spikes_trials.csv",
+      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.csv",
       "node_set": "tone"
     }
   },
@@ -70,7 +64,7 @@
       "electrode_channels": "all"
       },
       "syn_report": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "W",
         "module": "netcon_report",
         "sections": "all",
@@ -78,7 +72,7 @@
         "file_name": "tone2PN.h5"
       },
       "syn_report1": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "i_NMDA",
         "module": "netcon_report",
         "sections": "all",
@@ -86,7 +80,7 @@
         "file_name": "tone2PN_i_NMDA.h5"
       },
       "syn_report1.1": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "i_AMPA",
         "module": "netcon_report",
         "sections": "all",
@@ -94,47 +88,63 @@
         "file_name": "tone2PN_i_AMPA.h5"
       },
       "syn_report1.2": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "ica_VDCC",
         "module": "netcon_report",
         "sections": "all",
         "syn_type": "AMPA_NMDA_STP_LTP_tone2PN",
         "file_name": "tone2PN_ica_VDCC.h5"
       },
-      "syn_report2": {
-        "cells": "all",
-        "variable_name": "effcai_GB",
-        "module": "netcon_report",
-        "sections": "all",
-        "syn_type": "AMPA_NMDA_STP_LTP_tone2PN",
-        "file_name": "tone2PN_cai.h5"
-      },
-      "syn_report3": {
-        "cells": "all",
-        "variable_name": "pot_GB",
-        "module": "netcon_report",
-        "sections": "all",
-        "syn_type": "AMPA_NMDA_STP_LTP_tone2PN",
-        "file_name": "tone2PN_pot_flag.h5"
-      },
       "syn_report4": {
-        "cells": "all",
-        "variable_name": "dep_GB",
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "W",
         "module": "netcon_report",
         "sections": "all",
-        "syn_type": "AMPA_NMDA_STP_LTP_tone2PN",
-        "file_name": "tone2PN_dep_flag.h5"
+        "syn_type": "AMPA_NMDA_STP_LTP_tone2PV",
+        "file_name": "tone2PV_W.h5"
+      },
+      "syn_report4.1": {
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "i_NMDA",
+        "module": "netcon_report",
+        "sections": "all",
+        "syn_type": "AMPA_NMDA_STP_LTP_tone2PV",
+        "file_name": "tone2PV_i_NMDA.h5"
+      },
+      "syn_report4.2": {
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "i_AMPA",
+        "module": "netcon_report",
+        "sections": "all",
+        "syn_type": "AMPA_NMDA_STP_LTP_tone2PV",
+        "file_name": "tone2PV_i_AMPA.h5"
+      },
+      "syn_report4.3": {
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "ica_VDCC",
+        "module": "netcon_report",
+        "sections": "all",
+        "syn_type": "AMPA_NMDA_STP_LTP_tone2PV",
+        "file_name": "tone2PV_ica_VDCC.h5"
       },
       "syn_report5": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
         "variable_name": "inmda",
         "module": "netcon_report",
         "sections": "all",
         "syn_type": "bg2pyr",
         "file_name": "bg2pyr_i_NMDA.h5"
       },
+      "syn_report8": {
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020,4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "iampa",
+        "module": "netcon_report",
+        "sections": "all",
+        "syn_type": "bg2pyr",
+        "file_name": "bg2pyr_i_AMPA.h5"
+      },
       "syn_report7": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "i_NMDA",
         "module": "netcon_report",
         "sections": "all",
@@ -142,20 +152,28 @@
         "file_name": "AMPA_NMDA_STP_PN2PN_i_NMDA.h5"
       },
       "syn_report6": {
-        "cells": "all",
+        "cells": {"node_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019,3020]},
         "variable_name": "i_AMPA",
         "module": "netcon_report",
         "sections": "all",
         "syn_type": "AMPA_NMDA_STP_PN2PN",
         "file_name": "AMPA_NMDA_STP_PN2PN_i_AMPA.h5"
       },
-      "syn_report8": {
-        "cells": "all",
-        "variable_name": "iampa",
+      "syn_report10": {
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "i_NMDA",
         "module": "netcon_report",
         "sections": "all",
-        "syn_type": "bg2pyr",
-        "file_name": "bg2pyr_i_AMPA.h5"
+        "syn_type": "AMPA_NMDA_STP_PN2PV",
+        "file_name": "AMPA_NMDA_STP_PN2PV_i_NMDA.h5"
+      },
+      "syn_report9": {
+        "cells": {"node_ids": [4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020]},
+        "variable_name": "i_AMPA",
+        "module": "netcon_report",
+        "sections": "all",
+        "syn_type": "AMPA_NMDA_STP_PN2PV",
+        "file_name": "AMPA_NMDA_STP_PN2PV_i_AMPA.h5"
       }
 
   },

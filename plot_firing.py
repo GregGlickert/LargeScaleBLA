@@ -32,7 +32,7 @@ def spike_frequency_histogram(spikes_df, node_set, ms, skip_ms=0, ax=None, n_bin
         ax.set_xlabel('Hz')
         ax.set_ylabel('amount of cells')
 
-scale = 4
+scale = 5
 node_set_split = [
     {"name": "Pyr_A", "start": 0 * scale, "end": 568 * scale + 3, "color": "#ff1100"},
     {"name": "Pyr_C", "start": 569 * scale, "end": 799 * scale+ 3, "color": "#d63904"},

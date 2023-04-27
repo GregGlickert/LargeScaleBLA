@@ -1,0 +1,138 @@
+{
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 15000,
+    "dt": 0.1,
+    "dL": 200000.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 31.0,
+    "v_init": -70.0
+  },
+  "inputs": {
+    "thalamus_pyr_A_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gglick9/LargeScaleBLA_work_in_pro/inputs/thalamus_pyr_A_spikes.h5",
+      "node_set": "thalamus_pyr_A"
+    },
+    "thalamus_pyr_C_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gglick9/LargeScaleBLA_work_in_pro/inputs/thalamus_pyr_C_spikes.h5",
+      "node_set": "thalamus_pyr_C"
+    },
+    "thalamus_pv_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gglick9/LargeScaleBLA_work_in_pro/inputs/thalamus_pv_spikes.h5",
+      "node_set": "thalamus_pv"
+    },
+    "thalamus_som_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/home/gglick9/LargeScaleBLA_work_in_pro/inputs/thalamus_som_spikes.h5",
+      "node_set": "thalamus_som"
+    },
+    "tone_spikes": {
+      "input_type": "spikes",
+      "module": "csv",
+      "input_file": "/home/gglick9/LargeScaleBLA_work_in_pro/inputs/tone_spikes_baseline.csv",
+      "node_set": "tone"
+    }
+  },
+  "output": {
+    "log_file": "/home/gglick9/LargeScaleBLA_work_in_pro/output_100_baseline/log.txt",
+    "output_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/output_100_baseline",
+    "spikes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/output_100_baseline/spikes.h5"
+  },
+  "reports": {},
+  "node_sets_file": "/home/gglick9/LargeScaleBLA_work_in_pro/node_sets.json",
+  "network": "/home/gglick9/LargeScaleBLA_work_in_pro/circuit_simulation_config.json",
+  "config_path": "/home/gglick9/LargeScaleBLA_work_in_pro/simulation_config_tone_shock.json",
+  "config_dir": "/home/gglick9/LargeScaleBLA_work_in_pro",
+  "components": {
+    "biophysical_neuron_models_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/biophysical_neuron_models",
+    "filter_models_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/filter_models",
+    "mechanisms_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/mechanisms",
+    "morphologies_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/morphologies",
+    "point_neuron_models_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/point_neuron_models",
+    "synaptic_models_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/synaptic_models",
+    "templates_dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/templates",
+    "__pycache___dir": "/home/gglick9/LargeScaleBLA_work_in_pro/components/__pycache__"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/BLA_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/BLA_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_A_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_A_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_C_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_C_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pv_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pv_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_som_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_som_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/tone_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/tone_node_types.csv"
+      },
+      {
+        "nodes_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/shock_nodes.h5",
+        "node_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/shock_node_types.csv"
+      }
+    ],
+    "edges": [
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pv_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pv_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/shock_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/shock_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_som_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_som_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_A_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_A_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/BLA_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/BLA_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/tone_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/tone_BLA_edges.h5"
+      },
+      {
+        "edge_types_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_C_BLA_edge_types.csv",
+        "edges_file": "/home/gglick9/LargeScaleBLA_work_in_pro/network_5000/thalamus_pyr_C_BLA_edges.h5"
+      }
+    ],
+    "gap_juncs": []
+  },
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    }
+  }
+}

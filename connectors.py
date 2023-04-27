@@ -432,10 +432,12 @@ def background_tone_connector(source,target,offset=0):
     else:
         return 0
 
-def rand_shock_connector(source, target, prob): # shock is using a regular gaba syn and needs to be stronger so
+def rand_shock_connector(source, target, offset, prob): # shock is using a regular gaba syn and needs to be stronger so
     sid = source.node_id                        # so i just put more syns on it
     tid = target.node_id
+    offset_tid = tid - offset
     if np.random.uniform() > prob:
         return 0
     else:
-        return 100
+        if sid == offset_tid:
+            return 2

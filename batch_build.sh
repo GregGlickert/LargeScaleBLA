@@ -4,11 +4,11 @@
 #SBATCH -n 1
 #SBATCH --qos=normal
 #SBATCH --job-name=amygdala_build
-#SBATCH --output=amygdala.out
+#SBATCH --output=build3.out
 #SBATCH --time 0-2400:00
 
 START=$(date)
-python build_network.py
+python plot_LTD_vs_Firing.py
 END=$(date)
 
 echo "Done running build at $(date)"

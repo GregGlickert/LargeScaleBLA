@@ -154,25 +154,26 @@ def get_gids_and_data_arrays_plus_hib(path):
     compare_weight(tone_noise_data,start_time = 0,end_time=10000)
 
 def potential(pot_path,depress_path):
+    print(pot_path,depress_path)
     report_pot = CompartmentReport(pot_path)
-    report_dep = CompartmentReport(depress_path)
+    #report_dep = CompartmentReport(depress_path)
     array = report_pot.data()
     potent_count = 0
     depressing_count = 0
     both_count = 0
-    for i in tqdm(range(len(array[0]))):
+    cells = report_pot.node_ids()
+    for i in tqdm(range(len(report_pot.node_ids()))):
         data_pot = report_pot.data(node_id=i)
-        data_dep = report_dep.data(node_id=i)
-        if 1 in data_dep and 1 in data_pot: # 1 means the flag was set to pot or depress at some point in the run
+        #data_dep = report_dep.data(node_id=i)
+        if 1 in data_pot: # 1 means the flag was set to pot or depress at some point in the run
             both_count = both_count + 1
-        elif 1 in data_dep and not 1 in data_pot:
-            depressing_count = depressing_count + 1
-        elif 1 in data_pot and not 1 in data_dep:
-            potent_count = potent_count + 1
+        #if 1 in data_dep and not 1 in data_pot:
+        #    depressing_count = depressing_count + 1
+        #if 1 in data_pot and not 1 in data_dep:
+        #    potent_count = potent_count + 1
     print("{} synapses did only LTD".format(depressing_count))
     print("{} synapses did only LTP".format(potent_count))
     print("{} synapses did both LTP and LTD".format(both_count))
-
 
 #potential(pot_path="outputECP/tone2PN_pot_flag.h5", depress_path="outputECP/tone2PN_dep_flag.h5")
 def plot_tone2PN():
@@ -244,6 +245,23 @@ def plot_PN2PV():
     fig.suptitle("PN2PV")
     plt.show()
 
-plot_tone2PN()
+#plot_tone2PN()
+#print("\ndoing tone2PN baseline\n")
+#potential(pot_path="outputECP/tone2PN_pot_flag.h5",depress_path="outputECP/tone2PN_dep_flag.h5")
+#print("\nDoing tone to PV  baseline now\n")
+#potential(pot_path="outputECP/tone2PV_pot_flag.h5",depress_path="outputECP/tone2PV_dep_flag.h5")
+print("\ndoing tone2PN trials now\n")
+potential(pot_path="output_trials_tone_only/tone2PN_pot_flag.h5",depress_path="output_trials_tone_only/tone2PN_dep_flag.h5")
+#print("\nDoing tone to PV trials now\n")
+#potential(pot_path="outputECP_trials/tone2PV_pot_flag.h5",depress_path="outputECP_trials/tone2PV_dep_flag.h5")
 #plot_tone2PV()
 #plot_PN2PV()
+
+#outputECP/tone2PN_pot_flag.h5 outputECP/tone2PN_dep_flag.h5
+#72 synapses did only LTD
+#0 synapses did only LTP
+#0 synapses did both LTP and LTD
+#outputECP/tone2PN trials
+#2488 synapses did only LTD
+# synapses did only LTP
+#5 synapses did both LTP and LTD

@@ -411,7 +411,7 @@ FUNCTION eta(Cani (us/liter)) {
 	P4 = 1
 	Cacon = Cani*1e3
 	taulearn = P1/(P2+Cacon*Cacon*Cacon)+P4
-	eta = 1/taulearn*0.001
+	eta = 1/taulearn*0.006 : was 0.001
 }
 
 FUNCTION omega(Cani (us/liter), threshold1 (us/liter), threshold2 (us/liter)) {

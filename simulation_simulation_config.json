@@ -44,8 +44,14 @@
     "tone_spikes": {
       "input_type": "spikes",
       "module": "cvs",
-      "input_file": "$BASE_DIR/tone_spikes_baseline.cvs",
+      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.cvs",
       "node_set": "tone"
+    },
+    "s_spikes": {
+      "input_type": "spikes",
+      "module": "",
+      "input_file": "$BASE_DIR/h",
+      "node_set": "s"
     }
   },
   "output": {

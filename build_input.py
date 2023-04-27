@@ -89,9 +89,9 @@ def generate_tone_input(with_tone_trials = None, scale = None,sim_time = None,nu
     tone_synapses = random.sample(range(cell_count), int(cell_count*0.7)) # 70% of cells get a tone_synapses
     tone_synapses.sort()
     if with_tone_trials == False:
-        print("building tone input noie at 2Hz!")
+        print("building tone input noise at 2Hz!")
     if with_tone_trials == True:
-        print("building tone input noie at 2Hz! for trials dataset")
+        print("building tone input noise at 2Hz! for trials dataset")
         print("There are " + str(num_tone_trials) + " trials and they start at " + str(trial_start) + " ms")
     for i in range(cell_count):
         node_id = i
@@ -117,14 +117,54 @@ def generate_tone_input(with_tone_trials = None, scale = None,sim_time = None,nu
     if with_tone_trials == True:
         df.to_csv("inputs/tone_spikes_trials.csv",index=False)
 
-network_scale = 10
+def shock_trials(tstart):
+    shock_array = []
+    for i in range(0, 105, 25):
+        #shock_array.append(str(tstart + i) + str(" 'shock' 0"))
+        shock_array.append(tstart+i)
+    return shock_array
+        
+def generate_shock(time, node_id):
+    psg = P_spike_generator(population="shock")
+    for i in range(len(time)):
+        time[i] = time[i]/1000
+    psg.add(node_ids=node_id,firing_rate=150,times=(time))  
+    psg.to_sonata('inputs/shocks.h5')
+
+    f = h5py.File('inputs/shocks.h5')
+    return ((f['spikes']['shock']['timestamps'][:]),f['spikes/shock/node_ids'][:])
+
+
+def write_shock(trial_start,num_tone_trials):
+    print("generating shock input")
+    tshock = trial_start + 400 # was 400
+    whole_signal = []
+    for i in range(0,num_tone_trials): # number of trials
+        shock_array = []
+        trial_array = shock_trials(tshock)
+        tshock = tshock + 1500 #gap between trial starts
+        pos_input, node_id = generate_shock(time=trial_array,node_id=range(0,999))
+        for i in range(len(pos_input)):
+                shock_array.append((pos_input[i]).astype(str) + str(" 'shock' ") + str(node_id[i]))
+        whole_signal.append(shock_array)
+    whole_signal = flatten(whole_signal)
+    #print(whole_signal)
+    d = {'timestamps population node_ids' : whole_signal}
+    df = pd.DataFrame(data=d)
+    df.to_csv("inputs/shocks.csv",index=False)
+
+                             
+
+network_scale = 5
 simulation_time_in_secs = 47
 print("T_sim is set to " + str(simulation_time_in_secs) + " seconds")
 print("The network scale is set to " +str(network_scale))
 build_input(simulation_time_in_secs, scale=network_scale)
 
 generate_tone_input(with_tone_trials=False, scale=network_scale,sim_time=simulation_time_in_secs,
-                    num_tone_trials=30, trial_start=3000)
+                    num_tone_trials=30, trial_start=1000)
 
 generate_tone_input(with_tone_trials=True, scale=network_scale,sim_time=simulation_time_in_secs,
-                    num_tone_trials=30, trial_start=3000)
+                    num_tone_trials=30, trial_start=1000)
+
+write_shock(trial_start=1000,num_tone_trials=30)

@@ -10,20 +10,20 @@ from connectors import *
 np.random.seed(123412)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
-network_dir = 'network_10000'
+network_dir = 'network_5000'
 if os.path.isdir(network_dir) == False:
     os.makedirs(network_dir)
 components_dir = 'components'
 t_sim = 15000.0
 dt = 0.05
-scale = 10
+scale = 5
 
 min_conn_dist = 0.0
 max_conn_dist = 9999  # 300.0 #9999.9# Distance constraint for all cells
 
 # When enabled, a shell of virtual cells will be created around the core network.
 edge_effects = False
-net_size = 1200  # um
+net_size = 800  # um
 
 # Number of cells in each population
 numPN_A = 569
@@ -310,7 +310,7 @@ network_definitions = [
         'positions_list': None,
         'cells': [
             {
-                'N': 1,
+                'N': numPV+numSOM,
                 'pop_name': 'shock',
                 'pop_group': 'shock',
                 'model_type': 'virtual'
@@ -984,9 +984,9 @@ edge_params = {
     #},
     'SHOCK2INT': {
         'connection_rule': rand_shock_connector,
-        'connection_params': {'prob': 0.7},
+        'connection_params': {'offset': numPN_A + numPN_C, 'prob': 1},
         'syn_weight': 1,
-        'target_sections': ['basal'],
+        'target_sections': ['soma'],
         'distance_range': [0.0, 9999.9],
         'dynamics_params': 'shock2int.json'
     }
@@ -1197,7 +1197,8 @@ build_env_bionet(base_dir='./',
         ('thalamus_pv','inputs/thalamus_pv_spikes.h5'),
         ('thalamus_som','inputs/thalamus_som_spikes.h5'),
         #('thalamus_vip','inputs/thalamus_vip_spikes.h5'),
-        ('tone','tone_spikes_baseline.cvs')],
+        ('tone','inputs/tone_spikes_baseline.cvs'),
+        ('shock, inputs/shocks.csv')],
 	components_dir=components_dir,
     config_file='simulation_config.json',
     overwrite_config=True,

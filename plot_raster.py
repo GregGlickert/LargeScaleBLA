@@ -75,7 +75,7 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=10)
         ax.set_xscale('log')
         ax.legend()
 
-scale = 1
+scale = 5
 node_set = [
     {"name": "PN", "start": 0*scale, "end": 799*scale, "color": "blue"},
     {"name": "PV", "start": 800*scale, "end": 892*scale, "color": "gray"},
@@ -91,10 +91,10 @@ node_set_split = [
     #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-f = h5py.File('outputECP/spikes.h5')
+f = h5py.File('output_trials/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
-fig, axs = plt.subplots(1, 2, figsize=(15, 6))
+fig, axs = plt.subplots(1, 1, figsize=(15, 6))
 start1 = 0
 end1 = 1000
 dt = 0.1
@@ -103,11 +103,12 @@ skip_seconds = 15
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=0, end=35000, ax=axs[0])
-spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=5000, ax=axs[1], ms=(5000-0))
+raster(spikes_df, node_set_split, start=1300, end=1650, ax=axs)
+#spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=10000, ax=axs[1], ms=(10000-0)) UNCOMMENT ME LATER!
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 #raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))
+plt.title("Raster during tone + shock conditioning")
 plt.show()
 #trace = plot_traces(report_path='outputECP/v_report.h5',node_ids=[3999])
 

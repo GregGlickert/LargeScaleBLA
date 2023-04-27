@@ -4,7 +4,7 @@
     "Percent_AMPA_block" : "0",
     "use_blueBrain_synapse": "True",
     "use_blueBrain_synapse_no_LTP": "False",
-    "initW_lognormal_mean_bb": "16",
+    "initW_lognormal_mean_bb": "24",
     "initW_lognormal_std_bb": "4",
     "theta_d_GB" : "4.4",
     "theta_p_GB" : "4.55",

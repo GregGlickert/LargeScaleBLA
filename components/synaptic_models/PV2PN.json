@@ -1,7 +1,7 @@
 {
     "level_of_detail": "pv2pyr",
-    "initW_lognormal_mean": "0.8",
-    "initW_lognormal_std": "0.05",
+    "initW_lognormal_mean": "3",
+    "initW_lognormal_std": "0.2",
     "use_blueBrain_synapse": "True",
     "tau_r_GABAA": "0.2", 
     "tau_d_GABAA": "8", 
