@@ -6,7 +6,8 @@ import h5py
 import numpy as np
 import pandas as pd
 
-def raster(spikes_df, node_set, start=0,end=80000, ax=None):
+
+def raster(spikes_df, node_set, start=0,end=80000, ax=None,tone = None):
     spikes_df = spikes_df[spikes_df['timestamps'] > start]
     spikes_df = spikes_df[spikes_df['timestamps'] < end]
     for node in node_set:
@@ -20,6 +21,7 @@ def raster(spikes_df, node_set, start=0,end=80000, ax=None):
     ax.legend(reversed(handles), reversed(labels),loc='lower right')
     ax.grid(False)
 
+        
 def spike_frequency_bar_graph(spikes_df, node_set, ms, start=0, end=80000, ax=None):
     mean = []
     name = []
@@ -83,18 +85,16 @@ node_set = [
 ]
 
 node_set_split = [
-    {"name": "PN_A", "start": 0 * scale, "end": 568 * scale , "color": "blue"},
-    {"name": "PN_C", "start": 569 * scale, "end": 799 * scale, "color": "olive"},
-    #{"name": "PN", "start": 0 * scale, "end": 799 * scale, "color": "olive"},
-    {"name": "PV", "start": 800 * scale, "end": 899 * scale, "color": "purple"},
-    {"name": "SOM", "start": 899 * scale, "end": 999 * scale, "color": "green"}
-    #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
+    {"name": "PN_A", "start":0 * scale, "end": 569 * scale , "color": "blue"},
+    {"name": "PN_C", "start": 569 * scale, "end": (569+231) * scale, "color": "olive"},
+    {"name": "PV", "start": (569+231) * scale, "end": (569+231+93) * scale, "color": "purple"},
+    {"name": "SOM", "start": (569+231+93) * scale, "end": (569+231+93+51) * scale, "color": "green"}
 ]
 
-f = h5py.File('output_trials/spikes.h5')
+f = h5py.File('outputECP_lowerthres2_lowlearn_5000/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
-fig, axs = plt.subplots(1, 1, figsize=(15, 6))
+fig, axs = plt.subplots(1, 2, figsize=(15, 6))
 start1 = 0
 end1 = 1000
 dt = 0.1
@@ -103,12 +103,13 @@ skip_seconds = 15
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=1300, end=1650, ax=axs)
-#spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=10000, ax=axs[1], ms=(10000-0)) UNCOMMENT ME LATER!
+raster(spikes_df, node_set_split, start=0, end=150000, ax=axs[0])
+#spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=1000, ax=axs[0], ms=(1000-0)) 
+spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=5000, ax=axs[1], ms=(5000-0)) 
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 #raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))
-plt.title("Raster during tone + shock conditioning")
+plt.title("Raster")
 plt.show()
 #trace = plot_traces(report_path='outputECP/v_report.h5',node_ids=[3999])
 

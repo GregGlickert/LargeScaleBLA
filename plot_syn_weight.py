@@ -153,22 +153,39 @@ def get_gids_and_data_arrays_plus_hib(path):
     print('tone noise')
     compare_weight(tone_noise_data,start_time = 0,end_time=10000)
 
-def potential(pot_path,depress_path):
+def potential(pot_path,depress_path,weight_path):
     print(pot_path,depress_path)
     report_pot = CompartmentReport(pot_path)
-    #report_dep = CompartmentReport(depress_path)
+    report_dep = CompartmentReport(depress_path)
+    weight = CompartmentReport(weight_path)
     array = report_pot.data()
     potent_count = 0
     depressing_count = 0
     both_count = 0
     cells = report_pot.node_ids()
     for i in tqdm(range(len(report_pot.node_ids()))):
-        data_pot = report_pot.data(node_id=i)
-        #data_dep = report_dep.data(node_id=i)
+        node = i 
+        data_pot = report_pot.data(node_id=node)
+        data_dep = report_dep.data(node_id=node)
+        weight_data = weight.data(node_id=node)
         if 1 in data_pot: # 1 means the flag was set to pot or depress at some point in the run
-            both_count = both_count + 1
-        #if 1 in data_dep and not 1 in data_pot:
-        #    depressing_count = depressing_count + 1
+            weight_at_start = weight_data[0]
+            weight_at_end = weight_data[-1]
+            weight_change = weight_at_end -  weight_at_start 
+            if weight_change > 0:
+                both_count = both_count + 1
+                plt.plot(weight_data)
+                name = 'weights/' + str(i) + ".png"
+                plt.savefig(name)
+                plt.close()
+            if weight_change < 0:
+                depressing_count = depressing_count + 1
+        if 1 in data_dep and not 1 in data_pot:
+            plt.plot(weight_data)
+            name = 'weights/' + str(i) + ".png"
+            plt.savefig(name)
+            plt.close()
+            depressing_count = depressing_count + 1
         #if 1 in data_pot and not 1 in data_dep:
         #    potent_count = potent_count + 1
     print("{} synapses did only LTD".format(depressing_count))
@@ -177,11 +194,12 @@ def potential(pot_path,depress_path):
 
 #potential(pot_path="outputECP/tone2PN_pot_flag.h5", depress_path="outputECP/tone2PN_dep_flag.h5")
 def plot_tone2PN():
-    fig, axs = plt.subplots(2, 2, figsize=(18, 6))
+    fig, axs = plt.subplots(1, 1, figsize=(18, 6))
     tone2PN = get_array('outputECP/tone2PN_cai.h5')
-    axs[0][0].plot(tone2PN)
-    axs[0][0].set_title("Cai")
-
+    axs.plot(tone2PN)
+    axs.set_title("Cai")
+    plt.show()
+    exit(-1)
     tone2PN = get_array('outputECP/tone2PN_rho.h5')
     axs[1][0].plot(tone2PN)
     axs[1][0].set_title("Rho")
@@ -247,11 +265,27 @@ def plot_PN2PV():
 
 #plot_tone2PN()
 #print("\ndoing tone2PN baseline\n")
-#potential(pot_path="outputECP/tone2PN_pot_flag.h5",depress_path="outputECP/tone2PN_dep_flag.h5")
+#plot_tone2PN()
+#exit(-1)
+potential(pot_path="outputECP_lowerthres2_lowlearn_5000/tone2PN_pot_flag.h5",
+          depress_path="outputECP_lowerthres2_lowlearn_5000/tone2PN_dep_flag.h5",
+          weight_path='outputECP_lowerthres2_lowlearn_5000/tone2PN_W.h5')
+exit(-1)
 #print("\nDoing tone to PV  baseline now\n")
 #potential(pot_path="outputECP/tone2PV_pot_flag.h5",depress_path="outputECP/tone2PV_dep_flag.h5")
+
+fig, axs = plt.subplots(1, 1, figsize=(18, 6))
+tone2PN = get_array('outputECP/tone2PN_cai.h5')
+axs.plot(tone2PN)
+axs.set_title("Cai")
+plt.savefig('plot_syn.png')
+
+exit(-1)
+
+
+
 print("\ndoing tone2PN trials now\n")
-potential(pot_path="output_trials_tone_only/tone2PN_pot_flag.h5",depress_path="output_trials_tone_only/tone2PN_dep_flag.h5")
+potential(pot_path="outputECP/tone2PN_pot_flag.h5",depress_path="outputECP/tone2PN_dep_flag.h5")
 #print("\nDoing tone to PV trials now\n")
 #potential(pot_path="outputECP_trials/tone2PV_pot_flag.h5",depress_path="outputECP_trials/tone2PV_dep_flag.h5")
 #plot_tone2PV()

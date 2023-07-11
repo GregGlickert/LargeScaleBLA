@@ -3,11 +3,12 @@ import pandas as pd
 import random
 import math
 
-np.random.seed(123412)
-random.seed(123412)
+all_synapses = None
 
-all_synapses = pd.DataFrame([],columns=['source_gid','target_gid'])
-tone_synapses = random.sample(range(4000), 2800)
+def init_connectors(total_cells):
+    global all_synapses
+    all_synapses = np.zeros([total_cells,total_cells], dtype=bool)
+
 ##############################################################################
 ############################## CONNECT CELLS #################################
 
@@ -23,7 +24,7 @@ def one_to_one(source, target):
 
     return tmp_nsyn
 
-def one_to_one_offset(source, target, offset=0,):
+def one_to_one_offset(source, target, offset=0):
 
     sid = source.node_id
     tid = target.node_id - offset
@@ -69,31 +70,18 @@ def get_target_sec_id(source,target):
     # robust using a lookup table for more complicated cell types
     
     if source['pop_name'] == 'PyrA' or source['pop_name'] == 'PyrC':
-        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
-            #print("connecting PN->PN")
-            return 2 # apical for PN -> PN
-        else:
-            return 1 # everything interneuron is basal
+        return 1 # Target Dendrites
     elif source['pop_name'] == 'PV':
         return 0 # Target Soma
     elif source['pop_name'] == 'SOM':
-        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
-            return 2 # Target apical for SOM->PN
-        else:
-            return 1 #interneuron connection
+        return 0 # Target Soma
     elif source['pop_name'] == 'CR':
         if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
             return 0 # Target Soma
         else:
             return 1 # Target Denditrites
-    elif source['pop_name'] =='VIP':
-        return 1
     elif source['model_type'] == 'virtual':
-        if target['pop_name'] == 'PyrA' or target['pop_name'] == 'PyrC':
-            #print("connecting BG->PN")
-            return 2 # target apical
-        else:
-            return 1 # Target basal
+        return 1 # Target Dendrites
     else: # We really don't want a default case so we can catch errors
         #return 0 # Target Soma by default
         import pdb;pdb.set_trace()
@@ -106,6 +94,7 @@ def syn_dist_delay_feng_section(source, target, sec_id=None, sec_x=0.9):
     return syn_dist_delay_feng(source, target), sec_id, sec_x
 
 def syn_uniform_delay_section(source, target, sec_id=None, sec_x=0.9, mean=0.5,std=1):
+    
     if sec_id is None: # allows for overriding
         sec_id = get_target_sec_id(source, target)
 
@@ -124,11 +113,14 @@ def syn_percent(source,target,p,track_list=None):
         return None
 
     # Do not add synapses if they already exist, we don't want duplicates
-    if ((all_synapses.source_gid == sid) & (all_synapses.target_gid == tid)).any():
+    #if ((all_synapses.source_gid == sid) & (all_synapses.target_gid == tid)).any():
+    #    return None
+    if all_synapses[sid][tid]:
         return None
 
     if random.random() < p:
-        all_synapses = all_synapses.append({'source_gid':sid,'target_gid':tid},ignore_index=True)
+        #all_synapses = all_synapses.append({'source_gid':sid,'target_gid':tid},ignore_index=True)
+        all_synapses[sid][tid] = True
         if track_list is not None:#we only want to track synapses that may have a recurrent connection, will speed up build time considerably
             track_list.append({'source_gid':source['node_id'],'target_gid':target['node_id']})        
         return 1
@@ -164,8 +156,8 @@ def syn_percent_o2a(source,targets,p,track_list=None,no_recip=False, autapses_al
         return syns
 
     #Get all existing targets for that source that can't be targetted here
-    existing = all_synapses[all_synapses.source_gid == sid]
-    existing_list = existing[existing.target_gid.isin(tids)].target_gid.tolist()
+    existing = all_synapses[sid]
+    existing_list = list(np.where(np.any(all_synapses[0]==True, axis=0))[0])
 
     #remove existing synapses from available list
     available = tids.copy()
@@ -217,10 +209,10 @@ def syn_percent_o2a(source,targets,p,track_list=None,no_recip=False, autapses_al
     mask = np.isin(tids,chosen)
     syns[mask] = 1
     #Add to lists
-    new_syns = pd.DataFrame(chosen,columns=['target_gid'])
-    new_syns['source_gid'] = sid
-    all_synapses = all_synapses.append(new_syns,ignore_index=True)
-
+    #new_syns = pd.DataFrame(chosen,columns=['target_gid'])
+    #new_syns['source_gid'] = sid
+    
+    all_synapses[sid][chosen] = True
     if track_list is not None:
         #track_list = track_list.append(new_syns,ignore_index=True)
         for target in chosen:
@@ -245,8 +237,8 @@ def syn_percent_o2a_old(source,targets,p,track_list=None,no_recip=False, angle_d
     syns = np.array([0 for _ in range(len(targets))])
 
     #Get all existing targets for that source that can't be targetted here
-    existing = all_synapses[all_synapses.source_gid == sid]
-    existing_list = existing[existing.target_gid.isin(tids)].target_gid.tolist()
+    existing = all_synapses[sid]
+    existing_list = list(np.where(np.any(all_synapses[0]==True, axis=0))[0])
 
     #remove existing synapses from available list
     available = tids.copy()
@@ -327,7 +319,7 @@ def syn_percent_o2a_old(source,targets,p,track_list=None,no_recip=False, angle_d
     #Add to lists
     new_syns = pd.DataFrame(chosen,columns=['target_gid'])
     new_syns['source_gid'] = sid
-    all_synapses = all_synapses.append(new_syns,ignore_index=True)
+    all_synapses[sid][new_syns] = True
 
     if track_list is not None:
         #track_list = track_list.append(new_syns,ignore_index=True)
@@ -352,16 +344,19 @@ def recurrent_connector(source,target,p,all_edges=[],min_syn=1, max_syn=1):
     tid = target.node_id
     
     # Do not add synapses if they already exist, we don't want duplicates
-    if ((all_synapses.source_gid == sid) & (all_synapses.target_gid == tid)).any():
+    #if ((all_synapses.source_gid == sid) & (all_synapses.target_gid == tid)).any():
+    #    return None
+    if all_synapses[sid][tid]:
         return None
-    
+
     for e in all_edges: #should probably make this a pandas df to speed up building... and use .any() to search
         if sid == e['target_gid'] and tid == e['source_gid']:
             #print('found recurrent')
 
             if random.random() < p:
                 #print('--------------connecting')
-                all_synapses = all_synapses.append({'source_gid':sid,'target_gid':tid},ignore_index=True)
+                #all_synapses = all_synapses.append({'source_gid':sid,'target_gid':tid},ignore_index=True)
+                all_synapses[sid][tid] = True
                 return random.randint(min_syn,max_syn)
             else:
                 return 0
@@ -376,8 +371,10 @@ def recurrent_connector_o2a(source,targets,p,all_edges=[],min_syn=1,max_syn=1):
     #List of synapses that will be returned, initialized to 0 synapses
     syns = np.array([0 for _ in range(len(targets))])
 
-    existing = all_synapses[all_synapses.source_gid == sid]
-    existing_list = existing[existing.target_gid.isin(tids)].target_gid.tolist()
+    #existing = all_synapses[all_synapses.source_gid == sid]
+    #existing_list = existing[existing.target_gid.isin(tids)].target_gid.tolist()
+    existing = all_synapses[sid]
+    existing_list = list(np.where(np.any(all_synapses[0]==True, axis=0))[0]) 
 
     #remove existing synapses from available list
     available = tids.copy()
@@ -393,34 +390,16 @@ def recurrent_connector_o2a(source,targets,p,all_edges=[],min_syn=1,max_syn=1):
     extra = 1 if random.random() < (p*100 - math.floor(p*100)) else 0
     n = n + extra #This will account for half percentages
     chosen = np.random.choice(available,size=n,replace=False) 
-
-    syns[np.isin(tids,chosen)] = 1
+    mask = np.isin(tids,chosen)
+    syns[mask] = 1
     
     #Add to lists
-    new_syns = pd.DataFrame(chosen,columns=['target_gid'])
-    new_syns['source_gid'] = sid
-    all_synapses = all_synapses.append(new_syns,ignore_index=True)
-
+    #new_syns = pd.DataFrame(chosen,columns=['target_gid'])
+    #new_syns['source_gid'] = sid
+    #all_synapses = all_synapses.append(new_syns,ignore_index=True)
+    all_synapses[sid][chosen] = True
     #any index selected will be set to 1 and returned
     return syns
-
-def rand_percent_connector(source, target, prob):
-    sid = source.node_id
-    tid = target.node_id
-    if np.random.uniform() > prob:
-        return 0
-    else:
-        return 1
-
-def tone_connector(source,target):
-    sid = source.node_id
-    tid = target.node_id
-    if tid>3572:
-        tid = tid - 428
-    if tid in tone_synapses:
-        return 1
-    else:
-        return 0
 
 def background_tone_connector(source,target,offset=0):
     sid = source.node_id

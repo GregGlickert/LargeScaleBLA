@@ -2,8 +2,6 @@ import sys
 
 import numpy as np
 import pandas as pd
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 from bmtools.cli.plugins.util.util import relation_matrix
 
@@ -39,20 +37,16 @@ def conn_info(**kwargs):
 
     # note counts
     num_bi = (cons_recip.count().source_node_id - cons_recip_dedup.count().source_node_id)
-    num_uni = total_cons - num_bi
-    #print(str(source_id),str(target_id), num_bi, num_uni, total_cons)
+    num_uni = total_cons - num_bi    
 
     num_sources = s_list.apply(pd.Series.value_counts)[source_id_type].dropna().sort_index().loc[source_id]
     num_targets = t_list.apply(pd.Series.value_counts)[target_id_type].dropna().sort_index().loc[target_id]
-
-    #print(str(source_id), num_sources, str(target_id), num_targets)
 
     total = round(total_cons / (num_sources*num_targets) * 100,2)
     uni = round(num_uni / (num_sources*num_targets) * 100,2)
     bi = round(num_bi / (num_sources*num_targets) * 100,2)
 
-    print(str(source_id) + '->' + str(target_id) + "  " + str(total) + "%" + "  " + str(uni)
-          + "%" + "  " + str(bi) + "%")
+    print(str(source_id) + '->' + str(target_id) + "\t" + str(total) + "\t" + str(uni) + "\t" + str(bi))
     #if source_id == 'PN' and target_id == 'PN':
         #import pdb;pdb.set_trace()
         #print(cons)   
@@ -62,7 +56,7 @@ def run(config):
 
     nodes = None
     edges = None 
-    sources = ['BLA']
+    sources = ['BLA','shell']
     targets = ['BLA']
     sids = ['a_name','a_name']
     tids = ['a_name']
@@ -77,5 +71,5 @@ if __name__ == '__main__':
     if __file__ != sys.argv[-1]:
         run(sys.argv[-1])
     else:
-        run('simulation_config_spikes_only.json')
+        run('simulation_configECP.json')
 

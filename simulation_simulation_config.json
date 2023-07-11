@@ -17,41 +17,29 @@
     "v_init": -70.0
   },
   "inputs": {
-    "thalamus_pyr_A_spikes": {
+    "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pyr_A_spikes.h5",
-      "node_set": "thalamus_pyr_A"
-    },
-    "thalamus_pyr_C_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
-      "node_set": "thalamus_pyr_C"
+      "input_file": "$BASE_DIR/thalamus_pyr_spikes.h5",
+      "node_set": "thalamus_pyr"
     },
     "thalamus_pv_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pv_spikes.h5",
+      "input_file": "$BASE_DIR/thalamus_pv_spikes.h5",
       "node_set": "thalamus_pv"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_som_spikes.h5",
+      "input_file": "$BASE_DIR/thalamus_som_spikes.h5",
       "node_set": "thalamus_som"
     },
     "tone_spikes": {
       "input_type": "spikes",
-      "module": "cvs",
-      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.cvs",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/tone_spikes_baseline.h5",
       "node_set": "tone"
-    },
-    "s_spikes": {
-      "input_type": "spikes",
-      "module": "",
-      "input_file": "$BASE_DIR/h",
-      "node_set": "s"
     }
   },
   "output": {
