@@ -16,3 +16,18 @@ sbatch batch_run_hom.sh
 ```
 
 ## There are many different simulation configs that will change how the simulation is run and what is recorded. The 3 different simulatuions are baseline, tone_trials, and tone + shock trials. Each simulation can be ran by changing which config is being used when running the model in the batch_run_hom.sh file. There is also NMDA block which can be turned on and off in the json files found in the compoents/synaptic_model folder
+
+
+## To analyze the network there are serveral scripts that can be used
+
+## To plot a rast 
+```
+python plot_raster.py
+```
+
+## To plot a firing rate histogram
+```
+python plot_firing_rate_distro.py
+```
+
+
