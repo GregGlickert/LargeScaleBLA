@@ -216,7 +216,7 @@ def write_shock(trial_start,num_tone_trials,scale = None):
     df.to_csv("inputs/shocks.csv",index=False)
 
                              
-network_scale = 5 #5
+network_scale = 1 #5
 simulation_time_in_secs = 47  #47
 # full expierment should take 36.5 seconds
 print("T_sim is set to " + str(simulation_time_in_secs) + " seconds")
