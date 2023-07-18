@@ -4,7 +4,8 @@ import numpy as np
 import pandas as pd
 
 from bmtools.cli.plugins.util.util import relation_matrix
-
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 edges = None
 
 def conn_info(**kwargs):
@@ -24,7 +25,6 @@ def conn_info(**kwargs):
 
     cons = edges[(edges[source_id_type] == source_id) & (edges[target_id_type]==target_id)]
     total_cons = cons.count().source_node_id
-    
     # to determine reciprocal connectivity
     # create a copy and flip source/dest
     cons_flip = edges[(edges[source_id_type] == target_id) & (edges[target_id_type]==source_id)]
@@ -71,5 +71,5 @@ if __name__ == '__main__':
     if __file__ != sys.argv[-1]:
         run(sys.argv[-1])
     else:
-        run('simulation_configECP.json')
+        run('simulation_configECP_base_homogenous.json')
 

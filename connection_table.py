@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-net = File(data_files=['network/BLA_BLA_edges.h5', 'network/BLA_nodes.h5'],
-           data_type_files=['network/BLA_BLA_edge_types.csv', 'network/BLA_node_types.csv'])
+net = File(data_files=['network_homogenous_1000/BLA_BLA_edges.h5', 'network_homogenous_1000/BLA_nodes.h5'],
+           data_type_files=['network_homogenous_1000/BLA_BLA_edge_types.csv', 'network_homogenous_1000/BLA_node_types.csv'])
 
 print('Contains nodes: {}'.format(net.has_nodes))
 print('Contains edges: {}'.format(net.has_edges))
@@ -13,15 +13,13 @@ file_edges = net.edges
 print('Edge populations in file: {}'.format(file_edges.population_names))
 recurrent_edges = file_edges['BLA_to_BLA']
 
-#conver_onto = 925
-conver_onto = np.arange(0, 4000, 1)
-#conver_onto = np.arange(3150,3250, 1)
-#conver_onto = np.delete(conver_onto, np.where(conver_onto == 3208))
-#conver_onto = np.delete(conver_onto, np.where(conver_onto == 3266))
-#conver_onto = np.delete(conver_onto, np.where(conver_onto == 3390))
+
+#conver_onto = [1,2,3,4,5,6,7,8,9,10]
+conver_onto = np.arange(0,943, 1)
 
 
-scale = 4
+
+scale = 1
 con_count = 0
 PN_A_count = 0
 PN_C_count = 0
@@ -48,23 +46,25 @@ def easy_table():
         PV_count = 0
         SOM_count = 0
         con_count = 0
-        if (conver_onto[i] >= 0 and conver_onto[i] <= 568*scale+3):
+        if (conver_onto[i] >= 0 and conver_onto[i] <= 568):
             label.append('PN Type A Cell')
-        if (conver_onto[i] >= 569*scale and conver_onto[i] <= 799*scale+3):
+        if (conver_onto[i] >= 569 and conver_onto[i] <= 799):
             label.append('PN Type C Cell')
-        if (conver_onto[i] >= 800*scale and conver_onto[i] <= 892 * scale+3):
+        if (conver_onto[i] >= 800 and conver_onto[i] <= 893):
             label.append('PV Cell')
-        if (conver_onto[i] >= 893*scale and conver_onto[i] <= 999 * scale + 4):
+        if (conver_onto[i] >= 894 and conver_onto[i] <= 944):
             label.append('SOM Cell')
+
+
         for edge in recurrent_edges.get_target(conver_onto[i]):  # we can also use get_targets([id0, id1, ...])
-            assert (edge.target_node_id == conver_onto[i])
-            if ((edge.source_node_id >= 0) & (edge.source_node_id <= 568 * scale)):
+            #assert (edge.target_node_id == conver_onto[i])
+            if ((edge.source_node_id >= 0) & (edge.source_node_id < (568 * scale)+scale)):
                 PN_A_count = PN_A_count + 1
-            if ((edge.source_node_id >= 569 * scale) & (edge.source_node_id <= 799 * scale)):
+            if ((edge.source_node_id >= 569 * scale) & (edge.source_node_id < (799 * scale)+scale)):
                 PN_C_count = PN_C_count + 1
-            if ((edge.source_node_id >= 800 * scale) & (edge.source_node_id <= 892 * scale)):
+            if ((edge.source_node_id >= 800 * scale) & (edge.source_node_id < (893 * scale)+scale)):
                 PV_count = PV_count + 1
-            if ((edge.source_node_id >= 893 * scale) & (edge.source_node_id <= 999 * scale + 4)):
+            if ((edge.source_node_id >= 893 * scale) & (edge.source_node_id < (944 * scale)+scale)):
                 SOM_count = SOM_count + 1
             #print("cell %d has cell %d converging onto it" % (conver_onto, edge.source_node_id))
             con_count += 1
@@ -79,6 +79,16 @@ def easy_table():
         net_excit.append(tot_exc - tot_inh)
         nex_excit_PV.append(tot_exc - PV_count)
         total_conns.append(PN_A_count+PN_C_count+PV_count+SOM_count)
+
+    print(len(conver_onto))
+    print(len(label))
+    print(len(PN_A))
+    print(len(PN_C))
+    print(len(PV))
+    print(len(SOM))
+    print(len(total_excit))
+    print(len(total_inhib))
+
 
     d = {'cell id': conver_onto,'Cell Type':label, 'PN_A Convergence': PN_A, 'PN_C Convergence': PN_C, 'SOM Convergence': SOM,
          'PV Convergence': PV, 'Total Exc Convergence': total_excit, 'Total Inh Convergence': total_inhib,
@@ -96,11 +106,6 @@ def easy_table():
     #print('There are {} inhibitory connections onto target node #{}'.format((best_PV_count + best_SOM_count), best_excit_cell))
     #print('There are {} net excitatory connections onto target node #{}'.format(((best_PN_A_count + best_PN_C_count) - (best_PV_count)), best_excit_cell))
 
-
-
-s = []
-t = []
-print("\n")
 def bi_connections():
     print("finding bi conns")
     # Loops over every cell and gets every connection made in the network

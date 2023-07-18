@@ -176,7 +176,7 @@ def tone_trial_plot(node_set=None, tone_start=None, spikes_df=None, ax=None,tone
             ax.margins(0.5, 0.5)
             ax.legend()
 
-scale = 5
+scale = 1
 node_set_split = [
     {"name": "PN_A", "start": 0 * scale, "end": 568 * scale , "color": "blue"},
     {"name": "PN_C", "start": 569 * scale, "end": 799 * scale, "color": "olive"},
@@ -186,7 +186,7 @@ node_set_split = [
     #{"name": "VIP", "start": 1000 * scale, "end": 1106 * scale + 3, "color": "brown"}
 ]
 
-f = h5py.File('outputECP_trials_e/spikes.h5')
+f = h5py.File('outputECP_trials/spikes.h5')
 spikes_df = pd.DataFrame(
     {'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
@@ -196,7 +196,7 @@ steps_per_ms = 1 / dt
 skip_seconds = 0
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
-end_ms = 47000
+end_ms = 15000
 
 most_exc_PN_A = [257, 955, 367, 2005, 310]
 most_exc_PN_C = [2467, 2747, 2559, 2407, 2559]
@@ -225,6 +225,6 @@ def each_cell_firing_tone(tone_start = 3000):
 #spike_frequency_histogram(spikes_df,node_set_split,end_ms,skip_ms,axs,n_bins=10)
 
 # to plot each cell type in a different graph
-#each_cell_firing_rate()
+each_cell_firing_rate()
 
-each_cell_firing_tone(tone_start=33000)
+#each_cell_firing_tone(tone_start=33000)

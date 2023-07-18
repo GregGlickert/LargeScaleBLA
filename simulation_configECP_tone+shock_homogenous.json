@@ -1,13 +1,13 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/outputECP",
-    "$COMPONENTS_DIR": "$BASE_DIR/components"
+    "$OUTPUT_DIR": "$BASE_DIR/outputECP_tone+shock",
+    "$COMPONENTS_DIR": "$BASE_DIR/components_homogenous"
   },
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 15000,
+    "tstop": 15000.0,
     "dt": 0.1,
     "dL": 200000.0,
     "spike_threshold": -15.0,
@@ -18,23 +18,11 @@
     "v_init": -70.0
   },
   "inputs": {
-    "thalamus_pyr_A_spikes": {
+    "thalamus_pyr_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pyr_A_spikes.h5",
-      "node_set": "thalamus_pyr_A"
-    },
-    "thalamus_pyr_C_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pyr_C_spikes.h5",
-      "node_set": "thalamus_pyr_C"
-    },
-    "thalamus_pv_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/inputs/thalamus_pv_spikes.h5",
-      "node_set": "thalamus_pv"
+      "input_file": "$BASE_DIR/inputs/thalamus_pyr_spikes.h5",
+      "node_set": "thalamus_pyr"
     },
     "thalamus_som_spikes": {
       "input_type": "spikes",
@@ -44,10 +32,11 @@
     },
     "tone_spikes": {
       "input_type": "spikes",
-      "module": "csv",
-      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.csv",
+      "module": "sonata",
+      "input_file": "$BASE_DIR/inputs/tone_spikes_baseline.h5",
       "node_set": "tone"
     }
+    
   },
   "output": {
     "log_file": "log.txt",
@@ -62,8 +51,14 @@
       "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
       "file_name": "ecp.h5",
       "electrode_channels": "all"
+      },
+      "v_report": {
+        "variable_name": "v",
+        "cells": "all",
+        "module": "membrane_report",
+        "sections": "soma"
       }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
-  "network": "$BASE_DIR/circuit_simulation_config.json"
+  "network": "$BASE_DIR/circuit_config_homogenous.json"
 }

@@ -1,4 +1,11 @@
 # Large Scale model of the BLA 
+## There are several different simulations the can be ran for this model. Each simulation config contains different simulation parameters. To change which simulation config is used you can edit the batch_run_hom.sh script.You can also change when the tone and shock are present by changing things in the build_inputs.py script.Finally you can change how long each simulation is ran for by chaning tstop in each config.
+| config      | run |
+| ----------- | ----------- |
+| simulation_configECP_base_homogenous.json      | Baseline |
+| simulation_configECP_trials_homogenous.json   | tone trials        |
+| simulation_configECP_tone+shock_homogenous.json   | tone+shock conditioning        |
+
 
 ## To build the network
 ```
@@ -15,12 +22,15 @@ python build_input.py
 sbatch batch_run_hom.sh
 ```
 
-## There are many different simulation configs that will change how the simulation is run and what is recorded. The 3 different simulatuions are baseline, tone_trials, and tone + shock trials. Each simulation can be ran by changing which config is being used when running the model in the batch_run_hom.sh file. There is also NMDA block which can be turned on and off in the json files found in the compoents/synaptic_model folder
+## To check the convergence of each cell and generate a csv called connection table
+```
+python connection_table
+```
 
 
-## To analyze the network there are serveral scripts that can be used
+# The next scripts are used to plot what is going on in the network. Each simulation config has a different name for the output folder it generates. When using the scripts make sure to change the output folder to be the simulation you want to plot.
 
-## To plot a rast 
+## To plot a raster 
 ```
 python plot_raster.py
 ```

@@ -77,7 +77,7 @@ def spike_frequency_log_graph(spikes_df,node_set,ms,skip_ms=0,ax=None,n_bins=10)
         ax.set_xscale('log')
         ax.legend()
 
-scale = 5
+scale = 1
 node_set = [
     {"name": "PN", "start": 0*scale, "end": 799*scale, "color": "blue"},
     {"name": "PV", "start": 800*scale, "end": 892*scale, "color": "gray"},
@@ -91,7 +91,7 @@ node_set_split = [
     {"name": "SOM", "start": (569+231+93) * scale, "end": (569+231+93+51) * scale, "color": "green"}
 ]
 
-f = h5py.File('outputECP_lowerthres2_lowlearn_5000/spikes.h5')
+f = h5py.File('outputECP_baseline/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
@@ -103,9 +103,9 @@ skip_seconds = 15
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=0, end=150000, ax=axs[0])
+raster(spikes_df, node_set_split, start=0, end=15000, ax=axs[0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=1000, ax=axs[0], ms=(1000-0)) 
-spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=5000, ax=axs[1], ms=(5000-0)) 
+spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=15000, ax=axs[1], ms=(15000-0)) 
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 #raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))
