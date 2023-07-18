@@ -17,6 +17,14 @@ python build_network.py homogenous
 python build_input.py
 ```
 
+## Compile mod files
+```
+cd cd components_homogenous/mechanisms/
+rm -rf x86_64/
+nrnivmodl modfiles
+cd ../..
+```
+
 ## To run the model
 ```
 sbatch batch_run_hom.sh
