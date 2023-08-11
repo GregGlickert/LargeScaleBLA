@@ -2,6 +2,11 @@ from sonata.circuit import File
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import random
+
+random.seed(123412)
+np.random.seed(123412)
+
 
 net = File(data_files=['network_homogenous_1000/BLA_BLA_edges.h5', 'network_homogenous_1000/BLA_nodes.h5'],
            data_type_files=['network_homogenous_1000/BLA_BLA_edge_types.csv', 'network_homogenous_1000/BLA_node_types.csv'])
@@ -15,11 +20,15 @@ recurrent_edges = file_edges['BLA_to_BLA']
 
 
 #conver_onto = [1,2,3,4,5,6,7,8,9,10]
-conver_onto = np.arange(0,943, 1)
+conver_onto = np.arange(1,944, 1)
+winner_cells = [137, 142, 502, 575, 577, 580, 582, 585, 588, 596, 597, 598, 600, 601, 603, 605, 606, 616, 622, 629, 633, 637, 654, 656, 664, 672, 675, 679, 684, 685, 689, 690, 694, 696, 699, 704, 706, 708, 709, 712, 714, 716, 720, 722, 728, 731, 736, 738, 740, 743, 745, 746, 748, 753, 760, 761, 763, 767, 772, 773, 776, 777, 782, 789, 791]
+
 
 
 
 scale = 1
+cell_count = scale * 1000
+tone_synapses = random.sample(range(cell_count), int(cell_count*0.7))
 con_count = 0
 PN_A_count = 0
 PN_C_count = 0
@@ -31,12 +40,19 @@ PN_A = []
 PN_C = []
 SOM = []
 PV = []
+WINNERS = []
+PV_WINNER_CONS = []
+PV_WINNER_CONS_count = 0
+label_winner = []
+label_tone_trial_synapse = []
 total_excit = []
 total_inhib = []
 net_excit = []
 nex_excit_PV = []
 total_conns = []
 label = []
+
+disynapses = [0] * len(conver_onto)
 
 def easy_table():
     print("Generating connection table")
@@ -46,6 +62,8 @@ def easy_table():
         PV_count = 0
         SOM_count = 0
         con_count = 0
+        PV_WINNER_CONS_count = 0
+        winner_count = 0
         if (conver_onto[i] >= 0 and conver_onto[i] <= 568):
             label.append('PN Type A Cell')
         if (conver_onto[i] >= 569 and conver_onto[i] <= 799):
@@ -54,8 +72,18 @@ def easy_table():
             label.append('PV Cell')
         if (conver_onto[i] >= 894 and conver_onto[i] <= 944):
             label.append('SOM Cell')
+        if conver_onto[i] in winner_cells:
+            label_winner.append('Winner')
+        else:
+            label_winner.append('Loser')
+        if conver_onto[i] in tone_synapses and conver_onto[i] < 893:
+            label_tone_trial_synapse.append("recieves tone")
+        else:
+            label_tone_trial_synapse.append("does not recieve tone")
+        
 
 
+        # check what cell connects to cover cell(target cell)
         for edge in recurrent_edges.get_target(conver_onto[i]):  # we can also use get_targets([id0, id1, ...])
             #assert (edge.target_node_id == conver_onto[i])
             if ((edge.source_node_id >= 0) & (edge.source_node_id < (568 * scale)+scale)):
@@ -66,12 +94,31 @@ def easy_table():
                 PV_count = PV_count + 1
             if ((edge.source_node_id >= 893 * scale) & (edge.source_node_id < (944 * scale)+scale)):
                 SOM_count = SOM_count + 1
-            #print("cell %d has cell %d converging onto it" % (conver_onto, edge.source_node_id))
+            if edge.source_node_id in winner_cells:
+                winner_count = winner_count + 1
+            if (conver_onto[i] >= 800 and conver_onto[i] <= 893):
+                if ((edge.source_node_id >= 0) & (edge.source_node_id < (799 * scale)+scale)):
+                    if edge.source_node_id in winner_cells:
+                        PV_WINNER_CONS_count = PV_WINNER_CONS_count + 1
             con_count += 1
+        
+        if (conver_onto[i] >= 800 and conver_onto[i] <= 893):
+            for n in range(800):    
+                for edge in recurrent_edges.get_target(n):
+                    if (edge.source_node_id == conver_onto[i]):
+                        current_disyn_count = disynapses[n]
+                        current_disyn_count = current_disyn_count + PV_WINNER_CONS_count
+                        disynapses[n] = current_disyn_count
+
+                
+
+            
+        
         PN_A.append(PN_A_count)
         PN_C.append(PN_C_count)
         SOM.append(SOM_count)
         PV.append(PV_count)
+        WINNERS.append(winner_count)
         tot_exc = PN_A_count + PN_C_count
         tot_inh = PV_count + SOM_count
         total_excit.append(tot_exc)
@@ -80,19 +127,13 @@ def easy_table():
         nex_excit_PV.append(tot_exc - PV_count)
         total_conns.append(PN_A_count+PN_C_count+PV_count+SOM_count)
 
-    print(len(conver_onto))
-    print(len(label))
-    print(len(PN_A))
-    print(len(PN_C))
-    print(len(PV))
-    print(len(SOM))
-    print(len(total_excit))
-    print(len(total_inhib))
 
 
     d = {'cell id': conver_onto,'Cell Type':label, 'PN_A Convergence': PN_A, 'PN_C Convergence': PN_C, 'SOM Convergence': SOM,
          'PV Convergence': PV, 'Total Exc Convergence': total_excit, 'Total Inh Convergence': total_inhib,
-         'Net Exc':net_excit, 'net Exc only PV': nex_excit_PV, 'Total number of connections': total_conns}
+         'Net Exc':net_excit, 'net Exc only PV': nex_excit_PV, 'Total number of connections': total_conns,
+         'Winner connections': WINNERS,'is winner?':label_winner,'recieves tone?': label_tone_trial_synapse,
+         'disynapses': disynapses}
     df = pd.DataFrame(data=d)
     df.to_csv('connection table.csv')
 

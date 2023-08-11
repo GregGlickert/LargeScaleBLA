@@ -1,0 +1,2 @@
+# Large Scale Lateral Amygdala compuational models of various sizes
+## This repo contains several different models of various different sizes. Each model folder has a README which is largely the same but may have small changes depending

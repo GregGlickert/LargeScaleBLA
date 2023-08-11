@@ -91,7 +91,7 @@ node_set_split = [
     {"name": "SOM", "start": (569+231+93) * scale, "end": (569+231+93+51) * scale, "color": "green"}
 ]
 
-f = h5py.File('outputECP_baseline/spikes.h5')
+f = h5py.File('outputECP_tone+shock/spikes.h5')
 spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 'timestamps': f['spikes']['BLA']['timestamps']})
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 6))
@@ -103,9 +103,9 @@ skip_seconds = 15
 skip_ms = skip_seconds * 1000
 skip_n = int(skip_ms * steps_per_ms)
 end_ms = 10000
-raster(spikes_df, node_set_split, start=0, end=15000, ax=axs[0])
+raster(spikes_df, node_set_split, start=0, end=50000, ax=axs[0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=1000, ax=axs[0], ms=(1000-0)) 
-spike_frequency_bar_graph(spikes_df,node_set_split,start=0, end=15000, ax=axs[1], ms=(15000-0)) 
+spike_frequency_bar_graph(spikes_df,node_set_split,start=5000, end=15000, ax=axs[1], ms=(10000-0)) 
 #spike_frequency_log_graph(spikes_df,node_set,end_ms,skip_ms=skip_ms,ax=axs[1])
 #raster(spikes_df, node_set_split, start=500, end=1000, ax=axs[1][0])
 #spike_frequency_bar_graph(spikes_df,node_set_split,start=500, end=1000, ax=axs[1][1], ms=(500-0))

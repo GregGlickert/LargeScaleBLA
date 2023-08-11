@@ -11,6 +11,8 @@ import random
 #import matplotlib.patches as mpatches
 from bmtk.analyzer.compartment import plot_traces
 from bmtk.utils.reports.compartment import CompartmentReport
+import os
+import shutil
 
 random.seed(123412)
 np.random.seed(123412)
@@ -58,71 +60,6 @@ def check_distro(path,endtime):
     plt.suptitle(path)
     plt.show()
 
-def compare_weight(array, start_time, end_time, decay_over_10sec = 0.0046369585134881175, decay_weight=30,fudge_factor = 80):
-    W = array
-    weight_at_start = []
-    weight_at_end = []
-
-    for i in range(len(W)):
-        weight_at_start.append(W[i][:(start_time*10)+1])
-    for i in range(len(W)):
-        weight_at_end.append(W[i][(end_time*10)-1:])
-    lower_than_start_weight = 0
-    higher_than_start_weight = 0
-    decay_weight = 0
-    for i in range(len(weight_at_start)):
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) < decay_over_10sec * fudge_factor
-        and weight_at_start > weight_at_end):
-            decay_weight = decay_weight + 1
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) > decay_over_10sec * fudge_factor
-        and weight_at_start > weight_at_end):
-            lower_than_start_weight = lower_than_start_weight + 1
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) > decay_over_10sec * fudge_factor
-        and weight_at_start < weight_at_end):
-            higher_than_start_weight = higher_than_start_weight + 1
-    #print(weight_at_start[0] - weight_at_end[0])
-
-    precent_higher = higher_than_start_weight/len(weight_at_start)*100
-    precent_lower = lower_than_start_weight/len(weight_at_start)*100
-    precent_decay = decay_weight/(len(weight_at_start))*100
-    print("data for {}".format(path))
-    print("Number of synapses that decayed {} {:.2f}%".format(decay_weight,precent_decay))
-    print("Number of synpases that entered LTP {} {:.2f}%".format(higher_than_start_weight,precent_higher))
-    print("Number of synpases that entered LTD {} {:.2f}%".format(lower_than_start_weight,precent_lower))
-    print("\n")
-
-def compare_weight_old(path, start_time, end_time, decay_over_10sec = 0.0005, decay_weight=30,fudge_factor = 4):
-    W = get_array(path=path)
-    weight_at_start = []
-    weight_at_end = []
-    for i in range(len(W[0])):
-        weight_at_start.append(W[start_time*10][i])
-    for i in range(len(W[0])):
-        weight_at_end.append(W[(end_time*10)-1][i])
-    lower_than_start_weight = 0
-    higher_than_start_weight = 0
-    decay_weight = 0
-    for i in range(len(weight_at_start)):
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) < decay_over_10sec * fudge_factor
-        and weight_at_start[i] > weight_at_end[i]):
-            decay_weight = decay_weight + 1
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) > decay_over_10sec * fudge_factor
-        and weight_at_start[i] > weight_at_end[i]):
-            lower_than_start_weight = lower_than_start_weight + 1
-            #print(weight_at_start[i],weight_at_end[i])
-        if ((weight_at_start[i] - weight_at_end[i]) * (decay_weight/weight_at_start[i]) > decay_over_10sec * fudge_factor
-        and weight_at_start[i] < weight_at_end[i]):
-            higher_than_start_weight = higher_than_start_weight + 1
-
-    precent_higher = higher_than_start_weight/len(weight_at_start)*100
-    precent_lower = lower_than_start_weight/len(weight_at_start)*100
-    precent_decay = decay_weight/(len(weight_at_start))*100
-    print("data for {}".format(path))
-    print("Number of synapses that decayed {} {:.2f}%".format(decay_weight,precent_decay))
-    print("Number of synpases that entered LTP {} {:.2f}%".format(higher_than_start_weight,precent_higher))
-    print("Number of synpases that entered LTD {} {:.2f}%".format(lower_than_start_weight,precent_lower))
-    print("\n")
-
 def get_gids_and_data_arrays_plus_hib(path):
     file = h5py.File(path, 'r')
     cai_trace = file['report']['BLA']['data']
@@ -154,6 +91,7 @@ def get_gids_and_data_arrays_plus_hib(path):
     compare_weight(tone_noise_data,start_time = 0,end_time=10000)
 
 def potential(pot_path,depress_path,weight_path):
+    did_LTD = []
     print(pot_path,depress_path)
     report_pot = CompartmentReport(pot_path)
     report_dep = CompartmentReport(depress_path)
@@ -178,98 +116,32 @@ def potential(pot_path,depress_path,weight_path):
                 name = 'weights/' + str(i) + ".png"
                 plt.savefig(name)
                 plt.close()
+
             if weight_change < 0:
                 depressing_count = depressing_count + 1
         if 1 in data_dep and not 1 in data_pot:
-            plt.plot(weight_data)
-            name = 'weights/' + str(i) + ".png"
-            plt.savefig(name)
-            plt.close()
+            #plt.plot(weight_data)
+            #name = 'weights/' + str(i) + ".png"
+            #plt.savefig(name)
+            #plt.close()
+            #did_LTD.append(i)
             depressing_count = depressing_count + 1
         #if 1 in data_pot and not 1 in data_dep:
         #    potent_count = potent_count + 1
     print("{} synapses did only LTD".format(depressing_count))
     print("{} synapses did only LTP".format(potent_count))
     print("{} synapses did both LTP and LTD".format(both_count))
+    #print(did_LTD)
 
-#potential(pot_path="outputECP/tone2PN_pot_flag.h5", depress_path="outputECP/tone2PN_dep_flag.h5")
-def plot_tone2PN():
-    fig, axs = plt.subplots(1, 1, figsize=(18, 6))
-    tone2PN = get_array('outputECP/tone2PN_cai.h5')
-    axs.plot(tone2PN)
-    axs.set_title("Cai")
-    plt.show()
-    exit(-1)
-    tone2PN = get_array('outputECP/tone2PN_rho.h5')
-    axs[1][0].plot(tone2PN)
-    axs[1][0].set_title("Rho")
+print("Deleting old weight folder!")
+if os.path.exists('weights') == True:
+    shutil.rmtree("weights")
+    os.mkdir("weights")
 
-    tone2PN = get_array('outputECP/tone2PN.h5')
-    axs[0][1].plot(tone2PN)
-    axs[0][1].set_title("weight")
 
-    tone2PN = get_array('outputECP/tone2PN_pot_flag.h5')
-    LTP = axs[1][1].plot(tone2PN,'r')
-    tone2PN = get_array('outputECP/tone2PN_dep_flag.h5')
-    LTD = axs[1][1].plot(tone2PN,'b')
-    axs[1][1].set_title("LTD/LTP flags")
-   
-    fig.suptitle("tone2PN")
-    plt.show()
-
-def plot_tone2PV():
-    fig, axs = plt.subplots(2, 2, figsize=(18, 6))
-    tone2PV = get_array('outputECP/tone2PV_cai.h5')
-    axs[0][0].plot(tone2PV)
-    axs[0][0].set_title("Cai")
-
-    tone2PV = get_array('outputECP/tone2PV_rho.h5')
-    axs[1][0].plot(tone2PV)
-    axs[1][0].set_title("Rho")
-
-    tone2PV = get_array('outputECP/tone2PV.h5')
-    axs[0][1].plot(tone2PV)
-    axs[0][1].set_title("weight")
-
-    tone2PV = get_array('outputECP/tone2PV_pot_flag.h5')
-    LTP = axs[1][1].plot(tone2PV,'r')
-    tone2PV = get_array('outputECP/tone2PV_dep_flag.h5')
-    LTD = axs[1][1].plot(tone2PV,'b')
-    axs[1][1].set_title("LTD/LTP flags")
-   
-    fig.suptitle("tone2PV")
-    plt.show()
-
-def plot_PN2PV():
-    fig, axs = plt.subplots(2, 2, figsize=(18, 6))
-    PN2PV = get_array('outputECP/PN2PV_cai.h5')
-    axs[0][0].plot(PN2PV)
-    axs[0][0].set_title("Cai")
-
-    PN2PV = get_array('outputECP/PN2PV_rho.h5')
-    axs[1][0].plot(PN2PV)
-    axs[1][0].set_title("Rho")
-
-    PN2PV = get_array('outputECP/PN2PV.h5')
-    axs[0][1].plot(PN2PV)
-    axs[0][1].set_title("weight")
-
-    PN2PV = get_array('outputECP/PN2PV_pot_flag.h5')
-    LTP = axs[1][1].plot(PN2PV,'r')
-    PN2PV = get_array('outputECP/PN2PV_dep_flag.h5')
-    LTD = axs[1][1].plot(PN2PV,'b')
-    axs[1][1].set_title("LTD/LTP flags")
-   
-    fig.suptitle("PN2PV")
-    plt.show()
-
-#plot_tone2PN()
-#print("\ndoing tone2PN baseline\n")
-#plot_tone2PN()
-#exit(-1)
-potential(pot_path="outputECP_lowerthres2_lowlearn_5000/tone2PN_pot_flag.h5",
-          depress_path="outputECP_lowerthres2_lowlearn_5000/tone2PN_dep_flag.h5",
-          weight_path='outputECP_lowerthres2_lowlearn_5000/tone2PN_W.h5')
+potential(pot_path="outputECP_tone+shock_block_0.5/tone2PN_pot_flag.h5",
+          depress_path="outputECP_tone+shock_block_0.5/tone2PN_dep_flag.h5",
+          weight_path='outputECP_tone+shock_block_0.5/tone2PN_W.h5')
 exit(-1)
 #print("\nDoing tone to PV  baseline now\n")
 #potential(pot_path="outputECP/tone2PV_pot_flag.h5",depress_path="outputECP/tone2PV_dep_flag.h5")

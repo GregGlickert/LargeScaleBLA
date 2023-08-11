@@ -1,5 +1,5 @@
 # Large Scale model of the BLA 
-## There are several different simulations the can be ran for this model. Each simulation config contains different simulation parameters. To change which simulation config is used you can edit the batch_run_hom.sh script.You can also change when the tone and shock are present by changing things in the build_inputs.py script.Finally you can change how long each simulation is ran for by chaning tstop in each config.
+## There are several different simulations the can be ran for this model. Each simulation config contains different simulation parameters. To change which simulation config is used you can edit the batch_run_hom.sh script.You can also change when the tone and shock are present by changing things in the build_inputs.py script.Finally you can change how long each simulation is ran for by changing tstop in each config.
 | config      | run |
 | ----------- | ----------- |
 | simulation_configECP_base_homogenous.json      | Baseline |
@@ -15,14 +15,6 @@ python build_network.py homogenous
 ## To build inputs
 ```
 python build_input.py
-```
-
-## Compile mod files
-```
-cd cd components_homogenous/mechanisms/
-rm -rf x86_64/
-nrnivmodl modfiles
-cd ../..
 ```
 
 ## To run the model

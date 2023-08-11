@@ -60,30 +60,64 @@ def population_z_score():
     print('p-value from zscore is', p_value)
 
 
-def cell_by_cell_z_score():
-    f = h5py.File('outputECP_lowerthres2_lowlearn_5000/spikes.h5')
+def cell_by_cell_z_score(pot_path=None):
 
-    def get_tone_firing(start,end,f):
-        spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'], 
-                                'timestamps': f['spikes']['BLA']['timestamps']})
+    def get_firing_rate(df,start,end):
+        spikes_df = df
         spikes_df = spikes_df[spikes_df['timestamps'] > start]
         spikes_df = spikes_df[spikes_df['timestamps'] < end]
-        spikes_df = spikes_df[spikes_df['node_ids']< 4000] #PN Cells
-        #spike_counts = spikes_df.node_ids.value_counts(sort=False)
-        #firing_rate = (spike_counts/0.5)
-        return spikes_df
-    
-    pre_trial1 = get_tone_firing(start=5000,end=5500,f=f)
-    pre_trial2 = get_tone_firing(start=6500,end=7000,f=f)
-    pre_trial3 = get_tone_firing(start=8000,end=8500,f=f)
-    pre_trial4 = get_tone_firing(start=9500,end=10000,f=f)
-    pre_trial5 = get_tone_firing(start=11000,end=11500,f=f)
-    post_trial1 = get_tone_firing(start=27500,end=28000,f=f)
-    post_trial2 = get_tone_firing(start=29000,end=29500,f=f)
-    post_trial3 = get_tone_firing(start=30500,end=31000,f=f)
-    post_trial4 = get_tone_firing(start=32000,end=32500,f=f)
-    post_trial5 = get_tone_firing(start=33500,end=34000,f=f)
+        spike_counts = spikes_df.node_ids.value_counts()
+        Hz = spike_counts/(0.3)
+        return Hz.to_list()
+
+    winners = []
+    for g in tqdm(range(800)):
+        f = h5py.File('outputECP_tone+shock_Wlimit3/spikes.h5')
+        spikes_df = pd.DataFrame({'node_ids': f['spikes']['BLA']['node_ids'],
+                                  'timestamps': f['spikes']['BLA']['timestamps']})
+        
+        spikes_df = spikes_df[spikes_df['node_ids'] == g] #change back to g
+
+        hib_firing_rate_list = []
+        tone_trials = 10
+        hib_start = 5000
+        for i in range(tone_trials):
+            temp_hz = get_firing_rate(spikes_df,start=hib_start,end=hib_start+300)
+            hib_start = hib_start + 1500
+            if len(temp_hz)>0:
+                 hib_firing_rate_list.extend(temp_hz)
+            if len(temp_hz) == 0:
+                 hib_firing_rate_list.append(0)
+
+        cond_firing_rate_list = []
+        tone_shock_trials = 16
+        blocks = 4
+        conditioning_start = 20000
+        for i in range(1,17):
+            temp_hz = get_firing_rate(spikes_df,start=conditioning_start,end=conditioning_start+300)
+            conditioning_start = conditioning_start + 1500
+            if len(temp_hz)>0:
+                 cond_firing_rate_list.extend(temp_hz)
+            if len(temp_hz) == 0:
+                 cond_firing_rate_list.append(0)
+            if i % 4 == 0:
+                #print(i)
+                #print(cond_firing_rate_list)
+                z_score, p_value = ttest_ind(hib_firing_rate_list, cond_firing_rate_list)
+                #print('z-score is', z_score)
+                #print('p-value from zscore is', p_value)
+                cond_firing_rate_list = [] #reset for next block
+                if p_value < 0.0001: # can change to have less winners and 
+                    report_pot = CompartmentReport(pot_path) 
+                    data_pot = report_pot.data(node_id=g)
+                    if 1 in data_pot: #check to make sure did an LTP at some point
+                        winners.append(g)
+
+    winners = sorted([*set(winners)]) #remove dups
+    print(len(winners))
+    print(winners)
 
     
+    
 
-cell_by_cell_z_score()
+cell_by_cell_z_score(pot_path='outputECP_tone+shock_Wlimit3/tone2PN_pot_flag.h5')

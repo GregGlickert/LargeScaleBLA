@@ -14,7 +14,10 @@ def lognorm(mean,std):
     std = float(std)
     mean_ = np.log(mean) - 0.5 * np.log((std/mean)**2+1)
     std_ = np.sqrt(np.log((std/mean)**2 + 1))
-    return float(np.random.lognormal(mean_,std_))
+    num = float(np.random.lognormal(mean_,std_))
+    if num > mean*5:    #limit weights 
+        num = mean*5
+    return num
 
 def Bg2Pyr(syn_params, sec_x, sec_id):
     """Create a bg2pyr synapse
@@ -79,7 +82,8 @@ def interD2interD_STFD(syn_params, sec_x, sec_id):
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
 
-    lsyn.Beta_gaba = 0.42
+    if syn_params.get('Beta_gaba'):
+        lsyn.Beta_gaba = float(syn_params['Beta_gaba'])
 
     return lsyn
 
@@ -95,7 +99,8 @@ def interD2pyrD_STFD(syn_params, sec_x, sec_id):
     elif syn_params.get('initW_lognormal_mean') and syn_params.get('initW_lognormal_std'):
         lsyn.initW = lognorm(syn_params['initW_lognormal_mean'],syn_params['initW_lognormal_std'])
 
-    lsyn.Beta_gaba = 0.42 #0.2667
+    if syn_params.get('Beta_gaba'):
+        lsyn.Beta_gaba = float(syn_params['Beta_gaba'])
 
 
     return lsyn
@@ -128,15 +133,14 @@ def pyrD2interD_STFD(syn_params, sec_x, sec_id):
             if all_syn_block == True:
                 lsyn.gmax_NMDA = float((1-float(syn_params['Percent_NMDA_block'])) * 0.55) #default NMDA_max
 
-
-        
-        lsyn.tau_r_AMPA = 0.2   
-        lsyn.tau_d_AMPA = 2.4
-        lsyn.tau_r_NMDA = 3.7  
-        lsyn.tau_d_NMDA = 125
-
-        lsyn.theta_d_GB = 1
-        lsyn.theta_p_GB = 1.3
+        lsyn.tau_r_AMPA = float(syn_params['tau_r_AMPA'])
+        lsyn.tau_d_AMPA = float(syn_params['tau_d_AMPA'])
+        lsyn.tau_r_NMDA = float(syn_params['tau_r_NMDA'])
+        lsyn.tau_d_NMDA = float(syn_params['tau_d_NMDA'])
+        if syn_params.get('theta_d_GB'):
+            lsyn.theta_d_GB = float(syn_params['theta_d_GB'])
+        if syn_params.get('theta_p_GB'):
+            lsyn.theta_p_GB = float(syn_params['theta_p_GB'])
 
     return lsyn
 

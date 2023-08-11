@@ -18,15 +18,15 @@
 #define exp hoc_Exp
 #endif
  
-#define nrn_init _nrn_init__Gfluct_exc
-#define _nrn_initial _nrn_initial__Gfluct_exc
-#define nrn_cur _nrn_cur__Gfluct_exc
-#define _nrn_current _nrn_current__Gfluct_exc
-#define nrn_jacob _nrn_jacob__Gfluct_exc
-#define nrn_state _nrn_state__Gfluct_exc
-#define _net_receive _net_receive__Gfluct_exc 
-#define oup oup__Gfluct_exc 
-#define setRandObj setRandObj__Gfluct_exc 
+#define nrn_init _nrn_init__Gfluct
+#define _nrn_initial _nrn_initial__Gfluct
+#define nrn_cur _nrn_cur__Gfluct
+#define _nrn_current _nrn_current__Gfluct
+#define nrn_jacob _nrn_jacob__Gfluct
+#define nrn_state _nrn_state__Gfluct
+#define _net_receive _net_receive__Gfluct 
+#define oup oup__Gfluct 
+#define setRandObj setRandObj__Gfluct 
  
 #define _threadargscomma_ _p, _ppvar, _thread, _nt,
 #define _threadargsprotocomma_ double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt,
@@ -153,7 +153,7 @@ static void register_nmodl_text_and_filename(int mechtype);
  {"setRandObj", _hoc_setRandObj},
  {0, 0}
 };
-#define normrand123 normrand123_Gfluct_exc
+#define normrand123 normrand123_Gfluct
  extern double normrand123( _threadargsproto_ );
  /* declare global and static user variables */
  /* some parameters have upper and lower limits */
@@ -201,7 +201,7 @@ static int _ode_count(int);
  /* connect range variables in _p that hoc is supposed to know about */
  static const char *_mechanism[] = {
  "7.7.0",
-"Gfluct_exc",
+"Gfluct",
  "E_e",
  "E_i",
  "g_e0",
@@ -285,7 +285,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, 0, 0, 0);
  	hoc_reg_ba(_mechtype, _ba1, 11);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 Gfluct_exc /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/Gfluct_exc.mod\n");
+ 	ivoc_help("help ?1 Gfluct /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/Gfluct_exc.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -421,7 +421,7 @@ static void bbcore_read(double* x, int* d, int* xx, int* offset, _threadargsprot
 	*offset += 3;
 }
  
-static int _ode_count(int _type){ hoc_execerror("Gfluct_exc", "cannot be used with CVODE"); return 0;}
+static int _ode_count(int _type){ hoc_execerror("Gfluct", "cannot be used with CVODE"); return 0;}
 
 static void initmodel(double* _p, Datum* _ppvar, Datum* _thread, NrnThread* _nt) {
   int _i; double _save;{
@@ -482,7 +482,7 @@ static double _nrn_current(double* _p, Datum* _ppvar, Datum* _thread, NrnThread*
    if ( g_i < 0.0 ) {
      g_i = 0.0 ;
      }
-   i = g_e * ( v - E_e ) ;
+   i = g_e * ( v - E_e ) + g_i * ( v - E_i ) ;
    }
  _current += i;
 
@@ -589,7 +589,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/Gfluct_exc.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/Gfluct_exc.mod";
     const char* nmodl_file_text = 
   "TITLE Fluctuating conductances\n"
   "\n"
@@ -682,7 +682,7 @@ static void register_nmodl_text_and_filename(int mech_type) {
   "INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}\n"
   "\n"
   "NEURON {\n"
-  "	POINT_PROCESS Gfluct_exc\n"
+  "	POINT_PROCESS Gfluct\n"
   "	RANGE g_e, g_i, E_e, E_i, g_e0, g_i0, g_e1, g_i1\n"
   "	RANGE std_e, std_i, tau_e, tau_i, D_e, D_i\n"
   "	NONSPECIFIC_CURRENT i\n"
@@ -763,7 +763,7 @@ static void register_nmodl_text_and_filename(int mech_type) {
   "	if(g_e < 0) { g_e = 0 }\n"
   "	g_i = g_i0 + g_i1\n"
   "	if(g_i < 0) { g_i = 0 }\n"
-  "	i = g_e * (v - E_e)\n"
+  "	i = g_e * (v - E_e) + g_i * (v - E_i)\n"
   "}\n"
   "\n"
   "\n"

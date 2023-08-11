@@ -194,7 +194,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
 #endif
   hoc_register_prop_size(_mechtype, 5, 0);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 leakDA /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/leakDA.mod\n");
+ 	ivoc_help("help ?1 leakDA /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/leakDA.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -390,7 +390,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/leakDA.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/leakDA.mod";
     const char* nmodl_file_text = 
   ": passive leak current\n"
   "\n"

@@ -224,7 +224,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  	hoc_register_cvode(_mechtype, _ode_count, _ode_map, _ode_spec, _ode_matsol);
  	hoc_register_tolerance(_mechtype, _hoc_state_tol, &_atollist);
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 cass /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/cas.mod\n");
+ 	ivoc_help("help ?1 cass /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/cas.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -484,7 +484,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/cas.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/cas.mod";
     const char* nmodl_file_text = 
   ": Persistent Ca2+ current channel(I_CaS)\n"
   "\n"

@@ -209,7 +209,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  pnt_receive[_mechtype] = _net_receive;
  pnt_receive_size[_mechtype] = 1;
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 VecStim /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/vecevent_coreneuron.mod\n");
+ 	ivoc_help("help ?1 VecStim /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/vecevent_coreneuron.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -428,7 +428,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/vecevent_coreneuron.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/vecevent_coreneuron.mod";
     const char* nmodl_file_text = 
   ":  Vector stream of events\n"
   "\n"

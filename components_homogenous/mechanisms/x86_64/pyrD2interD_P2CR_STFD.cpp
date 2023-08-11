@@ -520,7 +520,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
  pnt_receive[_mechtype] = _net_receive;
  pnt_receive_size[_mechtype] = 1;
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 pyrD2interD_P2CR_STFD /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/pyrD2interD_P2CR_STFD.mod\n");
+ 	ivoc_help("help ?1 pyrD2interD_P2CR_STFD /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/pyrD2interD_P2CR_STFD.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -942,7 +942,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/pyrD2interD_P2CR_STFD.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/pyrD2interD_P2CR_STFD.mod";
     const char* nmodl_file_text = 
   ":Pyramidal Cells to Interneuron Cells AMPA+NMDA with local Ca2+ pool\n"
   "\n"

@@ -197,7 +197,7 @@ network_definitions = [
                 'rotation_angle_zaxis':xiter_random(N=numSOM, min_x=np.pi/2, max_x=np.pi/2),
                 'rotation_angle_yaxis':xiter_random(N=numSOM, min_x=np.pi/2, max_x=np.pi/2),
                 'model_type':'biophysical',
-                'model_template':'hoc:SOM_Cell'
+                'model_template':'hoc:LTS_Cell' #was SOM_Cell
             },
             {   # Interneuron - CR Cell
                 'N':numCR,

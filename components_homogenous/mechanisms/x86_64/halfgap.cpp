@@ -194,7 +194,7 @@ extern void _cvode_abstol( Symbol**, double*, int);
   hoc_register_dparam_semantics(_mechtype, 0, "area");
   hoc_register_dparam_semantics(_mechtype, 1, "pntproc");
  	hoc_register_var(hoc_scdoub, hoc_vdoub, hoc_intfunc);
- 	ivoc_help("help ?1 HalfGap /home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/halfgap.mod\n");
+ 	ivoc_help("help ?1 HalfGap /home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/halfgap.mod\n");
  hoc_register_limits(_mechtype, _hoc_parm_limits);
  hoc_register_units(_mechtype, _hoc_parm_units);
  }
@@ -349,7 +349,7 @@ _first = 0;
 
 #if NMODL_TEXT
 static void register_nmodl_text_and_filename(int mech_type) {
-    const char* nmodl_filename = "/home/gjgpb9/AmygdalaTheta/components_homogenous/mechanisms/modfiles/halfgap.mod";
+    const char* nmodl_filename = "/home/gjgpb9/LargeScaleBLA/components_homogenous/mechanisms/modfiles/halfgap.mod";
     const char* nmodl_file_text = 
   "NEURON {\n"
   "        POINT_PROCESS HalfGap\n"
