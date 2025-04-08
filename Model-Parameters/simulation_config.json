@@ -1,0 +1,4 @@
+{
+  "network": "/home/group/cortex_modeling/LargeScaleBLA/circuit_simulation_config.json",
+  "simulation": "/home/group/cortex_modeling/LargeScaleBLA/simulation_simulation_config.json"
+}

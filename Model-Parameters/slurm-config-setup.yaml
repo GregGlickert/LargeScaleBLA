@@ -1,0 +1,74 @@
+# Simulation configuration
+simulation:
+  output_name: "../Run-Storage/???"  # Name of the output directory relative to the base dir
+  environment: "local"                     # Execution environment (local, expanse, hellbender)
+  seed_sweep: 'none'                       # Type of parameter sweep (none, seed, multiseed)
+  component_path: "components"             # Base path for simulation components
+  parallel_submission: true                # Submit simulation blocks in parallel or sequentially parallel is faster but will use more resources at once
+  use_coreneuron: false                     # Whether to use CoreNeuron for simulations
+  webhook_url: "https://prod-36.westus.logic.azure.com:443/workflows/5e3bbadcc1174484993676e5a5b02264/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=9a6oJfV7LnbdlhEoofo1nfoR4W4zuT1feBhf2N6hG1k" # Webhook URL for notifications
+
+# SLURM configurations for different environments
+slurm:
+  local:
+    time: "08:00:00"       # Maximum runtime
+    partition: "batch"     # SLURM partition
+    nodes: 1               # Number of nodes
+    ntasks: 50             # Number of tasks (cores)
+    mem: 100               # Memory in GB
+
+  expanse:
+    time: "02:30:00"
+    partition: "shared"
+    nodes: 1
+    ntasks: 50
+    mem: 100
+    account: "umc113"      # SLURM account
+
+  hellbender:
+    time: "02:30:00"
+    partition: "general"
+    nodes: 1
+    ntasks: 30
+    mem: 120
+
+# Module loading commands for different environments
+module_commands:
+  expanse:
+    - "module purge"
+    - "module load slurm"
+    - "module load cpu/0.17.3b"
+    - "module load gcc/10.2.0/npcyll4"
+    - "module load openmpi/4.1.1"
+    - "export HDF5_USE_FILE_LOCKING=FALSE"
+  
+  hellbender:
+    - "module load intel_mpi"
+  
+  local:
+    - "module load mpich-x86_64-nopy"
+
+# Simulation cases configuration
+simulation_cases:
+  baseline:
+    config_file: "simulation_configECP_baseline_homogenous.json"  
+  trials:
+    config_file: "simulation_configECP_trials_homogenous.json"   
+  tone_shock:
+    config_file: "simulation_configECP_tone+shock_homogenous.json"
+
+# Parameter sweep configuration (only used if seed_sweep is not 'none')
+# The paths here should be the path AFTER the components folder
+sweep_config:
+  param_name: "initW"  # Parameter to sweep
+  sweep_method: "value" # value or percentage
+  #Option 1 : specify values to use
+  param_values: [10,12,14,16,18,20]
+  #Option 2: Use percentage-based changes
+  base_value: 5.0          # Starting value for the parameter
+  percent_change: 10       # Percentage to increase by each iteration
+  iterations: 2            # Number of iterations will do interations + 1 runs since it will run one with the base value
+  base_json_file: "synaptic_models/tone2PN_A.json"  # Base JSON file only file changed in the seed case
+  multiseed_files:
+    - path: "synaptic_models/tone2PN_C.json"  # Related JSON file
+      ratio: 2.3  # Ratio for multiseed sweep

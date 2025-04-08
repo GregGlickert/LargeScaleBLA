@@ -1,0 +1,10 @@
+x86_64/
+*input*/
+*network*/
+*.out
+*.error
+*Storage*/
+__pycache__/
+fooof/
+__pycache__/
+aisynphys/

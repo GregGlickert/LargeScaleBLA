@@ -1,0 +1,96 @@
+\begin{thebibliography}{10}
+
+\bibitem{Beierlein2003}
+Michael Beierlein, Jay~R Gibson, and Barry~W Connors.
+\newblock Two dynamically distinct inhibitory networks in layer 4 of the
+  neocortex.
+\newblock {\em Journal of Neurophysiology}, 90:2987--3000, 11 2003.
+\newblock doi: 10.1152/jn.00283.2003.
+
+\bibitem{Fino2011}
+Elodie Fino and Rafael Yuste.
+\newblock Article dense inhibitory connectivity in neocortex.
+\newblock {\em Neuron}, 69:1188--1203, 2011.
+\newblock LTS2PN conn<br/>.
+
+\bibitem{Galarreta2002}
+Mario Galarreta and Shaul Hestrin.
+\newblock Electrical and chemical synapses among parvalbumin fast-spiking
+  gabaergic interneurons in adult mouse neocortex.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  99(19):12438--12443, 2002.
+
+\bibitem{Hirai2012}
+Yasuharu Hirai, Mieko Morishima, Fuyuki Karube, and Yasuo Kawaguchi.
+\newblock Specialized cortical subnetworks differentially connect frontal
+  cortex to parahippocampal areas.
+\newblock {\em The Journal of Neuroscience}, 32:1898, 2 2012.
+\newblock PN2PN conn data and PN single cell.
+
+\bibitem{Holmgren2003}
+Carl Holmgren, Tibor Harkany, Björn Svennenfors, and Yuri Zilberter.
+\newblock Pyramidal cell communication within local networks in layer 2/3 of
+  rat neocortex.
+\newblock {\em The Journal of Physiology}, 551:139, 8 2003.
+\newblock PN2FSI,FSI2PN,PN2PN conn data.
+
+\bibitem{Kapfer2007}
+Christoph Kapfer, Lindsey~L. Glickfeld, Bassam~V. Atallah, and Massimo
+  Scanziani.
+\newblock Supralinear increase of recurrent inhibition during sparse activity
+  in the somatosensory cortex.
+\newblock {\em Nature Neuroscience 2007 10:6}, 10:743--753, 5 2007.
+
+\bibitem{Kätzel2010}
+Dennis Kätzel, Boris~V. Zemelman, Christina Buetfering, Markus Wölfel, and
+  Gero Miesenböck.
+\newblock The columnar and laminar organization of inhibitory connections to
+  neocortical excitatory cells.
+\newblock {\em Nature Neuroscience 2010 14:1}, 14:100--107, 11 2010.
+\newblock ratio of FSI to LTS.
+
+\bibitem{Ledergerber2010}
+Debora Ledergerber and Matthew~Evan Larkum.
+\newblock Properties of layer 6 pyramidal neuron apical dendrites.
+\newblock {\em The Journal of Neuroscience}, 30:13031, 9 2010.
+
+\bibitem{Lefort2009}
+Sandrine Lefort, Christian Tomm, J.~C.~Floyd Sarria, and Carl~C.H. Petersen.
+\newblock The excitatory neuronal network of the c2 barrel column in mouse
+  primary somatosensory cortex.
+\newblock {\em Neuron}, 61:301--316, 1 2009.
+\newblock The proportion of excitatory to inhibitory neurons per layer.
+
+\bibitem{Morishima2017}
+Mieko Morishima, Kenta Kobayashi, Shigeki Kato, Kazuto Kobayashi, and Yasuo
+  Kawaguchi.
+\newblock Segregated excitatory–inhibitory recurrent subnetworks in layer 5
+  of the rat frontal cortex.
+\newblock {\em Cerebral Cortex}, 27:5846--5857, 12 2017.
+
+\bibitem{Morishima2011}
+Mieko Morishima, Kenji Morita, Yoshiyuki Kubota, and Yasuo Kawaguchi.
+\newblock Highly differentiated projection-specific cortical subnetworks.
+\newblock {\em The Journal of Neuroscience}, 31:10380, 7 2011.
+
+\bibitem{Pala2015}
+Aurélie Pala and Carl~C.H. Petersen.
+\newblock In vivo measurement of cell-type-specific synaptic connectivity and
+  synaptic transmission in layer 2/3 mouse barrel cortex.
+\newblock {\em Neuron}, 85:68, 1 2015.
+
+\bibitem{Tanaka2011}
+Yasuyo~H Tanaka, Yasuhiro Tanaka, Fumino Fujiyama, Takahiro Furuta, Yuchio
+  Yanagawa, and Takeshi Kaneko.
+\newblock Local connections of layer 5 gabaergic interneurons to corticospinal
+  neurons.
+\newblock {\em Frontiers in Neural Circuits}, 5, 2011.
+
+\bibitem{Wall2016}
+Nicholas~R. Wall, Mauricio de~la Parra, Jordan~M. Sorokin, Hiroki Taniguchi,
+  Z.~Josh Huang, and Edward~M. Callaway.
+\newblock Brain-wide maps of synaptic input to cortical interneurons.
+\newblock {\em Journal of Neuroscience}, 36:4000--4009, 4 2016.
+\newblock Also FSI to LTS ratio.
+
+\end{thebibliography}
